@@ -1,53 +1,60 @@
 <template>
 	<view>
-		<u-popup v-model="show" mode="center" width="90%" height="40%" border-radius="14">
+		<!-- <u-popup v-model="show" mode="center" width="90%" height="40%" border-radius="14">
 			<view class="popup">
 				<view class="popup-item">
-					<text class="popup-item-text">所属单位：</text>
+					<text class="popup-item-text">不合格因素：</text>
 					<input class="popup-item-input" type="text" value="" />
 				</view>
 				<view class="popup-item">
-					<text class="popup-item-text">三违属性：</text>
+					<text class="popup-item-text">责任部门：</text>
 					<input class="popup-item-input" type="text" value="" />
 				</view>
 				<view class="popup-item">
-					<text class="popup-item-text">检查人：</text>
+					<text class="popup-item-text">隐患等级：</text>
+					<input class="popup-item-input" type="text" value="" />
+				</view>
+				<view class="popup-item">
+					<text class="popup-item-text">隐患类型：</text>
 					<input class="popup-item-input" type="text" value="" />
 				</view>
 				<button type="primary" style="width: 50%;" @click="serach">确定</button>
 			</view>
 			
-		</u-popup>
+		</u-popup> -->
 		<!-- <view class="content">
 			<view class="content-item1">
-				<text>当日作业列表</text>
+				<text>隐患整改列表</text>
 			</view>
 			<view class="content-item2">
 				<view class="content-item2-son" @click="show = true">
 					<image class="content-item2-img" src="../../static/cx.png" mode=""></image>
 					<text>查询</text>
 				</view>
-				<view class="content-item2-son" @click="addSwsb">
+				<view class="content-item2-son" @click="addYhzg">
 					<image class="content-item2-img" src="../../static/xz.png" mode=""></image>
 					<text>新增</text>
 				</view>
 			</view>
 		</view> -->
 		<view class="" style="overflow: hidden;">
-			<view class="mid" hover-class="mid-hover" :data-index="index" v-for="(item,index) in csListArrl" @touchstart="drawStart" @touchmove="drawMove" @touchend="drawEnd" :style="'right:'+item.right+'px'" @click="updateYh">
+			<view class="mid" hover-class="mid-hover" :data-index="index" v-for="(item,index) in csListArrl" v-if="index <= count" @touchstart="drawStart" @touchmove="drawMove" @touchend="drawEnd" :style="'right:'+item.right+'px'" @click="updateYhzg">
 				<view class="mid-item1">
-					<text style="width: 65%;">[整改中]yhzgd-2021-01-0129</text>
-					<text>张小三</text>
+					<text style="width: 65%;">{{item.zgdbh}}</text>
+					<text>{{item.jcry}}</text>
 				</view>
 				<view class="mid-item2">
-					<text>2021-09-30</text>
+					<text>{{item.yhxxjcrq}}</text>
 				</view>
 				<view class="mid-item3">
-					<input type="text" value="有点问题别吃了" maxlength="16" disabled=""/>
+					<input type="text" v-model="item.jclx" maxlength="16" disabled=""/>
 				</view>
 				<view class="remove" @click="delData(item)">删除</view>
 			</view>
-			
+			<view class=""
+				style="width: 98%;background-color: #ffffd7;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;height: 50rpx;">
+				<text>{{shanghua}}</text>
+			</view>
 		</view>
 	</view>
 </template>
@@ -58,12 +65,10 @@
 			return {
 				show: false,
 				delBtnWidth: 100,
-				
-				csListArrl:[{
-							name:'小A',
-							age:'18',
-							right: 0
-						}],
+				shanghua: '加载更多',
+				count: 8,
+				uuid: '',
+				csListArrl:[],
 				startX:'',
 				
 			}
@@ -77,15 +82,60 @@
 			})
 			return true;
 		},
-		methods: {
+		onShow() {
+			this.getList()
+		},
+		onPullDownRefresh() {
+			this.getList()
+			setTimeout(function() {
+				uni.stopPullDownRefresh();
+			}, 1000);
 			
-			//查看/修改整改中隐患
-			updateYh(){
+		},
+		//上滑加载更多
+		onReachBottom() {
+			var _this = this
+			setTimeout(function() {
+				
+					_this.count += 8
+				 
+				 if(_this.count >= _this.csListArrl.length){
+					_this.shanghua = '到底了'
+				}
+		
+			}, 1000);
+		
+		},
+		methods: {
+			//获取隐患列表
+			async getList() {
+				const res = await this.$myRequest({
+					method: 'POST',
+					url: 'api/danger/getDangerIng',
+				})
+				if (res.data.code == 200) {
+					this.csListArrl = res.data.data
+				}
+				if (this.csListArrl.length <= 8) {
+					this.shanghua = ''
+				}
+			},
+			//新增隐患整改
+			addYhzg(){
+				uni.navigateTo({
+					url:'./addYhzg'
+				})
+			},
+			//查看/修改风险管控信息
+			updateYhzg(){
 				uni.navigateTo({
 					url:'./updataYhzg'
 				})
 			},
-			
+			//显示查询页面
+			serach(){
+				this.show = false
+			},
 			//开始触摸滑动
 			drawStart(e) {
 				console.log("开始触发");

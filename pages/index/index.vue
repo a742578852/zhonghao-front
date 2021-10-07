@@ -60,7 +60,7 @@
 			<view class="mids-item" hover-class="swing1" @click="toYhzgz">
 				<text>隐患整改中：{{yhzgz}}</text>
 			</view>
-			<view class="mids-item" hover-class="swing1">
+			<view class="mids-item" hover-class="swing1" @click="toCq">
 				<text>超期未整改：{{cqwzg}}</text>
 			</view>
 			<view class="mids-item">
@@ -257,6 +257,11 @@
 			toYhzgz() {
 				uni.navigateTo({
 					url: '../yhzg/yhzgz'
+				})
+			},
+			toCq(){
+				uni.navigateTo({
+					url: '../yhzg/chaoqi'
 				})
 			},
 			//有毒气体
