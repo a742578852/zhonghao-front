@@ -8,7 +8,7 @@
 		<u-calendar v-model="show5" :mode="mode" @change="change5"></u-calendar>
 		<view class="cu-form-group align-start">
 			<view class="title">隐患问题:</view>
-			<textarea maxlength="-1"  v-model='yhwt'></textarea>
+			<textarea maxlength="-1"  v-model='dataList.bhgys'></textarea>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">发起人:</view>
@@ -187,8 +187,15 @@
 				arrayzrbm:['安全部','财务部'],
 				arrayjcdw:['安全部','财务部'],
 				arrayBz:['安全部','财务部'],
-				arrayYy:['人','物','料','法','环']
+				arrayYy:['人','物','料','法','环'],
+				dataList:[]
 			}
+			
+		},
+		onLoad(option) {
+			this.dataList = JSON.parse(option.items)
+			
+			this.dataList.createtime = this.dataList.createtime.substring(0,10)
 		},
 		methods: {
 			//上传整改前照片

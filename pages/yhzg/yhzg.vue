@@ -38,15 +38,15 @@
 			</view>
 		</view>
 		<view class="" style="overflow: hidden;">
-			<view class="mid" hover-class="mid-hover" :data-index="index" v-for="(item,index) in csListArrl" v-if="index <= count" @touchstart="drawStart" @touchmove="drawMove" @touchend="drawEnd" :style="'right:'+item.right+'px'" @click="updateYhzg">
-				<view class="mid-item1">
+			<view class="mid" hover-class="mid-hover" :data-index="index" v-for="(item,index) in csListArrl" v-if="index <= count" @touchstart="drawStart" @touchmove="drawMove" @touchend="drawEnd" :style="'right:'+item.right+'px'">
+				<view class="mid-item1" @click="updateYhzg(item)">
 					<text style="width: 65%;">{{item.zgdbh}}</text>
 					<text>{{item.jcry}}</text>
 				</view>
-				<view class="mid-item2">
+				<view class="mid-item2" @click="updateYhzg(item)">
 					<text>{{item.yhxxjcrq}}</text>
 				</view>
-				<view class="mid-item3">
+				<view class="mid-item3" @click="updateYhzg(item)">
 					<input type="text" v-model="item.jclx" maxlength="16" disabled=""/>
 				</view>
 				<view class="remove" @click="delData(item)">删除</view>
@@ -127,9 +127,10 @@
 				})
 			},
 			//查看/修改风险管控信息
-			updateYhzg(){
+			updateYhzg(item){
+				var items = JSON.stringify(item)
 				uni.navigateTo({
-					url:'./updataYhzg'
+					url:'./updataYhzg?items='+items
 				})
 			},
 			//显示查询页面
