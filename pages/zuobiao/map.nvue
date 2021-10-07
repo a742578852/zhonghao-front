@@ -1,0 +1,88 @@
+<template>
+	<view class="">
+		<view class="" style="width: 98%;background-color: #ffffd7;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;height: 50rpx;">
+			<text>点击位置选取坐标</text>
+		</view>
+		<view>
+			<map style="height: 1000rpx;" :longitude="119.059389" :latitude="39.251497" :scale="15.7" enable-satellite=true
+				enable-zoom=true :polyline="polyline" @tap="getPostion" :markers="markers" ></map>
+		</view>
+		<button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="save">保存坐标</button>
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				backLng: '',
+				backLat: '',
+				markers: [],
+				polyline: [{ //指定一系列坐标点，从数组第一项连线至最后一项
+					points: [{
+							latitude: 39.246712,
+							longitude: 119.054411
+						},
+						{
+							latitude: 39.250317,
+							longitude: 119.067543
+						},
+						{
+							latitude: 39.256399,
+							longitude: 119.061213
+						},
+						{
+							latitude: 39.253325,
+							longitude: 119.050698
+						},
+						{
+							latitude: 39.246712,
+							longitude: 119.054411
+						}
+					],
+					color: "#0000AA", //线的颜色
+					width: 4, //线的宽度
+					// 　　　　dottedLine:true,//是否虚线
+					arrowLine: true, //带箭头的线 开发者工具暂不支持该属性
+				}],
+
+			}
+		},
+		methods: {
+				save(){
+					var pages = getCurrentPages();
+					var prevPage = pages[pages.length - 2]; //上一个页面
+					// prevPage.setData({
+					// mdata:1
+					// })
+					var obj = {
+						lat:this.backLat,
+						lon:this.backLng
+					}
+					if(this.backLat != ''&& this.backLat != null){
+						prevPage.$vm.otherFun(obj);
+						uni.navigateBack()
+					}
+				},
+			getPostion(e) {
+				this.backLat = e.detail.latitude
+				this.backLng = e.detail.longitude
+				console.log(this.backLat);
+				console.log(this.backLng);
+				
+				this.markers = [{
+                latitude: this.backLat,
+                longitude: this.backLng,
+               
+				color:'#ff0000'
+            }]
+				
+				}
+
+			}
+		}
+</script>
+
+<style>
+
+</style>

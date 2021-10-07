@@ -1,0 +1,725 @@
+{
+	"easycom": {
+			"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+		},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": " 唐山中浩化工有限公司"
+			}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationBarTitleText": "登录",
+				"enablePullDownRefresh": false
+			}
+
+		}
+	    ,{
+            "path" : "pages/safe/safe",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "安全应用",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/tongji/tongji",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "统计",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/personal/personal",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人中心",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/fxgk/fxgk",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "风险管控",
+                "enablePullDownRefresh": true,
+				"onReachBottomDistance":50
+            }
+            
+        }
+        ,{
+            "path" : "pages/fxgk/addFxgk",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增风险管控",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/fxgk/updateFxgk",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "查看/修改管控信息",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/zuoye",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "作业证",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/donghuo",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "动火作业",
+                "enablePullDownRefresh": true
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/dongtu",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "动土作业",
+                "enablePullDownRefresh": true
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/duanlu",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "断路作业",
+                "enablePullDownRefresh": true
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/mangbanchoudu",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "盲板抽堵作业",
+                "enablePullDownRefresh": true
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/linshiyongdian",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "临时用电作业",
+                "enablePullDownRefresh": true
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/denggao",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "登高作业",
+                "enablePullDownRefresh": true
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/dianzhuang",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "吊装作业",
+                "enablePullDownRefresh": true
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/shouxiankongjian",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "受限空间作业",
+                "enablePullDownRefresh": true
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/addDongHuo",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增动火作业",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/addDongTu",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增动土作业",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/addDuanLu",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增断路作业",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/addMangBan",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增盲板抽堵作业",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/addLinshiyongdian",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增临时用电作业",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/addDengGao",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增登高作业",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/addDiangZhuang",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增吊装作业",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/addShouXian",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增受限空间作业",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/updataDongHuo",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "查看/修改动火证",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/updataDongTu",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "查看/修改动土证",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/updataDuanLu",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "查看/修改断路证",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/updataMangBan",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "查看/修改盲板抽堵证",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/updataLinshiyongdian",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "查看/修改临时用电证",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/updataDengGao",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "查看/修改登高证",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/updataDianZhuang",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "查看/修改吊装证",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/updataShouXian",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "查看/修改受限空间证",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/yhzg/yhzg",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "隐患整改",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/yhzg/addYhzg",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增隐患整改",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/yhzg/updataYhzg",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "查看/修改隐患",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/swsb/swsb",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "三违上报",
+                "enablePullDownRefresh": true
+            }
+            
+        }
+        ,{
+            "path" : "pages/swsb/addSanwei",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增三违上报",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/swsb/updataSanwei",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "查看/修改三违上报",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zuoye/dangrizuoye",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "当日作业证",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/yhzg/yhzgz",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "隐患整改中",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/yhzg/chaoqi",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "超期未整改",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zhongdawxy/ydqt",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "有毒气体",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zhongdawxy/krqt",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "可燃气体",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zhongdawxy/ywjc",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "液位监控",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zhongdawxy/wdjc",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "温度监控",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/zhongdawxy/yljc",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "压力监控",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/news/news",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "安全新闻",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/news/addNews",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增安全新闻",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/news/updataNews",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "查看/修改安全新闻",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/caoZuoGuiCheng/caoZuoGuiCheng",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "操作规程",
+                "enablePullDownRefresh": true
+            }
+            
+        }
+        ,{
+            "path" : "pages/caoZuoGuiCheng/addGuiCheng",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增操作规程",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/caoZuoGuiCheng/updataGuiCheng",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "查看/修改操作规程",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/yljh/yljh",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "演练计划",
+                "enablePullDownRefresh": true
+            }
+            
+        }
+        ,{
+            "path" : "pages/yljh/addJh",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增演练计划",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/yljh/updataJljh",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "查看/修改演练计划",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/pxzl/pxzl",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "培训资料",
+                "enablePullDownRefresh": true
+            }
+            
+        }
+        ,{
+            "path" : "pages/pxzl/addPxzl",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增培训资料",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/pxzl/updataPxzl",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "查看/修改培训资料",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/azw/azw",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "安字文",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/azw/addAzw",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增安字文",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/azw/updataAzw",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "查看/修改安字文",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/fxyp/fxyp",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "风险研判",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/fxyp/banZuYanPan",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "班组级风险研判",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/fxyp/addBanzu",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新增班组研判",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/fxyp/updataBanzu",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "查看/修改班组研判",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/fxyp/cheJianYanPan",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "车间级研判",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/fxyp/updataChejian",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "查看/修改车间研判",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/fxyp/gongSiYanPan",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "公司研判",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/fxyp/updataGongSi",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "查看/修改公司研判",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/waittask/waitTask",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        
+        ,{
+            "path" : "pages/waittask/danger/dangerDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/waittask/webview",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        
+        ,{
+            "path" : "pages/zuobiao/map",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/fxyp/addCj",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/fxyp/addGs",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar":{
+		"list":[
+			{
+				"pagePath":"pages/index/index",
+				"text":"首页",
+				"iconPath":"static/sy.png",
+				"selectedIconPath":"static/sy.png"
+			},
+			{
+				"pagePath":"pages/safe/safe",
+				"text":"安全应用",
+				"iconPath":"static/aqyy.png",
+				"selectedIconPath":"static/aqyy.png"
+			},
+			{
+				"pagePath":"pages/tongji/tongji",
+				"text":"统计",
+				"iconPath":"static/tj.png",
+				"selectedIconPath":"static/tj.png"
+			},
+			{
+				"pagePath":"pages/personal/personal",
+				"text":"个人中心",
+				"iconPath":"static/grzx.png",
+				"selectedIconPath":"static/grzx.png"
+			}
+	
+		]
+	}
+}
