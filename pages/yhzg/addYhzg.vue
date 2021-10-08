@@ -187,7 +187,23 @@
 				arrayzrbm:['安全部','财务部'],
 				arrayjcdw:['安全部','财务部'],
 				arrayBz:['安全部','财务部'],
-				arrayYy:['人','物','料','法','环']
+				arrayYy:['人','物','料','法','环'],
+				dataList:{
+					docid:'',
+					appid:'E45FFBBEC8C94B3CA3D453389AFD83C6',
+					authorid:'',
+					authorname:'',
+					authororgid:'',
+					authororgname:'生产部',
+					createtime:'',
+					lastmodifiedtime:'',
+					appname:'登高作业登记',
+					pribeanname:'com.ruoyi.aqgl.tszyzjy.models.Dgzyzjy',
+					dgzyszdw:'生产部',
+					dgzyszdwid:'',
+					dgzywzjnr:'',
+					
+				}
 			}
 		},
 		onBackPress(event) {

@@ -405,7 +405,7 @@
 			} else {
 				//返回
 				uni.showToast({
-					title: '当前页面数据或已被删除',
+					title: '页面数据已删除',
 					duration:3000
 				})
 				// uni.navigateTo({

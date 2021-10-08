@@ -182,7 +182,7 @@
 <style lang="scss">
 	page {
 		background-color: #eeedf1;
-		overflow: hidden
+		// overflow: hidden
 	}
 	.content {
 		width: 99.5%;

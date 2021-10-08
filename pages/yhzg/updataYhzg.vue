@@ -12,7 +12,7 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title">发起人:</view>
-			<input name="input" v-model="fqr" disabled=""></input>
+			<input name="input" v-model="dataList.authorname" disabled=""></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">隐患等级:</view>

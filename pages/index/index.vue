@@ -151,8 +151,9 @@
 			</view>
 		</view>
 		<view class="deeps">
-			<text @click="show = true">安全公告</text>
-			<text @click="show = false">安全新闻</text>
+			<text @click="dianji(0)" :class="{changeColor1: this.bian1==1}">安全公告</text>
+			
+			<text @click="dianji(1)" :class="{changeColor1: this.bian2==1}">安全新闻</text>
 		</view>
 		<view class="deeps1" v-for="(item,index) in news" v-if="!show" @click="toNews()">
 			<view class="deeps1-item" hover-class="swing4">
@@ -180,7 +181,9 @@
 				cqwzg:'',
 				zdwxy:'',
 				userName:'',
-				deptName:''
+				deptName:'',
+				bian1: '1',
+				bian2: '0',
 			}
 		},
 		onLoad() {
@@ -196,7 +199,7 @@
 				url: 'api/home/homeInfo',
 
 			})
-			console.log(res);
+			console.log(res.data.data.admin);
 			if (res.data.code == 205) {
 				uni.navigateTo({
 					url: '../login/login'
@@ -216,6 +219,20 @@
 
 		},
 		methods: {
+			dianji(e) {
+				if (e == 0) {
+					this.bian1 = 1
+					this.bian2 = 0
+					this.show = true
+					
+				} else {
+					this.bian1 = 0
+					this.bian2 = 1
+					this.show = false
+				}
+			
+			
+			},
 			//新闻详情
 			updateNews(item){
 				var items = JSON.stringify(item)
@@ -554,5 +571,9 @@
 			height: 100%;
 			width: 100%;
 		}
+	}
+	.changeColor1 {
+		// background-color: #4a5cd0;
+		color: #4a5cd0;
 	}
 </style>
