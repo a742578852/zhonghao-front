@@ -445,7 +445,7 @@
             "path" : "pages/news/updataNews",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "查看/修改安全新闻",
+                "navigationBarTitleText": "查看安全新闻",
                 "enablePullDownRefresh": false
             }
             
@@ -526,7 +526,7 @@
             "path" : "pages/pxzl/updataPxzl",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "查看/修改培训资料",
+                "navigationBarTitleText": "查看培训资料",
                 "enablePullDownRefresh": false
             }
             
@@ -553,7 +553,7 @@
             "path" : "pages/azw/updataAzw",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "查看/修改安字文",
+                "navigationBarTitleText": "查看安字文",
                 "enablePullDownRefresh": false
             }
             

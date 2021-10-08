@@ -3,7 +3,7 @@
 		<u-calendar v-model="show" :mode="mode" @change="change"></u-calendar>
 		<view class="cu-form-group">
 			<view class="title"><span class='star'>*</span>作业单位:</view>
-			<picker @change="bindPickerChange" :value="index" :range="arrayBz" class="item2" style="">
+			<picker @change="bindPickerChange" :value="index" :range="arrayBz" class="item2" style="" :disabled="up">
 				<view class="uni-input" style="">{{dataList.dtzyszdw}}</view>
 			</picker>
 		</view>
@@ -13,37 +13,41 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title">施工单位:</view>
-			<input name="input" v-model="dataList.sgdw" ></input>
+			<input name="input" v-model="dataList.sgdw"  :disabled="up"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title"><span class='star'>*</span>作业时间:</view>
-			<input name="input" v-model="dataList.yjzysj" disabled="" @click="show = true"></input>
+			<input name="input" v-model="dataList.yjzysj" disabled="" @click="calendar"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">动土位置:</view>
-			<picker @change="bindPickerChange2" :value="index2" :range="arrayBz" class="item2" style="">
+			<picker @change="bindPickerChange2" :value="index2" :range="arrayBz" class="item2" style="" :disabled="up">
 				<view class="uni-input" style="">{{dataList.zywzdw}}</view>
 			</picker>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">动土详细位置:</view>
-			<picker @change="bindPickerChange3" :value="index3" :range="arrayBz" class="item2" style="">
+			<picker @change="bindPickerChange3" :value="index3" :range="arrayBz" class="item2" style="" :disabled="up">
 				<view class="uni-input" style="">{{dataList.zywzqymc}}</view>
 			</picker>
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">动土作业内容:</view>
-			<textarea maxlength="-1"  v-model='dataList.dtzywzjnr'></textarea>
+			<textarea maxlength="-1"  v-model='dataList.dtzywzjnr' :disabled="up"></textarea>
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">备注:</view>
-			<textarea maxlength="-1"  v-model='dataList.bz'></textarea>
+			<textarea maxlength="-1"  v-model='dataList.bz' :disabled="up"></textarea>
 		</view>
 		<view class="cu-form-group" @click="chooseImage">
 			<view class="title">上传附件:</view>
 			<image :src="imgUrl" style="width: 80upx;height: 80upx;margin-left: 280upx;"></image>
 		</view>
-		<button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="updataDt">确定</button>
+		
+		<view class="" style="display: flex;justify-content: space-around;margin-top: 30rpx;">
+			<button type="primary" size="mini"  @click="up = false">修改</button>
+			<button type="primary" size="mini"  @click="updataDt">确定</button>
+		</view>
 		<!-- <u-avatar class="img" :src="touxiang" ></u-avatar> -->
 	</view>
 </template>
@@ -52,6 +56,7 @@
 	export default {
 		data() {
 			return {
+				up:true,
 				imgUrl:'',
 				touxiang:'',
 				mode:'date',
@@ -79,8 +84,8 @@
 					dtzyszdwid:'',
 					dtzywzjnr:'',
 					yjzysj:'',
-					zywzdw:'',
-					zywzqymc:'',
+					zywzdw:'安全部',
+					zywzqymc:'安全部',
 					bz:'',
 					fj:'',
 					
@@ -102,6 +107,11 @@
 			this.dataList.createtime = this.dataList.createtime.substring(0,10)
 		},
 		methods: {
+			calendar(){
+				if(!this.up){
+					this.show = true
+				}
+			},
 			async updataDt(){
 				//获取当前时间
 				let date = new Date();

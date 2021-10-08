@@ -3,31 +3,35 @@
 		<u-calendar v-model="show" :mode="mode" @change="change"></u-calendar>
 		<view class="cu-form-group">
 			<view class="title">操作规程名称:</view>
-			<input name="input" v-model="dataList.czgcmc" ></input>
+			<input name="input" v-model="dataList.czgcmc" :disabled="up"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">发布单位:</view>
-			<picker @change="bindPickerChange" :value="index" :range="arrayfbdw" class="item2" style="">
+			<picker @change="bindPickerChange" :value="index" :range="arrayfbdw" class="item2" style="" :disabled="up">
 				<view class="uni-input" style="">{{dataList.fbdw}}</view>
 			</picker>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">最后修订日期:</view>
-			<input name="input" v-model="dataList.zxxdrq" disabled="" @click="show = true"></input>
+			<input name="input" v-model="dataList.zxxdrq" disabled="" @click="calendar"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">操作规程简介:</view>
-			<input name="input" v-model="dataList.czgcjj" ></input>
+			<input name="input" v-model="dataList.czgcjj" :disabled="up"></input>
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">备注:</view>
-			<textarea maxlength="-1"  v-model='dataList.bz'></textarea>
+			<textarea maxlength="-1"  v-model='dataList.bz' :disabled="up"></textarea>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">附件:</view>
 			<input name="input" v-model="fj" disabled=""></input>
 		</view>
-		<button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="updataGc">确定</button>
+		<view class="" style="display: flex;justify-content: space-around;margin-top: 50rpx;">
+			<button type="primary" size="mini"  @click="up = false">修改</button>
+			<button type="primary" size="mini"  @click="updataGc">确定</button>
+		</view>
+		
 	</view>
 </template>
 
@@ -35,6 +39,7 @@
 	export default {
 		data() {
 			return {
+				up:true,
 				index:0,
 				show:false,
 				mode:'date',
@@ -69,6 +74,11 @@
 			this.dataList.createtime = this.dataList.createtime.substring(0,10)
 		},
 		methods: {
+			calendar(){
+				if(!this.up){
+					this.show = true
+				}
+			},
 			//修改规程
 			async updataGc(){
 				//获取当前时间

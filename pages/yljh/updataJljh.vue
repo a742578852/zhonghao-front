@@ -3,43 +3,47 @@
 		<!-- <u-calendar v-model="show" :mode="mode" @change="change"></u-calendar> -->
 		<view class="cu-form-group">
 			<view class="title">组织单位:</view>
-			<input name="input" v-model="dataList.zzdw" ></input>
+			<input name="input" v-model="dataList.zzdw" :disabled="up"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">演练项目:</view>
-			<input name="input" v-model="dataList.ylxm" ></input>
+			<input name="input" v-model="dataList.ylxm" :disabled="up"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">演练类别:</view>
-			<input name="input" v-model="dataList.yllb" ></input>
+			<input name="input" v-model="dataList.yllb" :disabled="up"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">演练形式:</view>
-			<picker @change="bindPickerChange" :value="index" :range="arrayYlxs" class="item2" style="">
+			<picker @change="bindPickerChange" :value="index" :range="arrayYlxs" class="item2" style="" :disabled="up">
 				<view class="uni-input" style="">{{dataList.ylxs}}</view>
 			</picker>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">预计演练时间:</view>
-			<input name="input" v-model="dataList.yjylsj" ></input>
+			<input name="input" v-model="dataList.yjylsj" :disabled="up"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">预计演练部位:</view>
-			<input name="input" v-model="dataList.yjylbw" ></input>
+			<input name="input" v-model="dataList.yjylbw" :disabled="up"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">预计参演人员:</view>
-			<input name="input" v-model="dataList.yjcyry" ></input>
+			<input name="input" v-model="dataList.yjcyry" :disabled="up"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">预计参演人数:</view>
-			<input name="input" v-model="dataList.yjcyrs" ></input>
+			<input name="input" v-model="dataList.yjcyrs" :disabled="up"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">附件:</view>
 			<input name="input" v-model="fj" disabled=""></input>
 		</view>
-		<button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="updataJh">确定</button>
+		
+		<view class="" style="display: flex;justify-content: space-around;margin-top: 50rpx;">
+			<button type="primary" size="mini"  @click="up = false">修改</button>
+			<button type="primary" size="mini"  @click="updataJh">确定</button>
+		</view>
 	</view>
 </template>
 
@@ -47,6 +51,7 @@
 	export default {
 		data() {
 			return {
+				up:true,
 				show:false,
 				mode:'date',
 				index:0,

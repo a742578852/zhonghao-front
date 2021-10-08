@@ -8,11 +8,11 @@
 		<u-calendar v-model="show5" :mode="mode" @change="change5"></u-calendar>
 		<view class="cu-form-group align-start">
 			<view class="title">隐患问题:</view>
-			<textarea maxlength="-1"  v-model='yhwt'></textarea>
+			<textarea maxlength="-1"  v-model='dataList.bhgys'></textarea>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">发起人:</view>
-			<input name="input" v-model="fqr" disabled=""></input>
+			<input name="input" v-model="dataList.authorname" disabled=""></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">隐患等级:</view>
@@ -50,11 +50,11 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title">检查人:</view>
-			<input name="input" v-model="jcr" disabled=""></input>
+			<input name="input" v-model="dataList.jcry" ></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">检查日期:</view>
-			<input name="input" v-model="jcrq" disabled="" @click="show = true"></input>
+			<input name="input" v-model="dataList.yhxxjcrq" disabled="" @click="show = true"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">检查区域:</view>
@@ -73,42 +73,42 @@
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">整改措施:</view>
-			<textarea maxlength="-1"  v-model='zgcs'></textarea>
+			<textarea maxlength="-1"  v-model='dataList.yhzgqk'></textarea>
 		</view>
 		<view class="cu-form-group">
 			<view class="title"><span class='star'>*</span>整改期限:</view>
-			<input name="input" v-model="zgqx" disabled="" @click="show1 = true"></input>
+			<input name="input" v-model="dataList.zzzgzgqx" disabled="" @click="show1 = true"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">填报人:</view>
-			<input name="input" v-model="tbr" disabled=""></input>
+			<input name="input" v-model="dataList.zzzgtbr" disabled=""></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">填报日期:</view>
-			<input name="input" v-model="tbrq" disabled="" @click="show3 = true"></input>
+			<input name="input" v-model="dataList.zzzgtxrq" disabled="" @click="show3 = true"></input>
 		</view>
 		<view class="" style="width: 98%;background-color: #ffffd7;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;">
 			<text>问题整改</text>
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">整改情况:</view>
-			<textarea maxlength="-1"  v-model='zgqk'></textarea>
+			<textarea maxlength="-1"  v-model='dataList.wtyzzgqk'></textarea>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">整改人:</view>
-			<input name="input" v-model="zgr" ></input>
+			<input name="input" v-model="dataList.zgr" ></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">整改完成日期:</view>
-			<input name="input" v-model="zgwcrq" disabled="" @click="show2 = true"></input>
+			<input name="input" v-model="dataList.zgwcrq" disabled="" @click="show2 = true"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">治理资金(元):</view>
-			<input name="input" v-model="zlzj" ></input>
+			<input name="input" v-model="dataList.zlzj" ></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">填写日期:</view>
-			<input name="input" v-model="txrq" disabled="" @click="show4 = true"></input>
+			<input name="input" v-model="dataList.zgrtxrq" disabled="" @click="show4 = true"></input>
 		</view>
 		<view class="cu-form-group" @click="chooseImage1">
 			<view class="title">整改后照片:</view>
@@ -125,11 +125,11 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title">验证人:</view>
-			<input name="input" v-model="yzr" ></input>
+			<input name="input" v-model="dataList.yzr" ></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">填写日期:</view>
-			<input name="input" v-model="txrq1" disabled="" @click="show5 = true"></input>
+			<input name="input" v-model="dataList.yzrtxrq" disabled="" @click="show5 = true"></input>
 		</view>
 		<view class="cu-form-group" @click="chooseImage2">
 			<view class="title">验证照片:</view>
@@ -137,9 +137,9 @@
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">验证情况:</view>
-			<textarea maxlength="-1"  v-model='yzqk'></textarea>
+			<textarea maxlength="-1"  v-model='dataList.yzqk'></textarea>
 		</view>
-		<button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="">确定</button>
+		<button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="addYh">确定</button>
 	</view>
 </template>
 
@@ -157,22 +157,7 @@
 				imgUrl:'',
 				imgUrl1:'',
 				imgUrl2:'',
-				yhwt:'',
-				fqr:'',
-				jcr:'',
-				jcrq:'',
-				zgcs:'',
-				zgqx:'',
-				tbr:'',
-				tbrq:'',
-				zgqk:'',
-				zgr:'',
-				zgwcrq:'',
-				zlzj:'',
-				txrq:'',
-				yzr:'',
-				txrq1:'',
-				yzqk:'',
+				
 				index:0,
 				index1:0,
 				index2:0,
@@ -197,12 +182,34 @@
 					authororgname:'生产部',
 					createtime:'',
 					lastmodifiedtime:'',
-					appname:'登高作业登记',
-					pribeanname:'com.ruoyi.aqgl.tszyzjy.models.Dgzyzjy',
-					dgzyszdw:'生产部',
-					dgzyszdwid:'',
-					dgzywzjnr:'',
+					appname:'整改通知流程',
+					pribeanname:'com.ruoyi.aqgl.jcyzg.models.Zgtz',
+					bhgys:'',//隐患问题
+					yhdj:'一般隐患',//隐患等级
+					jccj:'班组级',//检查层级
+					jclx:'日常检查',//检查类型
+					jcdwmc:'安全部',//检查单位
+					zrbmmc:'安全部',//责任部门
+					jcry:'',//检查人
+					zywzdw:'安全部',//检查区域
+					zywzqymc:'安全部',//详细区域
+					yhxxjcrq:'',//检查日期
 					
+					zzzgtbr:'',//整改填报人
+					zzzgtxrq:'',//整改填报日期
+					zzzgzgqx:'',//整改期限
+					yhzgqk:'',//整改措施
+					
+					zgwcrq:'',//整改完成日期
+					zgr:'',//整改人
+					zgrtxrq:'',//整改填写日期
+					zlzj:'',//治理资金
+					wtyzzgqk:'',//整改情况
+					
+					wtyzyyfx:'人',//原因分析
+					yzr:'',//验证人
+					yzrtxrq:'',//验证填写日期
+					yzqk:'',//验证情况
 				}
 			}
 		},
@@ -215,7 +222,55 @@
 			})
 			return true;
 		},
+		onShow() {
+			//获取当前时间
+			let date = new Date();
+			let year = date.getFullYear();
+			let month = date.getMonth() + 1;
+			let day = date.getDate();
+			if(month < 10){
+				month = '0' + month;
+			}
+			if(day < 10){
+				day = '0' + day;
+			}
+			var time = year+'-' + month+'-' + day
+			this.dataList.yhxxjcrq = time
+			this.dataList.createtime = time
+			
+			var admin = uni.getStorageSync('admin')
+			this.dataList.authorname = admin.userName
+			this.dataList.authorid = admin.userId
+		},
 		methods: {
+			async addYh(){
+				this.dataList.docid = this.guid2()
+				console.log(this.dataList.docid);
+				var token = uni.getStorageSync('token')
+				const res = await this.$myRequest({
+					method: 'POST',
+					url: 'api/danger/insertDanger',
+					header:{
+						'content-type': 'application/json;charset=utf-8',
+						'token': token
+					},
+					data: JSON.stringify(this.dataList)
+					
+				})
+				console.log(res);
+				if(res.data.code == 200){
+					uni.navigateTo({
+						url:'./yhzg'
+					})
+				}
+			},
+			//生成uuid
+			guid2() {
+			    function S4() {
+			        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+			    }
+			    return (S4() + S4() +  S4() +  S4() +  S4() +  S4() + S4() + S4());
+			},
 			//上传整改前照片
 			chooseImage() {
 				uni.chooseImage({
@@ -245,59 +300,67 @@
 			},
 			change(e){
 				console.log(e.result);
-				this.jcrq = e.result
+				this.dataList.yhxxjcrq = e.result
 			},
 			change1(e){
 				console.log(e.result);
-				this.zgqx = e.result
+				this.dataList.zzzgzgqx = e.result
 			},
 			change2(e){
 				console.log(e.result);
-				this.zgwcrq = e.result
+				this.dataList.zgwcrq = e.result
 			},
 			change3(e){
 				console.log(e.result);
-				this.tbrq = e.result
+				this.dataList.zzzgtxrq = e.result
 			},
 			change4(e){
 				console.log(e.result);
-				this.txrq = e.result
+				this.dataList.zgrtxrq = e.result
 			},
 			change5(e){
 				console.log(e.result);
-				this.txrq1 = e.result
+				this.dataList.yzrtxrq = e.result
 			},
 			bindPickerChange(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index = e.detail.value
+				this.dataList.yhdj = this.arrayYhdj[this.index]
 			},
 			bindPickerChange1(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index1 = e.detail.value
+				this.dataList.jccj = this.arrayjccj[this.index1]
 			},
 			bindPickerChange2(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index2 = e.detail.value
+				this.dataList.jclx = this.arrayjclx[this.index2]
 			},
 			bindPickerChange3(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index3 = e.detail.value
+				this.dataList.zrbmmc = this.arrayzrbm[this.index3]
 			},
 			bindPickerChange4(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index4 = e.detail.value
+				this.dataList.jcdwmc = this.arrayjcdw[this.index4]
 			},
 			bindPickerChange5(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index5 = e.detail.value
+				this.dataList.zywzdw = this.arrayBz[this.index5]
 			},
 			bindPickerChange6(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index6 = e.detail.value
+				this.dataList.zywzqymc = this.arrayBz[this.index6]
 			},
 			bindPickerChange7(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index7 = e.detail.value
+				this.dataList.wtyzyyfx = this.arrayYy[this.index7]
 			},
 		}
 	}

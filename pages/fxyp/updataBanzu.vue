@@ -3,7 +3,7 @@
 		<u-calendar v-model="show" :mode="mode" @change="change"></u-calendar>
 		<view class="cu-form-group">
 			<view class="title">班组:</view>
-			<input name="input" v-model="dataList.bz" ></input>
+			<input name="input" v-model="dataList.bz" :disabled="up"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">填报人:</view>
@@ -31,7 +31,7 @@
 				</view>
 				<view class="content-itemm" >
 					<view class="cu-form-group" style="width: 190rpx;">
-						<picker @change="bindPickerChange" :value="index" :range="arrayYhqk" class="item2" >
+						<picker @change="bindPickerChange" :value="index" :range="arrayYhqk" class="item2" :disabled="up">
 							<view class="uni-input" style="">{{dataList.ypqk1}}</view>
 						</picker>
 					</view>
@@ -46,7 +46,7 @@
 				</view>
 				<view class="content-itemm">
 					<view class="cu-form-group" style="width: 190rpx;">
-						<picker @change="bindPickerChange1" :value="index1" :range="arrayYhqk" class="item2" style="">
+						<picker @change="bindPickerChange1" :value="index1" :range="arrayYhqk" class="item2" style="" :disabled="up">
 							<view class="uni-input" style="">{{dataList.ypqk2}}</view>
 						</picker>
 					</view>
@@ -61,7 +61,7 @@
 				</view>
 				<view class="content-itemm">
 					<view class="cu-form-group" style="width: 190rpx;">
-						<picker @change="bindPickerChange2" :value="index2" :range="arrayYhqk" class="item2" style="">
+						<picker @change="bindPickerChange2" :value="index2" :range="arrayYhqk" class="item2" style="" :disabled="up">
 							<view class="uni-input" style="">{{dataList.ypqk3}}</view>
 						</picker>
 					</view>
@@ -76,7 +76,7 @@
 				</view>
 				<view class="content-itemm">
 					<view class="cu-form-group" style="width: 190rpx;">
-						<picker @change="bindPickerChange3" :value="index3" :range="arrayYhqk" class="item2" style="">
+						<picker @change="bindPickerChange3" :value="index3" :range="arrayYhqk" class="item2" style="" :disabled="up">
 							<view class="uni-input" style="">{{dataList.ypqk4}}</view>
 						</picker>
 					</view>
@@ -92,7 +92,7 @@
 				<view class="content-itemm">
 					<view class="cu-form-group" style="width: 190rpx;">
 						<!-- <view class="title">隐患等级:</view> -->
-						<picker @change="bindPickerChange4" :value="index4" :range="arrayYhqk" class="item2" style="">
+						<picker @change="bindPickerChange4" :value="index4" :range="arrayYhqk" class="item2" style="" :disabled="up">
 							<view class="uni-input" style="">{{dataList.ypqk5}}</view>
 						</picker>
 					</view>
@@ -108,7 +108,7 @@
 				<view class="content-itemm">
 					<view class="cu-form-group" style="width: 190rpx;">
 						<!-- <view class="title">隐患等级:</view> -->
-						<picker @change="bindPickerChange5" :value="index5" :range="arrayYhqk" class="item2" style="">
+						<picker @change="bindPickerChange5" :value="index5" :range="arrayYhqk" class="item2" style="" :disabled="up">
 							<view class="uni-input" style="">{{dataList.ypqk6}}</view>
 						</picker>
 					</view>
@@ -124,7 +124,7 @@
 				<view class="content-itemm">
 					<view class="cu-form-group" style="width: 190rpx;">
 						<!-- <view class="title">隐患等级:</view> -->
-						<picker @change="bindPickerChange6" :value="index6" :range="arrayYhqk" class="item2" style="">
+						<picker @change="bindPickerChange6" :value="index6" :range="arrayYhqk" class="item2" style="" :disabled="up">
 							<view class="uni-input" style="">{{dataList.ypqk7}}</view>
 						</picker>
 					</view>
@@ -135,19 +135,19 @@
 					<view>各项特殊作业</view>
 					<view class="" style="display: flex;">
 						<view>特殊动火作业数量：</view>
-						<input type="text" v-model="dataList.tsdhzycs" style="width: 60rpx;border: solid 1rpx #b5b3bb;margin-left: 5rpx;border-radius: 10rpx;"/>
+						<input type="text" v-model="dataList.tsdhzycs" :disabled="up" style="width: 60rpx;border: solid 1rpx #b5b3bb;margin-left: 5rpx;border-radius: 10rpx;"/>
 					</view>
 					<view class="" style="display: flex;">
 						<view>一级动火作业数量：</view>
-						<input type="text" v-model="dataList.yjdhzycs" style="width: 60rpx;border: solid 1rpx #b5b3bb;margin-left: 5rpx;border-radius: 10rpx;"/>
+						<input type="text" v-model="dataList.yjdhzycs" :disabled="up" style="width: 60rpx;border: solid 1rpx #b5b3bb;margin-left: 5rpx;border-radius: 10rpx;"/>
 					</view>
 					<view class="" style="display: flex;">
 						<view>二级动火作业数量：</view>
-						<input type="text" v-model="dataList.ejdhzycs" style="width: 60rpx;border: solid 1rpx #b5b3bb;margin-left: 5rpx;border-radius: 10rpx;"/>
+						<input type="text" v-model="dataList.ejdhzycs" :disabled="up" style="width: 60rpx;border: solid 1rpx #b5b3bb;margin-left: 5rpx;border-radius: 10rpx;"/>
 					</view>
 					<view class="" style="display: flex;">
 						<view>受限空间作业数量：</view>
-						<input type="text" v-model="dataList.sxkjzycs" style="width: 60rpx;border: solid 1rpx #b5b3bb;margin-left: 5rpx;border-radius: 10rpx;"/>
+						<input type="text" v-model="dataList.sxkjzycs" :disabled="up" style="width: 60rpx;border: solid 1rpx #b5b3bb;margin-left: 5rpx;border-radius: 10rpx;"/>
 					</view>
 					<view>特殊作业执行许可证管理</view>
 				</view>
@@ -156,7 +156,7 @@
 				</view>
 				<view class="content-itemm">
 					<view class="cu-form-group" style="width: 190rpx;">
-						<picker @change="bindPickerChange7" :value="index7" :range="arrayYhqk" class="item2" style="">
+						<picker @change="bindPickerChange7" :value="index7" :range="arrayYhqk" class="item2" style="" :disabled="up">
 							<view class="uni-input" style="">{{dataList.ypqk8}}</view>
 						</picker>
 					</view>
@@ -171,7 +171,7 @@
 				</view>
 				<view class="content-itemm">
 					<view class="cu-form-group" style="width: 190rpx;">
-						<picker @change="bindPickerChange8" :value="index8" :range="arrayYhqk" class="item2" style="">
+						<picker @change="bindPickerChange8" :value="index8" :range="arrayYhqk" class="item2" style="" :disabled="up">
 							<view class="uni-input" style="">{{dataList.ypqk9}}</view>
 						</picker>
 					</view>
@@ -187,7 +187,7 @@
 				<view class="content-itemm">
 					<view class="cu-form-group" style="width: 190rpx;">
 						<!-- <view class="title">隐患等级:</view> -->
-						<picker @change="bindPickerChange9" :value="index9" :range="arrayYhqk" class="item2" style="">
+						<picker @change="bindPickerChange9" :value="index9" :range="arrayYhqk" class="item2" style="" :disabled="up">
 							<view class="uni-input" style="">{{dataList.ypqk10}}</view>
 						</picker>
 					</view>
@@ -201,17 +201,21 @@
 					<text>今天我班组以根据岗位风险辨识管控相关内容以及安全风险评估表进行安全风险研判，各项安全风险防控措施已落实到位，我承诺本岗位处于安全运行状态，涉及罐区、仓库等重大危险源安全风险得到有效管控。</text>
 					<view class="" style="display: flex;">
 						<view>班组负责人：</view>
-						<input type="text" v-model="dataList.bzfzr" style="width: 200rpx;border: solid 1rpx #b5b3bb;margin-left: 5rpx;border-radius: 10rpx;"/>
+						<input type="text" v-model="dataList.bzfzr" :disabled="up" style="width: 200rpx;border: solid 1rpx #b5b3bb;margin-left: 5rpx;border-radius: 10rpx;"/>
 					</view>
 					<view class="" style="display: flex;margin-top: 10rpx;">
 						<view>承诺&nbsp&nbsp&nbsp日期：</view>
-						<input type="text" v-model="dataList.tbrq" disabled="" @click="show = true" value="" style="width: 200rpx;border: solid 1rpx #b5b3bb;margin-left: 5rpx;border-radius: 10rpx;"/>
+						<input type="text" v-model="dataList.tbrq" disabled="" @click="calendar" value="" style="width: 200rpx;border: solid 1rpx #b5b3bb;margin-left: 5rpx;border-radius: 10rpx;"/>
 					</view>
 				</view>
 				
 			</view>
 		</scroll-view>
-		<button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="updataBz">确定</button>
+		
+		<view class="" style="display: flex;justify-content: space-around;margin-top: 50rpx;">
+			<button type="primary" size="mini"  @click="up = false">修改</button>
+			<button type="primary" size="mini"  @click="updataBz">确定</button>
+		</view>
 	</view>
 </template>
 
@@ -219,6 +223,7 @@
 	export default {
 		data() {
 			return {
+				up:true,
 				show:false,
 				mode:'date',
 				index:0,
@@ -284,6 +289,11 @@
 			this.dataList.createtime = this.dataList.createtime.substring(0,10)
 		},
 		methods: {
+			calendar(){
+				if(!this.up){
+					this.show = true
+				}
+			},
 			//修改班组
 			async updataBz(){
 				//获取当前时间

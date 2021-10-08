@@ -39,7 +39,7 @@
 				</view>
 				<!-- <view class="remove" @click="delData(item)">删除</view> -->
 			</view>
-			<view class="" style="width: 98%;background-color: #ffffd7;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;height: 50rpx;">
+			<view class="" style="width: 98%;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;height: 50rpx;">
 				<text>{{shanghua}}</text>
 			</view>
 		</view>

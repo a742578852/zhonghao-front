@@ -4,15 +4,15 @@
 		<u-calendar v-model="show1" :mode="mode" @change="change1"></u-calendar>
 		<view class="cu-form-group">
 			<view class="title"><span class='star'>*</span>辨识部位:</view>
-			<input name="input" type="text" v-model="aqFxglAqfxfjgktz.bsbw" ></input>
+			<input name="input" type="text" v-model="aqFxglAqfxfjgktz.bsbw" :disabled="up"></input>
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">存在风险:</view>
-			<textarea maxlength="-1"  v-model='aqFxglAqfxfjgktz.czfx'></textarea>
+			<textarea maxlength="-1"  v-model='aqFxglAqfxfjgktz.czfx':disabled="up"></textarea>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">依据:</view>
-			<input name="input" v-model="aqFxglAqfxfjgktz.yj" ></input>
+			<input name="input" v-model="aqFxglAqfxfjgktz.yj" :disabled="up"></input>
 		</view>
 		<!-- <view class="cu-form-group">
 			<view class="title">创建时间:</view>
@@ -20,26 +20,30 @@
 		</view> -->
 		<view class="cu-form-group">
 			<view class="title">事故类型:</view>
-			<input name="input" v-model="aqFxglAqfxfjgktz.sglx" ></input>
+			<input name="input" v-model="aqFxglAqfxfjgktz.sglx" :disabled="up"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">风险等级:</view>
-			<input name="input" v-model="aqFxglAqfxfjgktz.fxdj" ></input>
+			<input name="input" v-model="aqFxglAqfxfjgktz.fxdj" :disabled="up"></input>
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">主要管控措施:</view>
-			<textarea maxlength="-1"  v-model='aqFxglAqfxfjgktz.zygkcs'></textarea>
+			<textarea maxlength="-1"  v-model='aqFxglAqfxfjgktz.zygkcs' :disabled="up"></textarea>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">责任部门/责任人:</view>
-			<input name="input" v-model="aqFxglAqfxfjgktz.zrbmzrr" ></input>
+			<input name="input" v-model="aqFxglAqfxfjgktz.zrbmzrr" :disabled="up"></input>
 		</view>
 		<!-- <view class="cu-form-group">
 			<view class="title">最后修改时间:</view>
 			<input name="input" v-model="aqFxglAqfxfjgktz.lastmodifiedtime" disabled="" @click="show1 = true"></input>
 		</view> -->
 		<u-toast ref="uToast" />
-		<button type="primary"  style="width: 40%;margin-top: 20rpx;" @click="toFxgk">保存</button>
+		<view class="" style="display: flex;justify-content: space-around;margin-top: 50rpx;">
+			<button type="primary" size="mini"  @click="up = false">修改</button>
+			<button type="primary" size="mini"  @click="toFxgk">确定</button>
+		</view>
+		
 	</view>
 </template>
 
@@ -47,6 +51,7 @@
 	export default {
 		data() {
 			return {
+				up:true,
 				show:false,
 				show1:false,
 				mode:'date',

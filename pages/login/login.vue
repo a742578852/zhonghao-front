@@ -107,13 +107,14 @@
 								password: that.From.PassWord
 							}
 						})
-						console.log(res);
+						
 						if (res.data.code == 200) {
 							uni.setStorageSync('admin', res.data.data.admin)
 							uni.setStorageSync('token', res.data.data.token)
 							uni.setStorageSync('username', that.From.UserName)
 							uni.setStorageSync('password', that.From.PassWord)
 							console.log(res.data.data.token);
+							console.log(res.data.data.admin);
 							uni.switchTab({
 								url: '../index/index'
 							})

@@ -11,7 +11,7 @@
 					<input class="popup-item-input" type="text" v-model="dzzyszdw" />
 				</view>
 			</view>
-			<button type="primary" style="width: 50%;" @click="serach">确定</button>
+			<button type="primary" size="mini" style="width: 50%;margin-left: 25%;" @click="serach">确定</button>
 		</u-popup>
 		<view class="content">
 			<view class="content-item1">
@@ -43,7 +43,7 @@
 				<view class="remove" @click="delData(item.docid)">删除</view>
 			</view>
 			<view class=""
-				style="width: 98%;background-color: #ffffd7;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;height: 50rpx;">
+				style="width: 98%;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;height: 50rpx;">
 				<text>{{shanghua}}</text>
 			</view>
 		</view>

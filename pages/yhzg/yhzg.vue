@@ -18,7 +18,7 @@
 					<text class="popup-item-text">隐患类型：</text>
 					<input class="popup-item-input" type="text" value="" />
 				</view>
-				<button type="primary" style="width: 50%;" @click="serach">确定</button>
+				<button type="primary" size="mini" style="width: 50%;margin-left: 25%;margin-top: 30rpx;" @click="serach">确定</button>
 			</view>
 			
 		</u-popup>
@@ -52,7 +52,7 @@
 				<view class="remove" @click="delData(item)">删除</view>
 			</view>
 			<view class=""
-				style="width: 98%;background-color: #ffffd7;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;height: 50rpx;">
+				style="width: 98%;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;height: 50rpx;">
 				<text>{{shanghua}}</text>
 			</view>
 		</view>

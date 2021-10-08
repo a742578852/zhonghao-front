@@ -41,11 +41,11 @@
 			<view class="title">获取坐标:</view>
 			<input name="input" placeholder="点击获取坐标" disabled="" ></input>
 		</view>
-		<view class="cu-form-group">
+		<view class="cu-form-group" v-if="false">
 			<view class="title">经度:</view>
 			<input name="input" v-model="mapList.lng" disabled=""></input>
 		</view>
-		<view class="cu-form-group">
+		<view class="cu-form-group" v-if="false">
 			<view class="title">纬度:</view>
 			<input name="input" v-model="mapList.lat" disabled=""></input>
 		</view>
