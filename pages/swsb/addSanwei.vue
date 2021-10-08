@@ -29,7 +29,7 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title">检查人:</view>
-			<input name="input" v-model="dataList.jcr" ></input>
+			<input name="input" v-model="dataList.jcr" disabled=""></input>
 		</view>
 		<button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="addSw">确定</button>
 	</view>
@@ -77,6 +77,9 @@
 			if(day < 10){
 				day = '0' + day;
 			}
+			var admin = uni.getStorageSync('admin')
+			this.dataList.jcr = admin.userName
+			this.dataList.authorid = admin.userId
 			var time = year+'-' + month+'-' + day
 			this.dataList.ccrq = time
 			this.dataList.createtime = time

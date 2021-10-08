@@ -302,7 +302,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "隐患整改",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": true
             }
             
         }
@@ -682,6 +682,24 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/news/gonggao",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "公告列表",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/news/updataGg",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "公告详情",
                 "enablePullDownRefresh": false
             }
             

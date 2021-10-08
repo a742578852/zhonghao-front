@@ -1,9 +1,14 @@
 <template>
 	<view>
 		<!-- <u-calendar v-model="show" :mode="mode" @change="change"></u-calendar> -->
-		<view class="cu-form-group">
+		<!-- <view class="cu-form-group">
 			<view class="title">组织单位:</view>
 			<input name="input" v-model="dataList.zzdw" ></input>
+		</view> -->
+		<view class="cu-form-group" @click="bmshow=true">
+			<view class="title">组织单位:</view>
+			<view class="uni-input" style="">{{dataList.zzdw}}</view>
+			<u-select v-model="bmshow" mode="mutil-column-auto" :list="arrayBz" @confirm="confirm"></u-select>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">演练项目:</view>
@@ -47,6 +52,8 @@
 	export default {
 		data() {
 			return {
+				bmshow:false,
+				arrayBz:[],
 				show:false,
 				mode:'date',
 				index:0,
@@ -82,6 +89,7 @@
 			}
 		},
 		onShow() {
+			this.arrayBz = uni.getStorageSync('arrayBz')
 			//获取当前时间
 			let date = new Date();
 			let year = date.getFullYear();
@@ -130,6 +138,10 @@
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index = e.detail.value
 				this.dataList.ylxs = this.arrayYlxs[this.index]
+			},
+			confirm(e){
+				this.dataList.zzdw = e[e.length-1].label
+				// this.bmid = e[e.length-1].extra
 			},
 			change(e){
 				console.log(e.result);

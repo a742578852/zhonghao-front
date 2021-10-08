@@ -151,7 +151,7 @@
 			</view>
 		</view>
 		<view class="deeps">
-			<text @click="dianji(0)" :class="{changeColor1: this.bian1==1}">安全公告</text>
+			<text @click="dianji(0)" :class="{changeColor1: this.bian1==1}">通知公告</text>
 			
 			<text @click="dianji(1)" :class="{changeColor1: this.bian2==1}">安全新闻</text>
 		</view>
@@ -160,7 +160,7 @@
 				<text>{{item.bt}}</text>
 			</view>
 		</view>
-		<view class="deeps1" v-for="(item,index) in notice" v-if="show">
+		<view class="deeps1" v-for="(item,index) in notice" v-if="show" @click="toGg()">
 			<view class="deeps1-item" hover-class="swing4">
 				<text>{{item.bt}}</text>
 			</view>
@@ -199,7 +199,7 @@
 				url: 'api/home/homeInfo',
 
 			})
-			console.log(res.data.data.admin);
+			
 			if (res.data.code == 205) {
 				uni.navigateTo({
 					url: '../login/login'
@@ -315,6 +315,12 @@
 			toNews() {
 				uni.navigateTo({
 					url: '../news/news'
+				})
+			},
+			//安全公告
+			toGg(){
+				uni.navigateTo({
+					url: '../news/gonggao'
 				})
 			},
 			//操作规程

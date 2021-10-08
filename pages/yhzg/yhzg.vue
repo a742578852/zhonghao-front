@@ -41,7 +41,7 @@
 			<view class="mid" hover-class="mid-hover" :data-index="index" v-for="(item,index) in csListArrl" v-if="index <= count" @touchstart="drawStart" @touchmove="drawMove" @touchend="drawEnd" :style="'right:'+item.right+'px'">
 				<view class="mid-item1" @click="updateYhzg(item)">
 					<text style="width: 65%;">{{item.zgdbh}}</text>
-					<text>{{item.jcry}}</text>
+					<text>{{item.authorname}}</text>
 				</view>
 				<view class="mid-item2" @click="updateYhzg(item)">
 					<text>{{item.yhxxjcrq}}</text>
@@ -49,7 +49,7 @@
 				<view class="mid-item3" @click="updateYhzg(item)">
 					<input type="text" v-model="item.jclx" maxlength="16" disabled=""/>
 				</view>
-				<view class="remove" @click="delData(item)">删除</view>
+				<view class="remove" @click="delData(item.docid)">删除</view>
 			</view>
 			<view class=""
 				style="width: 98%;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;height: 50rpx;">
@@ -171,15 +171,30 @@
 					this.$set(this.csListArrl[e.currentTarget.dataset.index],'right',0);
 				}
 			},
+			//具体删除操作
+			async delDatas() {
+				const res = await this.$myRequest({
+					method: 'POST',
+					url: 'api/danger/delDanger',
+					data: {
+						docid: this.uuid
+					}
+				})
+				
+				if (res.data.code == 200) {
+					uni.startPullDownRefresh();
+				}
+			},
 			//删除方法
-			delData(item){
-				console.log("删除")
+			delData(id){
+				var _this = this
+				this.uuid = id
 				uni.showModal({
 				    title: '提示',
 				    content: "确认删除？",
 					success: function (res) {
 						if (res.confirm) {
-							console.log('用户点击确定');
+							_this.delDatas()
 						} else if (res.cancel) {
 							console.log('用户点击取消');
 						}

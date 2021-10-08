@@ -1,11 +1,16 @@
 <template>
 	<view>
 		<u-calendar v-model="show" :mode="mode" @change="change"></u-calendar>
-		<view class="cu-form-group">
+		<!-- <view class="cu-form-group">
 			<view class="title"><span class='star'>*</span>作业单位:</view>
 			<picker @change="bindPickerChange" :value="index" :range="arrayBz" class="item2" style="">
 				<view class="uni-input" style="">{{arrayBz[index]}}</view>
 			</picker>
+		</view> -->
+		<view class="cu-form-group" @click="bmshow=true">
+			<view class="title">作业单位:</view>
+			<view class="uni-input" style="">{{dataList.zyszdw}}</view>
+			<u-select v-model="bmshow" mode="mutil-column-auto" :list="arrayBz" @confirm="confirm"></u-select>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">申请人:</view>
@@ -21,14 +26,14 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title">用电作业位置:</view>
-			<picker @change="bindPickerChange2" :value="index2" :range="arrayBz" class="item2" style="">
-				<view class="uni-input" style="">{{arrayBz[index2]}}</view>
+			<picker @change="bindPickerChange2" :value="index2" :range="arrayBzs" class="item2" style="">
+				<view class="uni-input" style="">{{arrayBzs[index2]}}</view>
 			</picker>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">用电详细位置:</view>
-			<picker @change="bindPickerChange3" :value="index3" :range="arrayBz" class="item2" style="">
-				<view class="uni-input" style="">{{arrayBz[index3]}}</view>
+			<picker @change="bindPickerChange3" :value="index3" :range="arrayBzs" class="item2" style="">
+				<view class="uni-input" style="">{{arrayBzs[index3]}}</view>
 			</picker>
 		</view>
 		<view class="cu-form-group" @click="getZb">
@@ -68,12 +73,13 @@
 				touxiang:'',
 				mode:'date',
 				show:false,
-				
+				bmshow:false,
 				index:0,
 				index1:0,
 				index2:0,
 				index3:0,
 				arrayBz:['安全部','财务部'],
+				arrayBzs:['安全部','财务部'],
 				mapList:{
 					docid:'',
 					appid:'630903BBB975486BBE509F4FFFBC6DB3',
@@ -95,7 +101,7 @@
 					pribeanname:'com.ruoyi.aqgl.tszyzjy.models.Lsydzyzjy',
 					sgdw:'',
 					
-					zyszdw:'生产部',
+					zyszdw:'',
 					zyszdwid:'',
 					zywzjzynr:'',
 					yjzysj:'',
@@ -117,6 +123,7 @@
 			return true;
 		},
 		onShow() {
+			this.arrayBz = uni.getStorageSync('arrayBz')
 			//获取当前时间
 			let date = new Date();
 			let year = date.getFullYear();
@@ -134,7 +141,7 @@
 			
 			var admin = uni.getStorageSync('admin')
 			this.dataList.authorname = admin.userName
-			
+			this.dataList.authorid = admin.userId
 		},
 		methods: {
 			//接收坐标
@@ -209,10 +216,14 @@
 				console.log(e.result);
 				this.dataList.yjzysj = e.result
 			},
-			bindPickerChange(e) {
-				console.log('picker发送选择改变，携带值为', e.target.value)
-				this.index = e.detail.value
-				this.dataList.zyszdw = this.arrayBz[this.index]
+			// bindPickerChange(e) {
+			// 	console.log('picker发送选择改变，携带值为', e.target.value)
+			// 	this.index = e.detail.value
+			// 	this.dataList.zyszdw = this.arrayBz[this.index]
+			// },
+			confirm(e){
+				this.dataList.zyszdw = e[e.length-1].label
+				// this.bmid = e[e.length-1].extra
 			},
 			bindPickerChange1(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)

@@ -8,11 +8,21 @@
 		<view class="cu-form-group">
 			<view class="title">发布状态:</view>
 			<picker @change="bindPickerChange" :value="index" :range="arrayZt" class="item2" style="" disabled="">
-				<view class="uni-input" style="">{{arrayZt[index]}}</view>
+				<view class="uni-input" style="">发布</view>
+			</picker>
+		</view>
+		<view class="cu-form-group">
+			<view class="title">限期:</view>
+			<picker @change="bindPickerChange" :value="index" :range="arrayZt" class="item2" style="" disabled="">
+				<view class="uni-input" style="">否</view>
 			</picker>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">发布日期:</view>
+			<input name="input" v-model="news.fbrq" disabled="" ></input>
+		</view>
+		<view class="cu-form-group">
+			<view class="title">截止日期:</view>
 			<input name="input" v-model="news.fbrq" disabled="" ></input>
 		</view>
 		<view class="cu-form-group">
@@ -24,8 +34,8 @@
 			<input name="input" v-model="news.authorname" disabled=""></input>
 		</view>
 		<view class="cu-form-group align-start">
-			<view class="title">新闻内容:</view>
-			<textarea  maxlength="-1"  v-model='news.xwnr' auto-height="true" disabled></textarea>
+			<view class="title">公告内容:</view>
+			<textarea  maxlength="-1"  v-model='news.tzggggnr' auto-height="true" disabled></textarea>
 		</view>
 		<!-- <view class="cu-form-group" @click="chooseImage">
 			<view class="title">附件:</view>
@@ -42,7 +52,7 @@
 				imgUrl:'',
 				show:false,
 				mode:'date',
-				index:0,
+				index:1,
 				arrayZt:['发布','拟稿'],
 				bt:'',
 				fbrq:'',
@@ -57,7 +67,7 @@
 				return false;
 			}
 			uni.navigateTo({
-				url:'./news'
+				url:'./gonggao'
 			})
 			return true;
 		},

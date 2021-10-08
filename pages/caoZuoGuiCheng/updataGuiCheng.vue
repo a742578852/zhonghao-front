@@ -5,11 +5,16 @@
 			<view class="title">操作规程名称:</view>
 			<input name="input" v-model="dataList.czgcmc" :disabled="up"></input>
 		</view>
-		<view class="cu-form-group">
+		<!-- <view class="cu-form-group">
 			<view class="title">发布单位:</view>
 			<picker @change="bindPickerChange" :value="index" :range="arrayfbdw" class="item2" style="" :disabled="up">
 				<view class="uni-input" style="">{{dataList.fbdw}}</view>
 			</picker>
+		</view> -->
+		<view class="cu-form-group" @click="bmshow=true">
+			<view class="title">发布单位:</view>
+			<view class="uni-input" style="">{{dataList.fbdw}}</view>
+			<u-select v-model="bmshow" mode="mutil-column-auto" :list="arrayfbdw" @confirm="confirm" :disabled="up"></u-select>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">最后修订日期:</view>
@@ -39,6 +44,7 @@
 	export default {
 		data() {
 			return {
+				bmshow:false,
 				up:true,
 				index:0,
 				show:false,
@@ -72,6 +78,9 @@
 			this.dataList = JSON.parse(option.items)
 			
 			this.dataList.createtime = this.dataList.createtime.substring(0,10)
+		},
+		onShow() {
+			this.arrayfbdw = uni.getStorageSync('arrayBz')
 		},
 		methods: {
 			calendar(){
@@ -113,10 +122,14 @@
 					})
 				}
 			},
-			bindPickerChange(e) {
-				console.log('picker发送选择改变，携带值为', e.target.value)
-				this.index = e.detail.value
-				this.dataList.fbdw = this.arrayfbdw[this.index]
+			// bindPickerChange(e) {
+			// 	console.log('picker发送选择改变，携带值为', e.target.value)
+			// 	this.index = e.detail.value
+			// 	this.dataList.fbdw = this.arrayfbdw[this.index]
+			// },
+			confirm(e){
+				this.dataList.fbdw = e[e.length-1].label
+				// this.bmid = e[e.length-1].extra
 			},
 			change(e){
 				console.log(e.result);

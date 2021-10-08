@@ -1,11 +1,16 @@
 <template>
 	<view>
 		<u-calendar v-model="show" :mode="mode" @change="change"></u-calendar>
-		<view class="cu-form-group">
+		<!-- <view class="cu-form-group">
 			<view class="title"><span class='star'>*</span>作业单位:</view>
 			<picker @change="bindPickerChange" :value="index" :range="arrayBz" class="item2" style="" :disabled="up">
 				<view class="uni-input" style="">{{dataList.dtzyszdw}}</view>
 			</picker>
+		</view> -->
+		<view class="cu-form-group" @click="bmshow=true">
+			<view class="title">作业单位:</view>
+			<view class="uni-input" style="">{{dataList.dtzyszdw}}</view>
+			<u-select v-model="bmshow" mode="mutil-column-auto" :list="arrayBz" @confirm="confirm"></u-select>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">申请人:</view>
@@ -21,13 +26,13 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title">动土位置:</view>
-			<picker @change="bindPickerChange2" :value="index2" :range="arrayBz" class="item2" style="" :disabled="up">
+			<picker @change="bindPickerChange2" :value="index2" :range="arrayBzs" class="item2" style="" :disabled="up">
 				<view class="uni-input" style="">{{dataList.zywzdw}}</view>
 			</picker>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">动土详细位置:</view>
-			<picker @change="bindPickerChange3" :value="index3" :range="arrayBz" class="item2" style="" :disabled="up">
+			<picker @change="bindPickerChange3" :value="index3" :range="arrayBzs" class="item2" style="" :disabled="up">
 				<view class="uni-input" style="">{{dataList.zywzqymc}}</view>
 			</picker>
 		</view>
@@ -56,6 +61,7 @@
 	export default {
 		data() {
 			return {
+				bmshow:false,
 				up:true,
 				imgUrl:'',
 				touxiang:'',
@@ -67,6 +73,7 @@
 				index2:0,
 				index3:0,
 				arrayBz:['安全部','财务部'],
+				arrayBzs:['安全部','财务部'],
 				dataList:{
 					docid:'',
 					appid:'1658FAA9492A4621A002530783200C07',
@@ -80,7 +87,7 @@
 					pribeanname:'com.ruoyi.aqgl.tszyzjy.models.Dhzyzjy',
 					sgdw:'',
 					
-					dtzyszdw:'生产部',
+					dtzyszdw:'',
 					dtzyszdwid:'',
 					dtzywzjnr:'',
 					yjzysj:'',
@@ -105,6 +112,9 @@
 			this.dataList = JSON.parse(option.items)
 			
 			this.dataList.createtime = this.dataList.createtime.substring(0,10)
+		},
+		onShow() {
+			this.arrayBz = uni.getStorageSync('arrayBz')
 		},
 		methods: {
 			calendar(){
@@ -161,10 +171,14 @@
 				console.log(e.result);
 				this.dataList.yjzysj = e.result
 			},
-			bindPickerChange(e) {
-				console.log('picker发送选择改变，携带值为', e.target.value)
-				this.index = e.detail.value
-				this.dataList.dtzyszdw = this.arrayBz[this.index]
+			// bindPickerChange(e) {
+			// 	console.log('picker发送选择改变，携带值为', e.target.value)
+			// 	this.index = e.detail.value
+			// 	this.dataList.dtzyszdw = this.arrayBz[this.index]
+			// },
+			confirm(e){
+				this.dataList.dtzyszdw = e[e.length-1].label
+				// this.bmid = e[e.length-1].extra
 			},
 			bindPickerChange1(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)

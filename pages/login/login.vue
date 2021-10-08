@@ -62,6 +62,7 @@
 				tx: '',
 				ip: '',
 				port: '',
+				arrayBz:[],
 				address: ''
 			}
 		},
@@ -107,17 +108,24 @@
 								password: that.From.PassWord
 							}
 						})
-						
+						console.log(res.data.data);
 						if (res.data.code == 200) {
 							uni.setStorageSync('admin', res.data.data.admin)
 							uni.setStorageSync('token', res.data.data.token)
 							uni.setStorageSync('username', that.From.UserName)
 							uni.setStorageSync('password', that.From.PassWord)
 							console.log(res.data.data.token);
-							console.log(res.data.data.admin);
+							
 							uni.switchTab({
 								url: '../index/index'
 							})
+							
+							const dept = await this.$myRequest({
+								method: 'POST',
+								url: 'api/other/getAllDept',
+							})
+							// this.arrayBz = dept.data.data
+							uni.setStorageSync('arrayBz', dept.data.data)
 						} else {
 							uni.showToast({
 								title: '用户名或密码错误'

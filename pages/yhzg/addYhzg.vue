@@ -32,18 +32,29 @@
 				<view class="uni-input" style="">{{arrayjclx[index2]}}</view>
 			</picker>
 		</view>
-		<view class="cu-form-group">
+		<!-- <view class="cu-form-group">
 			<view class="title">责任部门:</view>
 			<picker @change="bindPickerChange3" :value="index3" :range="arrayzrbm" class="item2" style="">
 				<view class="uni-input" style="">{{arrayzrbm[index3]}}</view>
 			</picker>
+		</view> -->
+		
+		<view class="cu-form-group" @click="bmshow=true">
+			<view class="title">责任部门:</view>
+			<view class="uni-input" style="">{{dataList.zrbmmc}}</view>
+			<u-select v-model="bmshow" mode="mutil-column-auto" :list="arrayBz" @confirm="confirm"></u-select>
 		</view>
-		<view class="cu-form-group">
+		<view class="cu-form-group" @click="bmshow1=true">
+			<view class="title">检查单位:</view>
+			<view class="uni-input" style="">{{dataList.jcdwmc}}</view>
+			<u-select v-model="bmshow1" mode="mutil-column-auto" :list="arrayBz" @confirm="jcdw"></u-select>
+		</view>
+		<!-- <view class="cu-form-group">
 			<view class="title">检查单位:</view>
 			<picker @change="bindPickerChange4" :value="index4" :range="arrayjcdw" class="item2" style="">
 				<view class="uni-input" style="">{{arrayjcdw[index4]}}</view>
 			</picker>
-		</view>
+		</view> -->
 		<view class="cu-form-group" @click="chooseImage">
 			<view class="title">整改前照片:</view>
 			<image :src="imgUrl" style="width: 80upx;height: 80upx;margin-left: 280upx;"></image>
@@ -58,14 +69,19 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title">检查区域:</view>
-			<picker @change="bindPickerChange5" :value="index5" :range="arrayBz" class="item2" style="">
-				<view class="uni-input" style="">{{arrayBz[index5]}}</view>
+			<picker @change="bindPickerChange5" :value="index5" :range="arrayBzs" class="item2" style="">
+				<view class="uni-input" style="">{{arrayBzs[index5]}}</view>
 			</picker>
 		</view>
+		<!-- <view class="cu-form-group" @click="bmshow=true">
+			<view class="title">检查区域:</view>
+			<view class="uni-input" style="">{{dataList.zywzdw}}</view>
+			<u-select v-model="bmshow" mode="mutil-column-auto" :list="arrayBz" @confirm="jcqy"></u-select>
+		</view> -->
 		<view class="cu-form-group">
 			<view class="title">检查详细区域:</view>
-			<picker @change="bindPickerChange6" :value="index6" :range="arrayBz" class="item2" style="">
-				<view class="uni-input" style="">{{arrayBz[index6]}}</view>
+			<picker @change="bindPickerChange6" :value="index6" :range="arrayBzs" class="item2" style="">
+				<view class="uni-input" style="">{{arrayBzs[index6]}}</view>
 			</picker>
 		</view>
 		<view class="" style="width: 98%;background-color: #ffffd7;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;">
@@ -85,30 +101,30 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title">填报日期:</view>
-			<input name="input" v-model="dataList.zzzgtxrq" disabled="" @click="show3 = true"></input>
+			<input name="input" v-model="dataList.zzzgtxrq" disabled="" ></input>
 		</view>
 		<view class="" style="width: 98%;background-color: #ffffd7;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;">
 			<text>问题整改</text>
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">整改情况:</view>
-			<textarea maxlength="-1"  v-model='dataList.wtyzzgqk'></textarea>
+			<textarea maxlength="-1"  v-model='dataList.wtyzzgqk' disabled=""></textarea>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">整改人:</view>
-			<input name="input" v-model="dataList.zgr" ></input>
+			<input name="input" v-model="dataList.zgr" disabled=""></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">整改完成日期:</view>
-			<input name="input" v-model="dataList.zgwcrq" disabled="" @click="show2 = true"></input>
+			<input name="input" v-model="dataList.zgwcrq" disabled="" ></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">治理资金(元):</view>
-			<input name="input" v-model="dataList.zlzj" ></input>
+			<input name="input" v-model="dataList.zlzj" disabled=""></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">填写日期:</view>
-			<input name="input" v-model="dataList.zgrtxrq" disabled="" @click="show4 = true"></input>
+			<input name="input" v-model="dataList.zgrtxrq" disabled="" ></input>
 		</view>
 		<view class="cu-form-group" @click="chooseImage1">
 			<view class="title">整改后照片:</view>
@@ -119,17 +135,17 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title">原因分析:</view>
-			<picker @change="bindPickerChange7" :value="index7" :range="arrayYy" class="item2" style="">
+			<picker @change="bindPickerChange7" :value="index7" :range="arrayYy" class="item2" style="" disabled="">
 				<view class="uni-input" style="">{{arrayYy[index7]}}</view>
 			</picker>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">验证人:</view>
-			<input name="input" v-model="dataList.yzr" ></input>
+			<input name="input" v-model="dataList.yzr" disabled=""></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">填写日期:</view>
-			<input name="input" v-model="dataList.yzrtxrq" disabled="" @click="show5 = true"></input>
+			<input name="input" v-model="dataList.yzrtxrq" disabled="" ></input>
 		</view>
 		<view class="cu-form-group" @click="chooseImage2">
 			<view class="title">验证照片:</view>
@@ -137,7 +153,7 @@
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">验证情况:</view>
-			<textarea maxlength="-1"  v-model='dataList.yzqk'></textarea>
+			<textarea maxlength="-1"  v-model='dataList.yzqk' disabled=""></textarea>
 		</view>
 		<button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="addYh">确定</button>
 	</view>
@@ -147,6 +163,8 @@
 	export default {
 		data() {
 			return {
+				bmshow:false,
+				bmshow1:false,
 				mode:'date',
 				show:false,
 				show1:false,
@@ -171,8 +189,10 @@
 				arrayjclx:['日常检查','综合性检查','专业性检查','季节性检查','重大活动及节假日前检查','事故类比检查','上级公司检查','政府执法检查','重大危险源检查'],
 				arrayzrbm:['安全部','财务部'],
 				arrayjcdw:['安全部','财务部'],
-				arrayBz:['安全部','财务部'],
+				arrayBzs:['安全部','财务部'],
+				arrayBz:[],
 				arrayYy:['人','物','料','法','环'],
+				bh:'',
 				dataList:{
 					docid:'',
 					appid:'E45FFBBEC8C94B3CA3D453389AFD83C6',
@@ -181,6 +201,7 @@
 					authororgid:'',
 					authororgname:'生产部',
 					createtime:'',
+					zgdbh:'',
 					lastmodifiedtime:'',
 					appname:'整改通知流程',
 					pribeanname:'com.ruoyi.aqgl.jcyzg.models.Zgtz',
@@ -188,8 +209,8 @@
 					yhdj:'一般隐患',//隐患等级
 					jccj:'班组级',//检查层级
 					jclx:'日常检查',//检查类型
-					jcdwmc:'安全部',//检查单位
-					zrbmmc:'安全部',//责任部门
+					jcdwmc:'',//检查单位
+					zrbmmc:'',//责任部门
 					jcry:'',//检查人
 					zywzdw:'安全部',//检查区域
 					zywzqymc:'安全部',//详细区域
@@ -222,28 +243,59 @@
 			})
 			return true;
 		},
-		onShow() {
-			//获取当前时间
-			let date = new Date();
-			let year = date.getFullYear();
-			let month = date.getMonth() + 1;
-			let day = date.getDate();
-			if(month < 10){
-				month = '0' + month;
-			}
-			if(day < 10){
-				day = '0' + day;
-			}
-			var time = year+'-' + month+'-' + day
-			this.dataList.yhxxjcrq = time
-			this.dataList.createtime = time
+		async onShow() {
+			// const dept = await this.$myRequest({
+			// 	method: 'POST',
+			// 	url: 'api/other/getAllDept',
+			// })
+			this.arrayBz = uni.getStorageSync('arrayBz')
 			
+			this.getBh()
+			let date = new Date()
+			let year = date.getFullYear();
+			let M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
+			let D = date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate()
+			var time = year+ '-' + M + '-' + D
+			this.dataList.yhxxjcrq = time
 			var admin = uni.getStorageSync('admin')
 			this.dataList.authorname = admin.userName
 			this.dataList.authorid = admin.userId
 		},
-		methods: {
+		methods: { 
+			//获取当前时间
+			getCurrentTime() {
+			
+			    let date = new Date()
+				let year = date.getFullYear();
+			    let M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
+			    let D = date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate()
+			    let hours = date.getHours()
+			    let minutes = date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()
+			    let seconds = date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds()
+			    date = year+ '-' + M + '-' + D + ' ' + hours + ':' + minutes + ':' + seconds
+			    return date
+			
+			},
+			async getBh(){
+				const res = await this.$myRequest({
+					method: 'POST',
+					url: 'api/danger/getDangerList',
+				})
+				if (res.data.code == 200) {
+					this.bh = res.data.data[0].zgdbh.substring(11)
+				}
+			},
 			async addYh(){
+				console.log(this.bh);
+				let date = new Date()
+				let year = date.getFullYear();
+				 var bhs = parseInt(this.bh)+1
+				 
+				if(bhs<1000){
+					this.dataList.zgdbh = 'YHZGD-'+year+'-'+'0'+bhs
+				}else{
+					this.dataList.zgdbh = 'YHZGD-'+year+'-'+bhs
+				}
 				this.dataList.docid = this.guid2()
 				console.log(this.dataList.docid);
 				var token = uni.getStorageSync('token')
@@ -337,21 +389,36 @@
 				this.index2 = e.detail.value
 				this.dataList.jclx = this.arrayjclx[this.index2]
 			},
-			bindPickerChange3(e) {
-				console.log('picker发送选择改变，携带值为', e.target.value)
-				this.index3 = e.detail.value
-				this.dataList.zrbmmc = this.arrayzrbm[this.index3]
+			// bindPickerChange3(e) {
+			// 	console.log('picker发送选择改变，携带值为', e.target.value)
+			// 	this.index3 = e.detail.value
+			// 	this.dataList.zrbmmc = this.arrayzrbm[this.index3]
+			// },
+			confirm(e){
+				this.dataList.zrbmmc = e[e.length-1].label
+				// this.bmid = e[e.length-1].extra
 			},
-			bindPickerChange4(e) {
-				console.log('picker发送选择改变，携带值为', e.target.value)
-				this.index4 = e.detail.value
-				this.dataList.jcdwmc = this.arrayjcdw[this.index4]
+			jcdw(i){
+				console.log(JSON.stringify(i));
+				this.dataList.jcdwmc = i[i.length-1].label
+				console.log(i[i.length-1].label);
+				// this.bmid = e[e.length-1].extra
 			},
+			// bindPickerChange4(e) {
+			// 	console.log('picker发送选择改变，携带值为', e.target.value)
+			// 	this.index4 = e.detail.value
+			// 	this.dataList.jcdwmc = this.arrayjcdw[this.index4]
+			// },
 			bindPickerChange5(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index5 = e.detail.value
 				this.dataList.zywzdw = this.arrayBz[this.index5]
 			},
+			// jcqy(e){
+			// 	console.log(JSON.stringify(e));
+			// 	this.dataList.zywzdw = e[e.length-1].label
+			// 	// this.bmid = e[e.length-1].extra
+			// },
 			bindPickerChange6(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index6 = e.detail.value

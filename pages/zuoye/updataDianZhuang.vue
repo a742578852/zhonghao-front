@@ -7,11 +7,16 @@
 				<view class="uni-input" style="">{{dataList.zyjb}}</view>
 			</picker>
 		</view>
-		<view class="cu-form-group">
+		<!-- <view class="cu-form-group">
 			<view class="title"><span class='star'>*</span>作业单位:</view>
 			<picker @change="bindPickerChange" :value="index" :range="arrayBz" class="item2" style="" :disabled="up">
 				<view class="uni-input" style="">{{dataList.dzzyszdw}}</view>
 			</picker>
+		</view> -->
+		<view class="cu-form-group" @click="bmshow=true">
+			<view class="title">作业单位:</view>
+			<view class="uni-input" style="">{{dataList.dzzyszdw}}</view>
+			<u-select v-model="bmshow" mode="mutil-column-auto" :list="arrayBz" @confirm="confirm"></u-select>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">申请人:</view>
@@ -62,6 +67,7 @@
 	export default {
 		data() {
 			return {
+				bmshow:false,
 				up:true,
 				imgUrl:'',
 				touxiang:'',
@@ -86,7 +92,7 @@
 					pribeanname:'com.ruoyi.aqgl.tszyzjy.models.Dzzyzjy',
 					sgdw:'',
 					
-					dzzyszdw:'生产部',
+					dzzyszdw:'',
 					dzzyszdwid:'',
 					dzzywzjnr:'',
 					yjzysj:'',
@@ -111,6 +117,9 @@
 			this.dataList = JSON.parse(option.items)
 			
 			this.dataList.createtime = this.dataList.createtime.substring(0,10)
+		},
+		onShow() {
+			this.arrayBz = uni.getStorageSync('arrayBz')
 		},
 		methods: {
 			calendar(){
@@ -168,10 +177,14 @@
 				console.log(e.result);
 				this.dataList.yjzysj = e.result
 			},
-			bindPickerChange(e) {
-				console.log('picker发送选择改变，携带值为', e.target.value)
-				this.index = e.detail.value
-				this.dataList.dzzyszdw = this.arrayBz[this.index]
+			// bindPickerChange(e) {
+			// 	console.log('picker发送选择改变，携带值为', e.target.value)
+			// 	this.index = e.detail.value
+			// 	this.dataList.dzzyszdw = this.arrayBz[this.index]
+			// },
+			confirm(e){
+				this.dataList.dzzyszdw = e[e.length-1].label
+				// this.bmid = e[e.length-1].extra
 			},
 			bindPickerChange1(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
