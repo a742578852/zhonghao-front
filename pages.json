@@ -13,7 +13,12 @@
 			"path": "pages/login/login",
 			"style": {
 				"navigationBarTitleText": "登录",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+				"app-plus":{
+					"titleNView":{
+						"autoBackButton":false
+					}
+				}
 			}
 
 		}

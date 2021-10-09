@@ -410,7 +410,7 @@
 			// 	this.dataList.jcdwmc = this.arrayjcdw[this.index4]
 			// },
 			bindPickerChange5(e) {
-				console.log('picker发送选择改变，携带值为', e.target.value)
+				console.log('picker发送选择改变，携带值为', e.detail.value)
 				this.index5 = e.detail.value
 				this.dataList.zywzdw = this.arrayBz[this.index5]
 			},

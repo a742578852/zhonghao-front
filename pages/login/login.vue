@@ -77,6 +77,7 @@
 		onBackPress(options) {
 			return true;
 		},
+		
 		methods: {
 
 			/* 

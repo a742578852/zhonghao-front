@@ -47,7 +47,7 @@
 					<text>{{item.yhxxjcrq}}</text>
 				</view>
 				<view class="mid-item3" @click="updateYhzg(item)">
-					<input type="text" v-model="item.jclx" maxlength="16" disabled=""/>
+					<input type="text" v-model="item.bhgys" maxlength="16" disabled=""/>
 				</view>
 				<view class="remove" @click="delData(item.docid)">删除</view>
 			</view>
