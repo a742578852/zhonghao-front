@@ -1,5 +1,32 @@
 <template>
 	<view>
+		<u-popup v-model="bmChoiseShow" mode="center" width="90%" height="75%" border-radius="14">
+			<view class="cu-form-group" @click="bmChoise=true" style="margin-bottom: 20rpx;">
+				<view class="title">选择部门:</view>
+				<view class="uni-input" style="border-bottom: solid 1rpx #cfcfcf;width: 300rpx;">{{bumen}}</view>
+				<u-select v-model="bmChoise" mode="mutil-column-auto" :list="arrayBz" @confirm="bmconfirm"></u-select>
+			</view>
+			<view class="" style="width: 98%;background-color: #ffffd7;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;margin-bottom: 20rpx;">
+				<text>部门人员</text>
+			</view>
+			<view class="bm">
+				<view class="bmry" v-for="(item,index) in bmry">
+					<text @click="addRy(item)">{{item}}</text>
+				</view>
+			</view>
+			<view class="" style="width: 98%;background-color: #ffffd7;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;">
+				<text>已选择人员</text>
+			</view>
+			<view class="bms">
+				<view class="bmrys" v-for="(item,index) in xzry" >
+					<u-tag :text="item" mode="light"  closeable  @close="tagClick(item)" />
+				</view>
+			</view>
+				<button type="primary" size="mini" style="width: 50%;margin-left: 25%;margin-top: 30rpx;" @click="tianjia">确定</button>
+			
+			
+		</u-popup>
+		
 		<u-calendar v-model="show" :mode="mode" @change="change"></u-calendar>
 		<u-calendar v-model="show1" :mode="mode" @change="change1"></u-calendar>
 		<u-calendar v-model="show2" :mode="mode" @change="change2"></u-calendar>
@@ -59,9 +86,9 @@
 			<view class="title">整改前照片:</view>
 			<image :src="imgUrl" style="width: 80upx;height: 80upx;margin-left: 280upx;"></image>
 		</view>
-		<view class="cu-form-group">
+		<view class="cu-form-group" @click="bmChoiseShow = true">
 			<view class="title">检查人:</view>
-			<input name="input" v-model="dataList.jcry" ></input>
+			<input name="input" v-model="dataList.jcry" disabled=""></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">检查日期:</view>
@@ -69,19 +96,14 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title">检查区域:</view>
-			<picker @change="bindPickerChange5" :value="index5" :range="arrayBzs" class="item2" style="">
-				<view class="uni-input" style="">{{arrayBzs[index5]}}</view>
+			<picker @change="bindPickerChange5" :value="index5" :range="arrayArea1" class="item2" style="">
+				<view class="uni-input" style="">{{arrayArea1[index5]}}</view>
 			</picker>
 		</view>
-		<!-- <view class="cu-form-group" @click="bmshow=true">
-			<view class="title">检查区域:</view>
-			<view class="uni-input" style="">{{dataList.zywzdw}}</view>
-			<u-select v-model="bmshow" mode="mutil-column-auto" :list="arrayBz" @confirm="jcqy"></u-select>
-		</view> -->
 		<view class="cu-form-group">
 			<view class="title">检查详细区域:</view>
-			<picker @change="bindPickerChange6" :value="index6" :range="arrayBzs" class="item2" style="">
-				<view class="uni-input" style="">{{arrayBzs[index6]}}</view>
+			<picker @change="bindPickerChange6" :value="index6" :range="arrayArea2" class="item2" style="">
+				<view class="uni-input" style="">{{arrayArea2[index6]}}</view>
 			</picker>
 		</view>
 		<view class="" style="width: 98%;background-color: #ffffd7;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;">
@@ -163,6 +185,14 @@
 	export default {
 		data() {
 			return {
+				showTag:true,
+				bmobj:[],//部门对象
+				bmry:[],//部门人员
+				xzry:[],//已选择人员
+				bmid:'',
+				bumen:'',
+				bmChoiseShow:false,
+				bmChoise:false,
 				bmshow:false,
 				bmshow1:false,
 				mode:'date',
@@ -175,7 +205,7 @@
 				imgUrl:'',
 				imgUrl1:'',
 				imgUrl2:'',
-				
+				did:'29148AF2448A43118C5A78D101FB3EFB',
 				index:0,
 				index1:0,
 				index2:0,
@@ -189,7 +219,8 @@
 				arrayjclx:['日常检查','综合性检查','专业性检查','季节性检查','重大活动及节假日前检查','事故类比检查','上级公司检查','政府执法检查','重大危险源检查'],
 				arrayzrbm:['安全部','财务部'],
 				arrayjcdw:['安全部','财务部'],
-				arrayBzs:['安全部','财务部'],
+				arrayArea1:[],
+				arrayArea2:[],
 				arrayBz:[],
 				arrayYy:['人','物','料','法','环'],
 				bh:'',
@@ -212,8 +243,8 @@
 					jcdwmc:'',//检查单位
 					zrbmmc:'',//责任部门
 					jcry:'',//检查人
-					zywzdw:'安全部',//检查区域
-					zywzqymc:'安全部',//详细区域
+					zywzdw:'动力车间',//检查区域
+					zywzqymc:'中控配电室---李文明',//详细区域
 					yhxxjcrq:'',//检查日期
 					
 					zzzgtbr:'',//整改填报人
@@ -244,11 +275,12 @@
 			return true;
 		},
 		async onShow() {
-			// const dept = await this.$myRequest({
-			// 	method: 'POST',
-			// 	url: 'api/other/getAllDept',
-			// })
+			//从缓存获取所有部门
 			this.arrayBz = uni.getStorageSync('arrayBz')
+			
+			//从缓存获取所有一级区域
+			this.arrayArea1 = uni.getStorageSync('arrayArea')
+			this.getArea2()//获取二级区域
 			
 			this.getBh()
 			let date = new Date()
@@ -262,6 +294,40 @@
 			this.dataList.authorid = admin.userId
 		},
 		methods: { 
+			//删除选择人员
+			tagClick(item){
+				console.log(item);
+				for(var i=0;i<this.xzry.length;i++){
+					if(this.xzry[i] == item){
+						this.xzry.splice(i,1)
+					}
+				}
+			},
+			//添加人员
+			addRy(item){
+				this.xzry.push(item)
+				this.dataList.jcry +=item+';'
+			},
+			tianjia(){
+				this.bmChoiseShow = false
+			},
+			//获取二级区域
+			async getArea2(){
+				const area = await this.$myRequest({
+					method: 'POST',
+					url: 'api/other/getTwoArea',
+					data:{
+						docid:this.did
+					}
+				})
+				if(area.data.code==200){
+					this.arrayArea2 = []
+					for(var i=0;i<area.data.data.length;i++){
+						this.arrayArea2.push(area.data.data[i].qymc+'---'+area.data.data[i].zrr)
+					}
+					this.dataList.zywzqymc = this.arrayArea2[0]
+				}
+			},
 			//获取当前时间
 			getCurrentTime() {
 			
@@ -275,6 +341,25 @@
 			    date = year+ '-' + M + '-' + D + ' ' + hours + ':' + minutes + ':' + seconds
 			    return date
 			
+			},
+			//根据部门ID查询人员
+			async getByMid(){
+				const res = await this.$myRequest({
+					method: 'POST',
+					url: 'api/other/getUserByDeptId',
+					data:{
+						deptId :this.bmid
+					}
+				})
+				console.log(JSON.stringify(res));
+				if (res.data.code == 200) {
+					this.bmobj = res.data.data
+					console.log(this.bmobj.length);
+					for(var i=0;i<this.bmobj.length;i++){
+						this.bmry.push(this.bmobj[i].userName)
+					}
+					console.log(this.bmry.length);
+				}
 			},
 			async getBh(){
 				const res = await this.$myRequest({
@@ -404,6 +489,11 @@
 				console.log(i[i.length-1].label);
 				// this.bmid = e[e.length-1].extra
 			},
+			bmconfirm(e){
+				this.bumen = e[e.length-1].label
+				this.bmid = e[0].extra
+				this.getByMid()
+			},
 			// bindPickerChange4(e) {
 			// 	console.log('picker发送选择改变，携带值为', e.target.value)
 			// 	this.index4 = e.detail.value
@@ -412,7 +502,15 @@
 			bindPickerChange5(e) {
 				console.log('picker发送选择改变，携带值为', e.detail.value)
 				this.index5 = e.detail.value
-				this.dataList.zywzdw = this.arrayBz[this.index5]
+				this.dataList.zywzdw = this.arrayArea1[this.index5]
+				var areas = uni.getStorageSync('areas')
+				for(var i=0;i<areas.length;i++){
+					if(this.dataList.zywzdw == areas[i].dw){
+						this.did = areas[i].docid
+						break
+					}
+				}
+				this.getArea2()
 			},
 			// jcqy(e){
 			// 	console.log(JSON.stringify(e));
@@ -436,5 +534,34 @@
 <style lang="scss">
 	.star {
 		color: red;
+	}
+	.bm {
+		width: 98%;
+		display: flex;
+		display: flex;
+		justify-content: space-around;
+		flex-wrap: wrap;
+		border-bottom: 2rpx solid #747474;
+		.bmry {
+			margin-bottom: 20rpx;
+			width: 15%;
+			height: 30rpx;
+			line-height: 30rpx;
+		}
+	}
+	.bms {
+		width: 98%;
+		display: flex;
+		display: flex;
+		justify-content: space-around;
+		flex-wrap: wrap;
+		
+		.bmrys {
+			margin-bottom: 20rpx;
+			width: 24%;
+			height: 30rpx;
+			line-height: 30rpx;
+	}
+	
 	}
 </style>

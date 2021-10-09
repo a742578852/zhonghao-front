@@ -63,6 +63,8 @@
 				ip: '',
 				port: '',
 				arrayBz:[],
+				arrayArea:[],
+				areas:[],
 				address: ''
 			}
 		},
@@ -120,13 +122,26 @@
 							uni.switchTab({
 								url: '../index/index'
 							})
-							
+							//所有部门
 							const dept = await this.$myRequest({
 								method: 'POST',
 								url: 'api/other/getAllDept',
 							})
-							// this.arrayBz = dept.data.data
 							uni.setStorageSync('arrayBz', dept.data.data)
+							
+							//所有一级区域
+							const area = await this.$myRequest({
+								method: 'POST',
+								url: 'api/other/getOneArea',
+							})
+							//一级区域对象
+							this.areas = area.data.data
+							console.log(this.areas);
+							uni.setStorageSync('areas',this.areas)
+							for(var i=0;i<this.areas.length;i++){
+								this.arrayArea.push(this.areas[i].dw)
+							}
+							uni.setStorageSync('arrayArea', this.arrayArea)
 						} else {
 							uni.showToast({
 								title: '用户名或密码错误'

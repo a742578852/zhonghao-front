@@ -68,13 +68,13 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title">检查区域:</view>
-			<picker @change="bindPickerChange5" :value="index5" :range="arrayBz" class="item2" style="">
+			<picker @change="bindPickerChange5" :value="index5" :range="arrayArea1" class="item2" style="">
 				<view class="uni-input" style="">{{dataList.zywzdw}}</view>
 			</picker>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">检查详细区域:</view>
-			<picker @change="bindPickerChange6" :value="index6" :range="arrayBz" class="item2" style="">
+			<picker @change="bindPickerChange6" :value="index6" :range="arrayArea2" class="item2" style="">
 				<view class="uni-input" style="">{{dataList.zywzqymc}}</view>
 			</picker>
 		</view>
@@ -169,22 +169,7 @@
 				imgUrl:'',
 				imgUrl1:'',
 				imgUrl2:'',
-				yhwt:'',
-				fqr:'',
-				jcr:'',
-				jcrq:'',
-				zgcs:'',
-				zgqx:'',
-				tbr:'',
-				tbrq:'',
-				zgqk:'',
-				zgr:'',
-				zgwcrq:'',
-				zlzj:'',
-				txrq:'',
-				yzr:'',
-				txrq1:'',
-				yzqk:'',
+				
 				index:0,
 				index1:0,
 				index2:0,
@@ -199,7 +184,12 @@
 				arrayzrbm:['安全部','财务部'],
 				arrayjcdw:['安全部','财务部'],
 				arrayBz:['安全部','财务部'],
+				arrayArea1:[],
+				arrayArea2:[],
+				areas:[],
+				did:'',
 				arrayYy:['人','物','料','法','环'],
+				
 				dataList:{
 					docid:'',
 					appid:'E45FFBBEC8C94B3CA3D453389AFD83C6',
@@ -247,13 +237,42 @@
 			// this.dataList.createtime = this.dataList.createtime.substring(0,10)
 		},
 		async onShow() {
-			const dept = await this.$myRequest({
-				method: 'POST',
-				url: 'api/other/getAllDept',
-			})
-			this.arrayBz = dept.data.data
+			//获取所有区域对象
+			this.areas = uni.getStorageSync('areas')
+			this.getArea2()
+			//从缓存获取所有一级区域
+			this.arrayArea1 = uni.getStorageSync('arrayArea')
+			// const dept = await this.$myRequest({
+			// 	method: 'POST',
+			// 	url: 'api/other/getAllDept',
+			// })
+			//获取所有部门
+			this.arrayBz = uni.getStorageSync('arrayBz')
 		},
 		methods: {
+			//获取二级区域
+			async getArea2(){
+				for(var i=0;i<this.areas.length;i++){
+					if(this.dataList.zywzdw == this.areas[i].dw){
+						this.did = this.areas[i].docid
+						break
+					}
+				}
+				const area = await this.$myRequest({
+					method: 'POST',
+					url: 'api/other/getTwoArea',
+					data:{
+						docid:this.did
+					}
+				})
+				if(area.data.code==200){
+					this.arrayArea2 = []
+					for(var i=0;i<area.data.data.length;i++){
+						this.arrayArea2.push(area.data.data[i].qymc+'---'+area.data.data[i].zrr)
+					}
+					// this.dataList.zywzqymc = this.arrayArea2[0]
+				}
+			},
 			async updataYh(){
 				var token = uni.getStorageSync('token')
 				
@@ -364,12 +383,13 @@
 			bindPickerChange5(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index5 = e.detail.value
-				this.dataList.zywzdw = this.arrayBz[this.index5]
+				this.dataList.zywzdw = this.arrayArea1[this.index5]
+				this.getArea2()
 			},
 			bindPickerChange6(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index6 = e.detail.value
-				this.dataList.zywzqymc = this.arrayBz[this.index6]
+				this.dataList.zywzqymc = this.arrayArea2[this.index6]
 			},
 			bindPickerChange7(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
