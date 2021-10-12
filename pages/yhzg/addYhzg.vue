@@ -306,10 +306,12 @@
 			//添加人员
 			addRy(item){
 				this.xzry.push(item)
-				this.dataList.jcry +=item+';'
 			},
 			tianjia(){
 				this.bmChoiseShow = false
+				for(var i=0;i<this.xzry.length;i++){
+					this.dataList.jcry += this.xzry[i]+';'
+				}
 			},
 			//获取二级区域
 			async getArea2(){

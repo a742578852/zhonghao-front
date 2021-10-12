@@ -246,6 +246,18 @@
 					count: 1,
 					success: res => {
 						this.imgUrl = res.tempFilePaths[0]
+						 // uni.uploadFile({
+						 //            url: 'https://www.example.com/upload', //仅为示例，非真实的接口地址
+						 //            filePath: this.imgUrl
+						 //            // name: 'file',
+						 //            formData: {
+						 //                'appid':'',
+							// 			'docid':''
+						 //            },
+						 //            success: (uploadFileRes) => {
+						 //                console.log(uploadFileRes.data);
+						 //            }
+						 //        });
 					}
 				})
 			},

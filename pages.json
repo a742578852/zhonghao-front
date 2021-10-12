@@ -719,6 +719,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/grrw/grrw",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

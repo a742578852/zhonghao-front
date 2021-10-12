@@ -50,7 +50,7 @@
 		</view>
 		
 		<view class="" style="display: flex;justify-content: space-around;margin-top: 30rpx;">
-			<button type="primary" size="mini"  @click="up = false">修改</button>
+			<button type="primary" size="mini"  @click="up = false" :disabled="!up">修改</button>
 			<button type="primary" size="mini"  @click="updataDt">确定</button>
 		</view>
 		<!-- <u-avatar class="img" :src="touxiang" ></u-avatar> -->

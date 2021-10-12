@@ -33,7 +33,7 @@
 		</view>
 		
 		<view class="" style="display: flex;justify-content: space-around;margin-top: 50rpx;">
-			<button type="primary" size="mini"  @click="up = false">修改</button>
+			<button type="primary" size="mini"  @click="up = false" :disabled="!up">修改</button>
 			<button type="primary" size="mini"  @click="updataSw">确定</button>
 		</view>
 	</view>

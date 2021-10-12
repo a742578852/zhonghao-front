@@ -67,6 +67,13 @@
 				<text>重大危险源：{{zdwxy}}</text>
 			</view>
 		</view>
+		<view class="mid" @click="toGr">
+			<view class="mid1">
+				<image class="imgRy" src="../../static/dbrw.png" mode=""></image>
+				<text>个人任务：</text>
+				<text>{{dbrw}}条</text>
+			</view>
+		</view>
 		<view class="mids1">
 			<view class="mids1-item" hover-class="swing2" @click="toYdqt">
 				<text>有毒气体</text>
@@ -363,6 +370,9 @@
 				uni.navigateTo({
 					url: '../waittask/waitTask'
 				})
+			},
+			toGr(){
+				
 			}
 		}
 	}

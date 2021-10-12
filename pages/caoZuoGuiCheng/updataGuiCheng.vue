@@ -33,7 +33,7 @@
 			<input name="input" v-model="fj" disabled=""></input>
 		</view>
 		<view class="" style="display: flex;justify-content: space-around;margin-top: 50rpx;">
-			<button type="primary" size="mini"  @click="up = false">修改</button>
+			<button type="primary" size="mini"  @click="up = false" :disabled="!up">修改</button>
 			<button type="primary" size="mini"  @click="updataGc">确定</button>
 		</view>
 		

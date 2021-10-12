@@ -8,7 +8,7 @@
 		<u-calendar v-model="show5" :mode="mode" @change="change5"></u-calendar>
 		<view class="cu-form-group align-start">
 			<view class="title">隐患问题:</view>
-			<textarea maxlength="-1"  v-model='dataList.bhgys'></textarea>
+			<textarea maxlength="-1"  v-model='dataList.bhgys' :disabled="up"></textarea>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">发起人:</view>
@@ -16,19 +16,19 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title">隐患等级:</view>
-			<picker @change="bindPickerChange" :value="index" :range="arrayYhdj" class="item2" style="">
+			<picker @change="bindPickerChange" :value="index" :range="arrayYhdj" class="item2" style="" :disabled="up">
 				<view class="uni-input" style="">{{dataList.yhdj}}</view>
 			</picker>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">检查层级:</view>
-			<picker @change="bindPickerChange1" :value="index1" :range="arrayjccj" class="item2" style="">
+			<picker @change="bindPickerChange1" :value="index1" :range="arrayjccj" class="item2" style="" :disabled="up">
 				<view class="uni-input" style="">{{dataList.jccj}}</view>
 			</picker>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">检查类型:</view>
-			<picker @change="bindPickerChange2" :value="index2" :range="arrayjclx" class="item2" style="">
+			<picker @change="bindPickerChange2" :value="index2" :range="arrayjclx" class="item2" style="" :disabled="up">
 				<view class="uni-input" style="">{{dataList.jclx}}</view>
 			</picker>
 		</view>
@@ -68,13 +68,13 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title">检查区域:</view>
-			<picker @change="bindPickerChange5" :value="index5" :range="arrayArea1" class="item2" style="">
+			<picker @change="bindPickerChange5" :value="index5" :range="arrayArea1" class="item2" style=""  :disabled="up">
 				<view class="uni-input" style="">{{dataList.zywzdw}}</view>
 			</picker>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">检查详细区域:</view>
-			<picker @change="bindPickerChange6" :value="index6" :range="arrayArea2" class="item2" style="">
+			<picker @change="bindPickerChange6" :value="index6" :range="arrayArea2" class="item2" style="" :disabled="up">
 				<view class="uni-input" style="">{{dataList.zywzqymc}}</view>
 			</picker>
 		</view>
@@ -83,7 +83,7 @@
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">整改措施:</view>
-			<textarea maxlength="-1"  v-model='dataList.yhzgqk'></textarea>
+			<textarea maxlength="-1"  v-model='dataList.yhzgqk' :disabled="up"></textarea>
 		</view>
 		<view class="cu-form-group">
 			<view class="title"><span class='star'>*</span>整改期限:</view>
@@ -102,11 +102,11 @@
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">整改情况:</view>
-			<textarea maxlength="-1"  v-model='dataList.wtyzzgqk'></textarea>
+			<textarea maxlength="-1"  v-model='dataList.wtyzzgqk' :disabled="up"></textarea>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">整改人:</view>
-			<input name="input" v-model="dataList.zgr" ></input>
+			<input name="input" v-model="dataList.zgr"  :disabled="up"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">整改完成日期:</view>
@@ -114,7 +114,7 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title">治理资金(元):</view>
-			<input name="input" v-model="dataList.zlzj" ></input>
+			<input name="input" v-model="dataList.zlzj"  :disabled="up"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">填写日期:</view>
@@ -129,13 +129,13 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title">原因分析:</view>
-			<picker @change="bindPickerChange7" :value="index7" :range="arrayYy" class="item2" style="">
+			<picker @change="bindPickerChange7" :value="index7" :range="arrayYy" class="item2" style="" :disabled="up">
 				<view class="uni-input" style="">{{dataList.wtyzyyfx}}</view>
 			</picker>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">验证人:</view>
-			<input name="input" v-model="dataList.yzr" ></input>
+			<input name="input" v-model="dataList.yzr"  :disabled="up"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">填写日期:</view>
@@ -147,9 +147,13 @@
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">验证情况:</view>
-			<textarea maxlength="-1"  v-model='dataList.yzqk'></textarea>
+			<textarea maxlength="-1"  v-model='dataList.yzqk' :disabled="up"></textarea>
 		</view>
-		<button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="updataYh">确定</button>
+		<!-- <button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="updataYh">确定</button> -->
+		<view class="" style="display: flex;justify-content: space-around;margin-top: 30rpx;margin-bottom: 30rpx;">
+			<button type="primary" size="mini"  @click="up = false" :disabled="!up">修改</button>
+			<button type="primary" size="mini"  @click="updataYh">确定</button>
+		</view>
 	</view>
 </template>
 
@@ -157,6 +161,7 @@
 	export default {
 		data() {
 			return {
+				up:true,
 				bmshow:false,
 				bmshow1:false,
 				mode:'date',
