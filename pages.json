@@ -728,6 +728,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/grrw/updataGrrw",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

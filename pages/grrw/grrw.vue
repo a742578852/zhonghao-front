@@ -26,18 +26,18 @@
 			 </view> 
 		</view> --> 
 		<view class="" style="overflow: hidden;">
-			<view class="mid" hover-class="mid-hover" :data-index="index" v-for="(item,index) in csListArrl" v-if="index <= count" @touchstart="drawStart" @touchmove="drawMove" @touchend="drawEnd" :style="'right:'+item.right+'px'">
-				<view class="mid-item1" @click="updateAzw(item)">
+			<view class="mid" hover-class="mid-hover" :data-index="index" v-for="(item,index) in csListArrl" v-if="index <= count" >
+				<view class="mid-item1" @click="updateGrrw(item)">
 					<text style="width: 65%;">{{item.wjh}}</text>
 					<text>{{item.authorname}}</text>
 				</view>
-				<view class="mid-item2" @click="updateAzw(item)">
+				<view class="mid-item2" @click="updateGrrw(item)">
 					<text>{{item.yfrq}}</text>
 				</view>
-				<view class="mid-item3" @click="updateAzw(item)">
+				<view class="mid-item3" @click="updateGrrw(item)">
 					<input type="text" v-model="item.wj" maxlength="16" disabled=""/>
 				</view>
-				<view class="remove" @click="delData(item)">删除</view>
+				<!-- <view class="remove" @click="delData(item)">删除</view> -->
 			</view>
 			<view class=""
 				style="width: 98%;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;height: 50rpx;">
@@ -95,7 +95,7 @@
 		
 		},
 		methods: {
-			//获取安字文列表
+			//获取个人任务列表
 			async getList() {
 				const res = await this.$myRequest({
 					method: 'POST',
@@ -109,14 +109,14 @@
 					this.shanghua = ''
 				}
 			},
-			//新增安字文
+			//新增个人任务
 			addAzw(){
 				uni.navigateTo({
 					url:'./addAzw'
 				})
 			},
-			//查看/修改安字文
-			updateAzw(item){
+			//查看/修改个人任务
+			updateGrrw(item){
 				var items = JSON.stringify(item)
 				uni.navigateTo({
 					url:'./updataAzw?items='+items

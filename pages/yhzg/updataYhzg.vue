@@ -1,5 +1,86 @@
 <template>
 	<view>
+		<u-popup v-model="bmChoiseShow" mode="center" width="90%" height="75%" border-radius="14">
+			<view class="cu-form-group" @click="bmChoise=true" style="margin-bottom: 20rpx;">
+				<view class="title">选择部门:</view>
+				<view class="uni-input" style="border-bottom: solid 1rpx #cfcfcf;width: 300rpx;">{{bumen}}</view>
+				<u-select v-model="bmChoise" mode="mutil-column-auto" :list="arrayBz" @confirm="bmconfirm"></u-select>
+			</view>
+			<view class="" style="width: 98%;background-color: #ffffd7;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;margin-bottom: 20rpx;">
+				<text>部门人员</text>
+			</view>
+			<view class="bm">
+				<view class="bmry" v-for="(item,index) in bmry">
+					<text @click="addRy(item)">{{item}}</text>
+				</view>
+			</view>
+			<view class="" style="width: 98%;background-color: #ffffd7;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;">
+				<text>已选择人员</text>
+			</view>
+			<view class="bms">
+				<u-tag :text="xzry" mode="light"  closeable  @close="tagClick()" />
+				<!-- <view class="bmrys" v-for="(item,index) in xzry" >
+					<u-tag :text="item" mode="light"  closeable  @close="tagClick(item)" />
+				</view> -->
+			</view>
+				<button type="primary" size="mini" style="width: 50%;margin-left: 25%;margin-top: 30rpx;" @click="tianjia">确定</button>
+			
+			
+		</u-popup>
+		
+		<u-popup v-model="rizhi" mode="center" width="90%" height="75%" border-radius="14">
+			<scroll-view class="scroll-view_H" scroll-x="true" >
+				<view class="content" style="background-color: #bbfeff;font-size: 35rpx;">
+					<view class="content-item" style="width: 20%;">
+						<text>序号</text>
+					</view>
+					<view class="content-item">
+						<text>派发时间</text>
+					</view>
+					<view class="content-item" style="width: 40%;">
+						<text>派发人</text>
+					</view>
+					<view class="content-item">
+						<text>上一节点</text>
+					</view>
+					<view class="content-item">
+						<text>任务名称</text>
+					</view>
+					<view class="content-item">
+						<text>下一节点</text>
+					</view>
+					<view class="content-item">
+						<text>处理人</text>
+					</view>
+				</view>
+				<view class="content" v-for="(item,index) in rizhis">
+					<view class="content-item" style="width: 20%;">
+						<text>{{index+1}}</text>
+					</view>
+					<view class="content-item">
+						<text>{{item.gettime}}</text>
+					</view>
+					<view class="content-item" style="width: 40%;">
+						<text>{{item.preusername}}</text>
+					</view>
+					<view class="content-item">
+						<text>{{item.prenodename}}</text>
+					</view>
+					<view class="content-item">
+						<text>{{item.operatename}}</text>
+					</view>
+					<view class="content-item">
+						<text>{{item.nownodename}}</text>
+					</view>
+					<view class="content-item">
+						<text>{{item.nowusername}}</text>
+					</view>
+				</view>
+			</scroll-view>
+			
+		</u-popup>
+		
+		
 		<u-calendar v-model="show" :mode="mode" @change="change"></u-calendar>
 		<u-calendar v-model="show1" :mode="mode" @change="change1"></u-calendar>
 		<u-calendar v-model="show2" :mode="mode" @change="change2"></u-calendar>
@@ -64,7 +145,7 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title">检查日期:</view>
-			<input name="input" v-model="dataList.yhxxjcrq" disabled="" @click="show = true"></input>
+			<input name="input" v-model="dataList.yhxxjcrq" disabled="" @click="jcrq"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">检查区域:</view>
@@ -87,7 +168,7 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title"><span class='star'>*</span>整改期限:</view>
-			<input name="input" v-model="dataList.zzzgzgqx" disabled="" @click="show1 = true"></input>
+			<input name="input" v-model="dataList.zzzgzgqx" disabled="" @click="zgqx"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">填报人:</view>
@@ -102,23 +183,23 @@
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">整改情况:</view>
-			<textarea maxlength="-1"  v-model='dataList.wtyzzgqk' :disabled="up"></textarea>
+			<textarea maxlength="-1"  v-model='dataList.wtyzzgqk' :disabled="up1"></textarea>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">整改人:</view>
-			<input name="input" v-model="dataList.zgr"  :disabled="up"></input>
+			<input name="input" v-model="dataList.zgr"  :disabled="up1"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">整改完成日期:</view>
-			<input name="input" v-model="dataList.zgwcrq" disabled="" @click="show2 = true"></input>
+			<input name="input" v-model="dataList.zgwcrq" disabled="" @click="zgwcdrq"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">治理资金(元):</view>
-			<input name="input" v-model="dataList.zlzj"  :disabled="up"></input>
+			<input name="input" v-model="dataList.zlzj"  :disabled="up1"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">填写日期:</view>
-			<input name="input" v-model="dataList.zgrtxrq" disabled="" @click="show4 = true"></input>
+			<input name="input" v-model="dataList.zgrtxrq" disabled="" @click="zgtxrq"></input>
 		</view>
 		<view class="cu-form-group" @click="chooseImage1">
 			<view class="title">整改后照片:</view>
@@ -129,17 +210,17 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title">原因分析:</view>
-			<picker @change="bindPickerChange7" :value="index7" :range="arrayYy" class="item2" style="" :disabled="up">
+			<picker @change="bindPickerChange7" :value="index7" :range="arrayYy" class="item2" style="" :disabled="up2">
 				<view class="uni-input" style="">{{dataList.wtyzyyfx}}</view>
 			</picker>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">验证人:</view>
-			<input name="input" v-model="dataList.yzr"  :disabled="up"></input>
+			<input name="input" v-model="dataList.yzr"  disabled=""></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">填写日期:</view>
-			<input name="input" v-model="dataList.yzrtxrq" disabled="" @click="show5 = true"></input>
+			<input name="input" v-model="dataList.yzrtxrq" disabled="" @click="yztxrq"></input>
 		</view>
 		<view class="cu-form-group" @click="chooseImage2">
 			<view class="title">验证照片:</view>
@@ -151,7 +232,9 @@
 		</view>
 		<!-- <button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="updataYh">确定</button> -->
 		<view class="" style="display: flex;justify-content: space-around;margin-top: 30rpx;margin-bottom: 30rpx;">
-			<button type="primary" size="mini"  @click="up = false" :disabled="!up">修改</button>
+			<button type="primary" size="mini"  @click="xiugai">修改</button>
+			<button type="primary" size="mini"  @click="bmChoiseShow = true" :disabled="lz">流转</button>
+			<button type="primary" size="mini"  @click="rizhi = true">日志</button>
 			<button type="primary" size="mini"  @click="updataYh">确定</button>
 		</view>
 	</view>
@@ -161,7 +244,23 @@
 	export default {
 		data() {
 			return {
+				lz:true,//流转按钮
+				dqlc:'',//当前节点名称
+				dqlcclr:'',//当前流程处理人
+				yinhuaId:'',
+				rizhi:false,
+				rizhis:[],
+				bmobj:[],//部门对象
+				bmry:[],//部门人员
+				xzry:'',//已选择人员
+				bmChoiseShow:false,
+				bmChoise:false,
+				arrayBz:[],
+				bumen:'',
+				bmid:'',
 				up:true,
+				up1:true,
+				up2:true,
 				bmshow:false,
 				bmshow1:false,
 				mode:'date',
@@ -174,7 +273,7 @@
 				imgUrl:'',
 				imgUrl1:'',
 				imgUrl2:'',
-				
+				username:'',//登录人
 				index:0,
 				index1:0,
 				index2:0,
@@ -238,23 +337,147 @@
 		},
 		onLoad(option) {
 			this.dataList = JSON.parse(option.items)
+			this.yinhuaId = JSON.parse(option.items).docid
 			
 			// this.dataList.createtime = this.dataList.createtime.substring(0,10)
 		},
 		async onShow() {
+			//获取日志
+			this.getLog()
 			//获取所有区域对象
 			this.areas = uni.getStorageSync('areas')
 			this.getArea2()
 			//从缓存获取所有一级区域
 			this.arrayArea1 = uni.getStorageSync('arrayArea')
-			// const dept = await this.$myRequest({
-			// 	method: 'POST',
-			// 	url: 'api/other/getAllDept',
-			// })
+			
 			//获取所有部门
 			this.arrayBz = uni.getStorageSync('arrayBz')
+			//获取登录人
+			this.username = uni.getStorageSync('admin').userName
+			this.dataList.zzzgtbr = this.username
+			this.dataList.yzr = this.username
 		},
 		methods: {
+			//检查日期
+			jcrq(){
+				if(!this.up){
+					this.show = true
+					
+				}
+				
+			},
+			//整改期限
+			zgqx(){
+				if(!this.up){
+					this.show1 = true
+				}
+				
+			},
+			//整改完成日期
+			zgwcdrq(){
+				if(!this.up1){
+					this.show2 = true
+				}
+			},
+			//整改填写日期
+			zgtxrq(){
+				if(!this.up1){
+					this.show4 = true
+				}
+			},
+			//验证填写日期
+			yztxrq(){
+				if(!this.up2){
+					this.show5 = true
+				}
+				
+			},
+			//获取日志信息
+			async getLog(){
+				const res = await this.$myRequest({
+						method: 'POST',
+						url: 'api/flow/getFlowNode',
+						data:{
+							pdocid :this.yinhuaId
+						}
+					})
+					console.log(JSON.stringify(res));
+					if (res.data.code == 200) {
+						this.rizhis = res.data.data
+						this.dqlcclr = this.rizhis[this.rizhis.length-1].nowusername
+						this.dqlc = this.rizhis[this.rizhis.length-1].nownodename
+						//当前节点处理人是不是当前登录人
+						if(this.username == this.dqlcclr){
+							this.lz = false
+							if(this.dqlc == '填报隐患'){
+								this.up = false
+							}
+							if(this.dqlc == '问题整改'){
+								this.up1 = false
+							}
+							if(this.dqlc == '问题验证'){
+								this.up2 = false
+							}
+						}
+					}
+				
+			},
+			//修改按钮
+			xiugai(){
+				//当前节点处理人是不是当前登录人
+				if(this.username == this.dqlcclr){
+					if(this.dqlc == '填报隐患'){
+						this.up = false
+					}
+					if(this.dqlc == '问题整改'){
+						this.up1 = false
+					}
+					if(this.dqlc == '问题验证'){
+						this.up2 = false
+					}
+				}
+			},
+			//删除选择人员
+			tagClick(){
+				
+				this.xzry = ''
+			},
+			//添加人员
+			addRy(item){
+				this.xzry = []
+				this.xzry = item
+			},
+			//流转
+			tianjia(){
+				if(this.xzry == ''|| this.xzry == null){
+					uni.showToast({
+						title: '请选择流转人'
+					})
+				}else{
+					
+				}
+				this.bmChoiseShow = false
+				
+			},
+			//根据部门ID查询人员
+			async getByMid(){
+				const res = await this.$myRequest({
+					method: 'POST',
+					url: 'api/other/getUserByDeptId',
+					data:{
+						deptId :this.bmid
+					}
+				})
+				console.log(JSON.stringify(res));
+				if (res.data.code == 200) {
+					this.bmobj = res.data.data
+					console.log(this.bmobj.length);
+					for(var i=0;i<this.bmobj.length;i++){
+						this.bmry.push(this.bmobj[i].userName)
+					}
+					console.log(this.bmry.length);
+				}
+			},
 			//获取二级区域
 			async getArea2(){
 				for(var i=0;i<this.areas.length;i++){
@@ -278,6 +501,7 @@
 					// this.dataList.zywzqymc = this.arrayArea2[0]
 				}
 			},
+			//查看隐患
 			async updataYh(){
 				var token = uni.getStorageSync('token')
 				
@@ -292,6 +516,7 @@
 					
 				})
 				if(res.data.code == 200){
+					this.dataList.zzzgtbr = 
 					uni.navigateTo({
 						url:'./yhzg'
 					})
@@ -314,6 +539,11 @@
 						this.imgUrl1 = res.tempFilePaths[0]
 					}
 				})
+			},
+			bmconfirm(e){
+				this.bumen = e[e.length-1].label
+				this.bmid = e[0].extra
+				this.getByMid()
 			},
 			//上传验证照片
 			chooseImage2() {
@@ -408,5 +638,55 @@
 <style lang="scss">
 	.star {
 		color: red;
+	}
+	.bm {
+		width: 98%;
+		display: flex;
+		display: flex;
+		justify-content: space-around;
+		flex-wrap: wrap;
+		border-bottom: 2rpx solid #747474;
+		.bmry {
+			margin-bottom: 20rpx;
+			width: 15%;
+			height: 30rpx;
+			line-height: 30rpx;
+		}
+	}
+	.bms {
+		width: 98%;
+		display: flex;
+		display: flex;
+		justify-content: space-around;
+		flex-wrap: wrap;
+		
+		.bmrys {
+			margin-bottom: 20rpx;
+			width: 24%;
+			height: 30rpx;
+			line-height: 30rpx;
+	}
+	
+	}
+	.scroll-view_H {
+		// white-space: nowrap;
+		.content {
+			width: 170%;
+			margin-bottom: 10rpx;
+			padding-bottom: 10rpx;
+			padding-top: 10rpx;
+			background-color: #f3feff;
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			.content-item {
+				width: 40%;
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				white-space: pre-wrap;
+	
+			}
+		}
 	}
 </style>
