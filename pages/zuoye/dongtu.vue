@@ -25,6 +25,7 @@
 				</view>
 			</view>
 		</view>
+		<u-empty text="数据为空" mode="data" v-if='empty'></u-empty>
 		<view class="" style="overflow: hidden;">
 			<view class="mid" hover-class="mid-hover" :data-index="index" v-for="(item,index) in csListArrl" @touchstart="drawStart" @touchmove="drawMove" @touchend="drawEnd" :style="'right:'+item.right+'px'">
 				<view class="mid-item1" @click="updataDongTu(item)">
@@ -51,6 +52,7 @@
 	export default {
 		data() {
 			return {
+				empty:true,
 				show: false,
 				dtzyszdw:'',
 				delBtnWidth: 100,
@@ -106,6 +108,9 @@
 				}
 				if (this.csListArrl.length <= 8) {
 					this.shanghua = ''
+				}
+				if (this.csListArrl.length <= 0) {
+					this.empty = false
 				}
 			},
 			addDongTu(){

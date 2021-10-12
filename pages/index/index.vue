@@ -2,15 +2,15 @@
 	<view>
 		<view class="swipers">
 			<swiper class="swiper" indicator-dots="true" autoplay="true" circular="true">
-				<swiper-item class="swiper-item">
-					<image src="../../static/jpg1.jpg" mode=""></image>
+				<swiper-item class="swiper-item" v-for="item in img">
+					<image :src="item" mode=""></image>
 				</swiper-item>
-				<swiper-item class="swiper-item">
+				<!-- <swiper-item class="swiper-item">
 					<image src="../../static/jpg2.jpg" mode=""></image>
 				</swiper-item>
 				<swiper-item class="swiper-item">
 					<image src="../../static/jpg1.jpg" mode=""></image>
-				</swiper-item>
+				</swiper-item> -->
 			</swiper>
 		</view>
 		<view class="content">
@@ -53,6 +53,13 @@
 				<text>{{dbrw}}条</text>
 			</view>
 		</view>
+		<view class="mid" @click="toGr">
+			<view class="mid1">
+				<image class="imgRy" src="../../static/grrw.png" mode=""></image>
+				<text>个人任务：</text>
+				<text>{{dbrw}}条</text>
+			</view>
+		</view>
 		<view class="mids">
 			<view class="mids-item" hover-class="swing1" @click="toDrzy">
 				<text>当日作业票：{{drzyp}}</text>
@@ -67,13 +74,7 @@
 				<text>重大危险源：{{zdwxy}}</text>
 			</view>
 		</view>
-		<view class="mid" @click="toGr">
-			<view class="mid1">
-				<image class="imgRy" src="../../static/dbrw.png" mode=""></image>
-				<text>个人任务：</text>
-				<text>{{dbrw}}条</text>
-			</view>
-		</view>
+		
 		<view class="mids1">
 			<view class="mids1-item" hover-class="swing2" @click="toYdqt">
 				<text>有毒气体</text>
@@ -191,6 +192,7 @@
 				deptName:'',
 				bian1: '1',
 				bian2: '0',
+				img:[]
 			}
 		},
 		onLoad() {
@@ -206,7 +208,7 @@
 				url: 'api/home/homeInfo',
 
 			})
-			
+			console.log(res);
 			if (res.data.code == 205) {
 				uni.navigateTo({
 					url: '../login/login'
@@ -221,6 +223,8 @@
 				this.yhzgz = res.data.data.ingDanger
 				this.cqwzg = res.data.data.overDanger
 				this.zdwxy = res.data.data.allCount
+				this.img = res.data.data.banners
+				console.log(this.img);
 			}
 
 

@@ -26,7 +26,7 @@
 			</view>
 		</view>
 		<view class="" style="overflow: hidden;">
-			<view class="mid" hover-class="mid-hover" :data-index="index" v-for="(item,index) in csListArrl" v-if="index <= count" @touchstart="drawStart" @touchmove="drawMove" @touchend="drawEnd" :style="'right:'+item.right+'px'">
+			<view class="mid" hover-class="mid-hover" :data-index="index" v-for="(item,index) in csListArrl" v-if="index <= count" >
 				<view class="mid-item1" @click="updateAzw(item)">
 					<text style="width: 65%;">{{item.wjh}}</text>
 					<text>{{item.authorname}}</text>
@@ -37,7 +37,7 @@
 				<view class="mid-item3" @click="updateAzw(item)">
 					<input type="text" v-model="item.wj" maxlength="16" disabled=""/>
 				</view>
-				<view class="remove" @click="delData(item)">删除</view>
+				<!-- <view class="remove" @click="delData(item)">删除</view> -->
 			</view>
 			<view class=""
 				style="width: 98%;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;height: 50rpx;">
@@ -142,13 +142,13 @@
 			},
 			//开始触摸滑动
 			drawStart(e) {
-				console.log("开始触发");
+				
 				var touch = e.touches[0];
 				this.startX = touch.clientX;
 			},
 			//触摸滑动
 			drawMove(e) {
-				console.log("滑动");
+				
 				for (var index in this.csListArrl) {
 					this.$set(this.csListArrl[index],'right',0);
 				}
@@ -166,7 +166,7 @@
 			},
 			//触摸滑动结束
 			drawEnd(e) {
-				console.log("滑动结束");
+				
 				var item = this.csListArrl[e.currentTarget.dataset.index];
 				if (item.right >= this.delBtnWidth / 2) {
 					this.$set(this.csListArrl[e.currentTarget.dataset.index],'right',this.delBtnWidth);
@@ -176,7 +176,7 @@
 			},
 			//删除方法
 			delData(item){
-				console.log("删除")
+				
 				uni.showModal({
 				    title: '提示',
 				    content: "确认删除？",

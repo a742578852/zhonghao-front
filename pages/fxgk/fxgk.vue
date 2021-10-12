@@ -57,7 +57,7 @@
 				show: false,
 				delBtnWidth: 100,
 				riskList:[],
-				riskLists:{},
+				riskLists:[],
 				bsbw:'',
 				fxdj:'',
 				startX:'',
@@ -90,15 +90,10 @@
 				
 				var _this = this
 				setTimeout(function () {
-					
 						_this.count += 8
-					// for(var i=0;i<_this.count;i++){
-					// 	_this.riskList.push(_this.riskLists[i])
-					// }
 					if(_this.riskList.length <= 8){
 						_this.shanghua = '到底了'
 					}
-				    
 				}, 1000);
 				
 			},
@@ -110,11 +105,6 @@
 				})
 				if(res.data.code == 200){
 					this.riskList = res.data.data
-					// for(var i=0;i<this.count;i++){
-						
-					// 	this.riskList.push('23')  
-					// 	console.log(this.riskList[i]);
-					// }
 				}
 				if(this.riskList.length <= 8){
 					this.shanghua = ''
