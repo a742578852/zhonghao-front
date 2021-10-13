@@ -54,7 +54,8 @@
 			updateDbrw(item) {
 				console.log(item.title);
 				uni.navigateTo({
-					url:'danger/dangerDetail?item='+JSON.stringify(item)
+					// url:'../../updataYhzg?item='+JSON.stringify(item)
+					url:'../yhzg/updataYhzg?item='+JSON.stringify(item)
 				})
 			}
 		},

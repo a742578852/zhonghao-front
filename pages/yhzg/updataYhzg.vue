@@ -137,7 +137,13 @@
 		</view> -->
 		<view class="cu-form-group" @click="chooseImage">
 			<view class="title">整改前照片:</view>
-			<image :src="imgUrl" style="width: 80upx;height: 80upx;margin-left: 280upx;"></image>
+			<view>点击上传</view>
+		</view>
+		<view class="cu-form-group">
+			<view class="title">附件列表:</view>
+			<picker  @change="bindPickerChanges" :value="fjindex" :range="fj">
+				<view class="uni-input">{{fj[fjindex]}}</view>
+			</picker>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">检查人:</view>
@@ -203,7 +209,13 @@
 		</view>
 		<view class="cu-form-group" @click="chooseImage1">
 			<view class="title">整改后照片:</view>
-			<image :src="imgUrl1" style="width: 80upx;height: 80upx;margin-left: 280upx;"></image>
+			<view>点击上传</view>
+		</view>
+		<view class="cu-form-group">
+			<view class="title">附件列表:</view>
+			<picker  @change="bindPickerChanges1" :value="fjindex1" :range="fj1">
+				<view class="uni-input">{{fj1[fjindex1]}}</view>
+			</picker>
 		</view>
 		<view class="" style="width: 98%;background-color: #ffffd7;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;">
 			<text>问题验证</text>
@@ -224,7 +236,17 @@
 		</view>
 		<view class="cu-form-group" @click="chooseImage2">
 			<view class="title">验证照片:</view>
-			<image :src="imgUrl2" style="width: 80upx;height: 80upx;margin-left: 280upx;"></image>
+			<view>点击上传</view>
+		</view>
+		<view class="cu-form-group">
+			<view class="title">附件列表:</view>
+			<picker  @change="bindPickerChanges2" :value="fjindex2" :range="fj2">
+				<view class="uni-input">{{fj2[fjindex2]}}</view>
+			</picker>
+		</view>
+		<view class="cu-form-group" @click="shouqian">
+			<view class="title">手写签名:</view>
+			<input name="input" placeholder="点击进行签名"  disabled=""></input>
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">验证情况:</view>
@@ -244,6 +266,15 @@
 	export default {
 		data() {
 			return {
+				fj:[],
+				fjs:[],
+				fjindex:0,
+				fj1:[],
+				fjs1:[],
+				fjindex1:0,
+				fj2:[],
+				fjs2:[],
+				fjindex2:0,
 				lz:true,//流转按钮
 				dqlc:'',//当前节点名称
 				dqlcclr:'',//当前流程处理人
@@ -377,8 +408,36 @@
 			this.username = uni.getStorageSync('admin').userName
 			this.dataList.zzzgtbr = this.username
 			this.dataList.yzr = this.username
+			
+			//获取附件列表
+			const res = await this.$myRequest({
+				method: 'POST',
+				url: 'api/other/getFile',
+				data:{docid:this.dataList.docid}
+			})
+			for(var i = 0;i<res.data.data.length;i++){
+				
+				if(res.data.data[i].attachtype == 'fileinput-yhzp'){
+					this.fj.push(res.data.data[i].sfilename)
+					this.fjs.push(res.data.data[i])
+				}
+				if(res.data.data[i].attachtype == 'fileinput-zgzp'){
+					this.fj1.push(res.data.data[i].sfilename)
+					this.fjs1.push(res.data.data[i])
+				}
+				if(res.data.data[i].attachtype == 'fileinput-yzzp'){
+					this.fj2.push(res.data.data[i].sfilename)
+					this.fjs2.push(res.data.data[i])
+				}
+			}
+			// this.fjs = res.data.data
 		},
 		methods: {
+			shouqian(){
+				uni.navigateTo({
+					url:'../shouqian/shouqian'
+				})
+			},
 			//生成uuid
 			guid2() {
 			    function S4() {
@@ -624,18 +683,48 @@
 			//上传整改前照片
 			chooseImage() {
 				uni.chooseImage({
-					count: 1,
-					success: res => {
-						this.imgUrl = res.tempFilePaths[0]
+					success: (chooseImageRes) => {
+						const tempFilePaths = chooseImageRes.tempFilePaths;
+						uni.uploadFile({
+							url: 'http://127.0.0.1:8001/api/other/uploadFile', //仅为示例，非真实的接口地址
+							filePath: tempFilePaths[0],
+							name: 'files',
+							formData: {
+								'docid': this.dataList.docid,
+								'appid': this.dataList.appid,
+								'type': 'fileinput-gczyfj'
+							},
+							header: {
+								'token': uni.getStorageSync("token")
+							},
+							success: (uploadFileRes) => {
+								console.log(uploadFileRes.data);
+							}
+						});
 					}
 				})
 			},
 			//上传整改后照片
 			chooseImage1() {
 				uni.chooseImage({
-					count: 1,
-					success: res => {
-						this.imgUrl1 = res.tempFilePaths[0]
+					success: (chooseImageRes) => {
+						const tempFilePaths = chooseImageRes.tempFilePaths;
+						uni.uploadFile({
+							url: 'http://127.0.0.1:8001/api/other/uploadFile', //仅为示例，非真实的接口地址
+							filePath: tempFilePaths[0],
+							name: 'files',
+							formData: {
+								'docid': this.dataList.docid,
+								'appid': this.dataList.appid,
+								'type': 'fileinput-zgzp'
+							},
+							header: {
+								'token': uni.getStorageSync("token")
+							},
+							success: (uploadFileRes) => {
+								console.log(uploadFileRes.data);
+							}
+						});
 					}
 				})
 			},
@@ -647,9 +736,24 @@
 			//上传验证照片
 			chooseImage2() {
 				uni.chooseImage({
-					count: 1,
-					success: res => {
-						this.imgUrl2 = res.tempFilePaths[0]
+					success: (chooseImageRes) => {
+						const tempFilePaths = chooseImageRes.tempFilePaths;
+						uni.uploadFile({
+							url: 'http://127.0.0.1:8001/api/other/uploadFile', //仅为示例，非真实的接口地址
+							filePath: tempFilePaths[0],
+							name: 'files',
+							formData: {
+								'docid': this.dataList.docid,
+								'appid': this.dataList.appid,
+								'type': 'fileinput-yzzp'
+							},
+							header: {
+								'token': uni.getStorageSync("token")
+							},
+							success: (uploadFileRes) => {
+								console.log(uploadFileRes.data);
+							}
+						});
 					}
 				})
 			},
@@ -677,6 +781,33 @@
 				console.log(e.result);
 				this.dataList.yzrtxrq = e.result
 			},
+			bindPickerChanges: function(e) {
+			            console.log('picker发送选择改变，携带值为1111', e.target.value)
+			            this.fjindex = e.target.value
+						console.log(this.fjindex);
+						var path = 'http://124.70.192.154:7703/img/'+this.fjs[this.fjindex].filepath+this.fjs[this.fjindex].attachmentid
+						console.log(path);
+						window.open("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
+						
+			        },
+					bindPickerChanges1: function(e) {
+					            console.log('picker发送选择改变，携带值为1111', e.target.value)
+					            this.fjindex1 = e.target.value
+								console.log(this.fjindex);
+								var path = 'http://124.70.192.154:7703/img/'+this.fjs1[this.fjindex1].filepath+this.fjs1[this.fjindex1].attachmentid
+								console.log(path);
+								window.open("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
+								
+					        },
+							bindPickerChanges2: function(e) {
+							            console.log('picker发送选择改变，携带值为1111', e.target.value)
+							            this.fjindex2 = e.target.value
+										console.log(this.fjindex);
+										var path = 'http://124.70.192.154:7703/img/'+this.fjs2[this.fjindex2].filepath+this.fjs2[this.fjindex2].attachmentid
+										console.log(path);
+										window.open("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
+										
+							        },
 			bindPickerChange(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index = e.detail.value

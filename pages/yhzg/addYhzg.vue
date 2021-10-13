@@ -84,7 +84,7 @@
 		</view> -->
 		<view class="cu-form-group" @click="chooseImage">
 			<view class="title">整改前照片:</view>
-			<image :src="imgUrl" style="width: 80upx;height: 80upx;margin-left: 280upx;"></image>
+			<view>点击上传</view>
 		</view>
 		<view class="cu-form-group" @click="bmChoiseShow = true">
 			<view class="title">检查人:</view>
@@ -457,9 +457,24 @@
 			//上传整改前照片
 			chooseImage() {
 				uni.chooseImage({
-					count: 1,
-					success: res => {
-						this.imgUrl = res.tempFilePaths[0]
+					success: (chooseImageRes) => {
+						const tempFilePaths = chooseImageRes.tempFilePaths;
+						uni.uploadFile({
+							url: 'http://127.0.0.1:8001/api/other/uploadFile', //仅为示例，非真实的接口地址
+							filePath: tempFilePaths[0],
+							name: 'files',
+							formData: {
+								'docid': this.dataList.docid,
+								'appid': this.dataList.appid,
+								'type': 'fileinput-yhzp'
+							},
+							header: {
+								'token': uni.getStorageSync("token")
+							},
+							success: (uploadFileRes) => {
+								console.log(uploadFileRes.data);
+							}
+						});
 					}
 				})
 			},

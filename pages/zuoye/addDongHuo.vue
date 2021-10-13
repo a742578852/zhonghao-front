@@ -64,9 +64,15 @@
 		</view>
 		<view class="cu-form-group" @click="chooseImage">
 			<view class="title">上传附件:</view>
-			<image :src="imgUrl" style="width: 80upx;height: 80upx;margin-left: 280upx;"></image>
+			<view>点击上传</view>
 			<!-- <input name="input" v-model="dataList.fj" disabled=""></input> -->
 		</view>
+		<!-- <view class="cu-form-group">
+			<view class="title">附件列表:</view>
+			<picker  @change="bindPickerChange" :value="fjindex" :range="fj">
+				<view class="uni-input">{{fj[fjindex]}}</view>
+			</picker>
+		</view> -->
 		<button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="addDh">确定</button>
 		<!-- <u-avatar class="img" :src="touxiang" ></u-avatar> -->
 		
@@ -77,6 +83,9 @@
 	export default {
 		data() {
 			return {
+				fj:[],
+				fjs:[],
+				fjindex:0,
 				bmshow:false,
 				tempFilePaths:'',
 				imgUrl:'',
@@ -138,7 +147,7 @@
 			})
 			return true;
 		},
-		onShow() {
+		async onShow() {
 			//获取所有区域对象
 			this.areas = uni.getStorageSync('areas')
 			this.getArea2()
@@ -163,6 +172,18 @@
 			var admin = uni.getStorageSync('admin')
 			this.dataList.authorname = admin.userName
 			this.dataList.authorid = admin.userId
+			
+			//获取附件列表
+			const res = await this.$myRequest({
+				method: 'POST',
+				url: 'api/other/getFile',
+				data:{docid:this.dataList.docid}
+			})
+			for(var i = 0;i<res.data.data.length;i++){
+				this.fj.push(res.data.data[i].sfilename)
+			
+			}
+			this.fjs = res.data.data
 		},
 		methods: {
 			//获取二级区域
@@ -188,57 +209,7 @@
 					this.dataList.dhzywzqymc = this.arrayArea2[0]
 				}
 			},
-			//上传附件
-			// uploadFilesFun() {
-			// 	var token = uni.getStorageSync('token')
-			// 	var uid = this.guid2()
-			// 	console.log(uid);
-			//             var _this = this
-			//             var REQUESTCODE = 1;
-			//             var main = plus.android.runtimeMainActivity();
-			//             var Intent = plus.android.importClass('android.content.Intent');
-			//             var intent = new Intent(Intent.ACTION_GET_CONTENT);
-			//             intent.setType('*/*'); //设置类型，任意类型
-			//             //intent.setType("image/*");
-			//             //intent.setType("audio/*"); //选择音频
-			//             //intent.setType("video/*"); //选择视频 （mp4 3gp 是android支持的视频格式）
 			
-			//             intent.addCategory(Intent.CATEGORY_OPENABLE);
-			//             main.startActivityForResult(intent, REQUESTCODE);
-			
-			//             main.onActivityResult = function(requestCode, resultCode, data) {
-			//                 if (REQUESTCODE == requestCode) {
-			//                     var context = main;
-			//                     plus.android.importClass(data);
-			//                     // 获得文件路径
-			//                     var fileData = data.getData();
-			//                     var path = plus.android.invoke(fileData, 'getPath');
-			// 					_this.dataList.fj = plus.android.invoke(fileData, 'getPath');
-			//                     console.log('path:' + path);
-								
-			// 					uni.uploadFile({
-			// 					            url: 'http://192.168.103.133:8001/api/other/uploadFile', //仅为示例，非真实的接口地址
-			// 					            filePath: plus.android.invoke(fileData, 'getPath'),
-			// 					            name: 'file',
-			// 					            formData: {
-			// 					                'appid': '242E465CAE6642689258471054D2A707',
-			// 									'docid':uid,
-			// 									'token':token,
-			// 									'files':fileData
-			// 					            },
-			// 					            success: (uploadFileRes) => {
-			// 					                console.log(uploadFileRes.data);
-			// 					            }
-			// 					        });
-			
-			//                     // 判断文件类型
-			//                     var resolver = context.getContentResolver();
-			//                     var fileType = plus.android.invoke(resolver, 'getType', fileData);
-			//                     console.log('fileType:' + fileType);
-			//                 }
-			//             };
-			           
-			//         },
 			    
 			
 			//接收坐标
@@ -299,16 +270,25 @@
 			},
 			//上传附件
 			chooseImage() {
-				// var uid = this.guid2()
-				// var token = uni.getStorageSync('token')
-				
 				uni.chooseImage({
-					count: 1,
-					success: res => {
-						this.imgUrl = res.tempFilePaths[0]
-						console.log(this.imgUrl);
-						// uni.setStorageSync('touxiang', this.imgUrl)
-						this.touxiang = this.imgUrl
+					success: (chooseImageRes) => {
+						const tempFilePaths = chooseImageRes.tempFilePaths;
+						uni.uploadFile({
+							url: 'http://127.0.0.1:8001/api/other/uploadFile', //仅为示例，非真实的接口地址
+							filePath: tempFilePaths[0],
+							name: 'files',
+							formData: {
+								'docid': this.dataList.docid,
+								'appid': this.dataList.appid,
+								'type': 'fileinput-gczyfj'
+							},
+							header: {
+								'token': uni.getStorageSync("token")
+							},
+							success: (uploadFileRes) => {
+								console.log(uploadFileRes.data);
+							}
+						});
 					}
 				})
 			},
@@ -316,6 +296,15 @@
 				console.log(e.result);
 				this.dataList.yjzysj = e.result
 			},
+			bindPickerChange: function(e) {
+			            console.log('picker发送选择改变，携带值为1111', e.target.value)
+			            this.fjindex = e.target.value
+						console.log(this.fjindex);
+						var path = 'http://124.70.192.154:7703/img/'+this.fjs[this.fjindex].filepath+this.fjs[this.fjindex].attachmentid
+						console.log(path);
+						window.open("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
+						
+			        },
 			// bindPickerChange(e) {
 			// 	console.log('picker发送选择改变，携带值为', e.target.value)
 			// 	this.index = e.detail.value
