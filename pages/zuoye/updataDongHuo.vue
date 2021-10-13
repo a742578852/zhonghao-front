@@ -163,7 +163,8 @@
 						console.log(this.fjindex);
 						var path = 'http://124.70.192.154:7703/img/'+this.fjs[this.fjindex].filepath+this.fjs[this.fjindex].attachmentid
 						console.log(path);
-						window.open("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
+						plus.runtime.openURL("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
+						// window.open("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
 						
 			        },
 			//获取二级区域
@@ -236,7 +237,7 @@
 					success: (chooseImageRes) => {
 						const tempFilePaths = chooseImageRes.tempFilePaths;
 						uni.uploadFile({
-							url: 'http://127.0.0.1:8001/api/other/uploadFile', //仅为示例，非真实的接口地址
+							url: 'http://124.70.192.154:7702/api/other/uploadFile', //仅为示例，非真实的接口地址
 							filePath: tempFilePaths[0],
 							name: 'files',
 							formData: {

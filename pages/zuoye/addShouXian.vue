@@ -263,7 +263,7 @@
 					success: (chooseImageRes) => {
 						const tempFilePaths = chooseImageRes.tempFilePaths;
 						uni.uploadFile({
-							url: 'http://127.0.0.1:8001/api/other/uploadFile', //仅为示例，非真实的接口地址
+							url: 'http://124.70.192.154:7702/api/other/uploadFile', //仅为示例，非真实的接口地址
 							filePath: tempFilePaths[0],
 							name: 'files',
 							formData: {

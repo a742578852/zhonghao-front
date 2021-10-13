@@ -686,7 +686,7 @@
 					success: (chooseImageRes) => {
 						const tempFilePaths = chooseImageRes.tempFilePaths;
 						uni.uploadFile({
-							url: 'http://127.0.0.1:8001/api/other/uploadFile', //仅为示例，非真实的接口地址
+							url: 'http://124.70.192.154:7702/api/other/uploadFile', //仅为示例，非真实的接口地址
 							filePath: tempFilePaths[0],
 							name: 'files',
 							formData: {
@@ -710,7 +710,7 @@
 					success: (chooseImageRes) => {
 						const tempFilePaths = chooseImageRes.tempFilePaths;
 						uni.uploadFile({
-							url: 'http://127.0.0.1:8001/api/other/uploadFile', //仅为示例，非真实的接口地址
+							url: 'http://124.70.192.154:7702/api/other/uploadFile', //仅为示例，非真实的接口地址
 							filePath: tempFilePaths[0],
 							name: 'files',
 							formData: {
@@ -739,7 +739,7 @@
 					success: (chooseImageRes) => {
 						const tempFilePaths = chooseImageRes.tempFilePaths;
 						uni.uploadFile({
-							url: 'http://127.0.0.1:8001/api/other/uploadFile', //仅为示例，非真实的接口地址
+							url: 'http://124.70.192.154:7702/api/other/uploadFile', //仅为示例，非真实的接口地址
 							filePath: tempFilePaths[0],
 							name: 'files',
 							formData: {
@@ -787,7 +787,8 @@
 						console.log(this.fjindex);
 						var path = 'http://124.70.192.154:7703/img/'+this.fjs[this.fjindex].filepath+this.fjs[this.fjindex].attachmentid
 						console.log(path);
-						window.open("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
+						plus.runtime.openURL("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
+						// window.open("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
 						
 			        },
 					bindPickerChanges1: function(e) {
@@ -796,7 +797,8 @@
 								console.log(this.fjindex);
 								var path = 'http://124.70.192.154:7703/img/'+this.fjs1[this.fjindex1].filepath+this.fjs1[this.fjindex1].attachmentid
 								console.log(path);
-								window.open("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
+								plus.runtime.openURL("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
+								// window.open("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
 								
 					        },
 							bindPickerChanges2: function(e) {
@@ -805,7 +807,8 @@
 										console.log(this.fjindex);
 										var path = 'http://124.70.192.154:7703/img/'+this.fjs2[this.fjindex2].filepath+this.fjs2[this.fjindex2].attachmentid
 										console.log(path);
-										window.open("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
+										plus.runtime.openURL("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
+										// window.open("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
 										
 							        },
 			bindPickerChange(e) {
