@@ -3,7 +3,7 @@
 		<view class="swipers">
 			<swiper class="swiper" indicator-dots="true" autoplay="true" circular="true">
 				<swiper-item class="swiper-item" v-for="item in img">
-					<image :src="item" mode=""></image>
+					<image :src="'http://'+item" mode=""></image>
 				</swiper-item>
 				<!-- <swiper-item class="swiper-item">
 					<image src="../../static/jpg2.jpg" mode=""></image>
@@ -235,6 +235,7 @@
 				this.cqwzg = res.data.data.overDanger
 				this.zdwxy = res.data.data.allCount
 				this.img = res.data.data.banners
+				console.log(this.img);
 				this.allCount = res.data.data.allTask.length
 				this.grrwCount = res.data.data.myTask.length
 				for(var i=0;i<res.data.data.userRoles.length;i++){
