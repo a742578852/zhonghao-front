@@ -32,32 +32,40 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title">动火位置:</view>
-			<picker @change="bindPickerChange2" :value="index2" :range="arrayArea1" class="item2" style="" :disabled="up">
+			<picker @change="bindPickerChange2" :value="index2" :range="arrayArea1" class="item2" style=""
+				:disabled="up">
 				<view class="uni-input" style="">{{dataList.dhzywzdw}}</view>
 			</picker>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">动火详细位置:</view>
-			<picker @change="bindPickerChange3" :value="index3" :range="arrayArea2" class="item2" style="" :disabled="up">
+			<picker @change="bindPickerChange3" :value="index3" :range="arrayArea2" class="item2" style=""
+				:disabled="up">
 				<view class="uni-input" style="">{{dataList.dhzywzqymc}}</view>
 			</picker>
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">动火作业内容:</view>
-			<textarea maxlength="-1"  v-model='dataList.dhzywzjnr' :disabled="up"></textarea>
+			<textarea maxlength="-1" v-model='dataList.dhzywzjnr' :disabled="up"></textarea>
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">备注:</view>
-			<textarea maxlength="-1"  v-model='dataList.bz' :disabled="up"></textarea>
+			<textarea maxlength="-1" v-model='dataList.bz' :disabled="up"></textarea>
 		</view>
 		<view class="cu-form-group" @click="chooseImage">
 			<view class="title">上传附件:</view>
-			<image :src="imgUrl" style="width: 80upx;height: 80upx;margin-left: 280upx;"></image>
+			<view>点击上传</view>
 		</view>
-		
+		<view class="cu-form-group">
+			<view class="title">附件列表:</view>
+			<picker  @change="bindPickerChange" :value="fjindex" :range="fj">
+				<view class="uni-input">{{fj[fjindex]}}</view>
+			</picker>
+		</view>
+
 		<view class="" style="display: flex;justify-content: space-around;margin-top: 30rpx;margin-bottom: 30rpx;">
-			<button type="primary" size="mini"  @click="up = false" :disabled="!up">修改</button>
-			<button type="primary" size="mini"  @click="updataDh">确定</button>
+			<button type="primary" size="mini" @click="up = false" :disabled="!up">修改</button>
+			<button type="primary" size="mini" @click="updataDh">确定</button>
 		</view>
 		<!-- <u-avatar class="img" :src="touxiang" ></u-avatar> -->
 	</view>
@@ -67,46 +75,49 @@
 	export default {
 		data() {
 			return {
-				bmshow:false,
-				up:true,
-				imgUrl:'',
-				touxiang:'',
-				mode:'date',
-				show:false,
-				arraydhzlx:['特殊动火作业证','一级动火作业证','二级动火作业证'],
-				index:0,
-				index1:0,
-				index2:0,
-				index3:0,
-				arrayBz:['安全部','财务部'],
-				
-				arrayArea1:[],
-				arrayArea2:[],
-				areas:[],
-				did:'',
-				dataList:{
-					docid:'',
-					appid:'242E465CAE6642689258471054D2A707',
-					authorid:'',
-					authorname:'',
-					authororgid:'',
-					authororgname:'',
-					createtime:'',
-					lastmodifiedtime:'',
-					appname:'动火作业登记',
-					pribeanname:'com.ruoyi.aqgl.tszyzjy.models.Dhzyzjy',
-					sqr:'',
-					sgdw:'',
-					dhzyjb:'',
-					dhzyszdw:'',
-					dhzyszdwid:'',
-					dhzywzjnr:'',
-					yjzysj:'',
-					dhzywzdw:'安全部',
-					dhzywzqymc:'安全部',
-					bz:'',
-					fj:'',
-					dhzjb:'特殊动火作业证'
+				fj:[],
+				fjs:[],
+				bmshow: false,
+				up: true,
+				imgUrl: '',
+				touxiang: '',
+				mode: 'date',
+				show: false,
+				arraydhzlx: ['特殊动火作业证', '一级动火作业证', '二级动火作业证'],
+				fjindex:0,
+				index: 0,
+				index1: 0,
+				index2: 0,
+				index3: 0,
+				arrayBz: ['安全部', '财务部'],
+
+				arrayArea1: [],
+				arrayArea2: [],
+				areas: [],
+				did: '',
+				dataList: {
+					docid: '',
+					appid: '242E465CAE6642689258471054D2A707',
+					authorid: '',
+					authorname: '',
+					authororgid: '',
+					authororgname: '',
+					createtime: '',
+					lastmodifiedtime: '',
+					appname: '动火作业登记',
+					pribeanname: 'com.ruoyi.aqgl.tszyzjy.models.Dhzyzjy',
+					sqr: '',
+					sgdw: '',
+					dhzyjb: '',
+					dhzyszdw: '',
+					dhzyszdwid: '',
+					dhzywzjnr: '',
+					yjzysj: '',
+					dhzywzdw: '安全部',
+					dhzywzqymc: '安全部',
+					bz: '',
+					fj: '',
+					dhzjb: '特殊动火作业证'
 				}
 			}
 		},
@@ -115,29 +126,51 @@
 				return false;
 			}
 			uni.navigateTo({
-				url:'./donghuo'
+				url: './donghuo'
 			})
 			return true;
 		},
 		onLoad(option) {
 			this.dataList = JSON.parse(option.items)
-			
-			this.dataList.createtime = this.dataList.createtime.substring(0,10)
+
+			this.dataList.createtime = this.dataList.createtime.substring(0, 10)
 		},
-		onShow() {
+		async onShow() {
 			//获取所有区域对象
 			this.areas = uni.getStorageSync('areas')
 			this.getArea2()
 			//从缓存获取所有一级区域
 			this.arrayArea1 = uni.getStorageSync('arrayArea')
 			this.arrayBz = uni.getStorageSync('arrayBz')
+			//获取附件列表
+			const res = await this.$myRequest({
+				method: 'POST',
+				url: 'api/other/getFile',
+				data:{docid:this.dataList.docid}
+			})
+			for(var i = 0;i<res.data.data.length;i++){
+				this.fj.push(res.data.data[i].sfilename)
+			
+			}
+			this.fjs = res.data.data
+			
+		
 		},
 		methods: {
+			bindPickerChange: function(e) {
+			            console.log('picker发送选择改变，携带值为1111', e.target.value)
+			            this.fjindex = e.target.value
+						console.log(this.fjindex);
+						var path = 'http://124.70.192.154:7703/img/'+this.fjs[this.fjindex].filepath+this.fjs[this.fjindex].attachmentid
+						console.log(path);
+						window.open("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
+						
+			        },
 			//获取二级区域
-			async getArea2(){
-				
-				for(var i=0;i<this.areas.length;i++){
-					if(this.dataList.dhzywzdw == this.areas[i].dw){
+			async getArea2() {
+
+				for (var i = 0; i < this.areas.length; i++) {
+					if (this.dataList.dhzywzdw == this.areas[i].dw) {
 						this.did = this.areas[i].docid
 						break
 					}
@@ -145,71 +178,83 @@
 				const area = await this.$myRequest({
 					method: 'POST',
 					url: 'api/other/getTwoArea',
-					data:{
-						docid:this.did
+					data: {
+						docid: this.did
 					}
 				})
-				if(area.data.code==200){
+				if (area.data.code == 200) {
 					this.arrayArea2 = []
-					for(var i=0;i<area.data.data.length;i++){
-						this.arrayArea2.push(area.data.data[i].qymc+'---'+area.data.data[i].zrr)
+					for (var i = 0; i < area.data.data.length; i++) {
+						this.arrayArea2.push(area.data.data[i].qymc + '---' + area.data.data[i].zrr)
 					}
-					
+
 					// this.dataList.dhzywzqymc = this.arrayArea2[0]
 				}
 			},
-			calendar(){
-				if(!this.up){
+			calendar() {
+				if (!this.up) {
 					this.show = true
 				}
 			},
 			//修改动火
-			async updataDh(){
+			async updataDh() {
 				//获取当前时间
 				let date = new Date();
 				let year = date.getFullYear();
 				let month = date.getMonth() + 1;
 				let day = date.getDate();
-				if(month < 10){
+				if (month < 10) {
 					month = '0' + month;
 				}
-				if(day < 10){
+				if (day < 10) {
 					day = '0' + day;
 				}
-				
-				var time = year+'-' + month+'-' + day
+
+				var time = year + '-' + month + '-' + day
 				this.dataList.lastmodifiedtime = time
 				var token = uni.getStorageSync('token')
-				
+
 				const res = await this.$myRequest({
 					method: 'POST',
 					url: 'api/work/updateDhInfo',
-					header:{
+					header: {
 						'content-type': 'application/json;charset=utf-8',
 						'token': token
 					},
 					data: JSON.stringify(this.dataList)
-					
+
 				})
-				if(res.data.code == 200){
+				if (res.data.code == 200) {
 					uni.navigateTo({
-						url:'./donghuo'
+						url: './donghuo'
 					})
 				}
 			},
 			//上传附件
 			chooseImage() {
 				uni.chooseImage({
-					count: 1,
-					success: res => {
-						this.imgUrl = res.tempFilePaths[0]
-						console.log(this.imgUrl);
-						// uni.setStorageSync('touxiang', this.imgUrl)
-						this.touxiang = this.imgUrl
+					success: (chooseImageRes) => {
+						const tempFilePaths = chooseImageRes.tempFilePaths;
+						uni.uploadFile({
+							url: 'http://127.0.0.1:8001/api/other/uploadFile', //仅为示例，非真实的接口地址
+							filePath: tempFilePaths[0],
+							name: 'files',
+							formData: {
+								'docid': this.dataList.docid,
+								'appid': this.dataList.appid,
+								'type': 'fileinput-dhzyfj'
+							},
+							header: {
+								'token': uni.getStorageSync("token")
+							},
+							success: (uploadFileRes) => {
+								console.log(uploadFileRes.data);
+							}
+						});
 					}
 				})
 			},
-			change(e){
+			change(e) {
 				console.log(e.result);
 				this.dataList.yjzysj = e.result
 			},
@@ -218,8 +263,8 @@
 			// 	this.index = e.detail.value
 			// 	this.dataList.dhzyszdw = this.arrayBz[index]
 			// },
-			confirm(e){
-				this.dataList.dhzyszdw = e[e.length-1].label
+			confirm(e) {
+				this.dataList.dhzyszdw = e[e.length - 1].label
 				// this.bmid = e[e.length-1].extra
 			},
 			bindPickerChange1(e) {

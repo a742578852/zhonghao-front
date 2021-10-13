@@ -46,7 +46,13 @@
 		</view>
 		<view class="cu-form-group" @click="chooseImage">
 			<view class="title">上传附件:</view>
-			<image :src="imgUrl" style="width: 80upx;height: 80upx;margin-left: 280upx;"></image>
+			<view>点击上传</view>
+		</view>
+		<view class="cu-form-group">
+			<view class="title">附件列表:</view>
+			<picker  @change="bindPickerChange" :value="fjindex" :range="fj">
+				<view class="uni-input">{{fj[fjindex]}}</view>
+			</picker>
 		</view>
 		<!-- <button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="updataDl">确定</button> -->
 		<view class="" style="display: flex;justify-content: space-around;margin-top: 30rpx;">
@@ -61,6 +67,9 @@
 	export default {
 		data() {
 			return {
+				fj:[],
+				fjs:[],
+				fjindex:0,
 				up:true,
 				imgUrl:'',
 				touxiang:'',
@@ -111,19 +120,41 @@
 			})
 			return true;
 		},
-		onShow() {
+		async onShow() {
 			//获取所有区域对象
 			this.areas = uni.getStorageSync('areas')
 			this.getArea2()
 			//从缓存获取所有一级区域
 			this.arrayArea1 = uni.getStorageSync('arrayArea')
 			this.arrayBz = uni.getStorageSync('arrayBz')
+			
+			//获取附件列表
+			const res = await this.$myRequest({
+				method: 'POST',
+				url: 'api/other/getFile',
+				data:{docid:this.dataList.docid}
+			})
+			for(var i = 0;i<res.data.data.length;i++){
+				this.fj.push(res.data.data[i].sfilename)
+			
+			}
+			this.fjs = res.data.data
 		},
 		onLoad(option) {
 			this.dataList = JSON.parse(option.items)
 			this.dataList.createtime = this.dataList.createtime.substring(0,10)
 		},
 		methods: {
+			
+			bindPickerChange: function(e) {
+			            console.log('picker发送选择改变，携带值为1111', e.target.value)
+			            this.fjindex = e.target.value
+						console.log(this.fjindex);
+						var path = 'http://124.70.192.154:7703/img/'+this.fjs[this.fjindex].filepath+this.fjs[this.fjindex].attachmentid
+						console.log(path);
+						window.open("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
+						
+			        },
 			//获取二级区域
 			async getArea2(){
 				for(var i=0;i<this.areas.length;i++){
@@ -189,12 +220,24 @@
 			//上传附件
 			chooseImage() {
 				uni.chooseImage({
-					count: 1,
-					success: res => {
-						this.imgUrl = res.tempFilePaths[0]
-						console.log(this.imgUrl);
-						// uni.setStorageSync('touxiang', this.imgUrl)
-						this.touxiang = this.imgUrl
+					success: (chooseImageRes) => {
+						const tempFilePaths = chooseImageRes.tempFilePaths;
+						uni.uploadFile({
+							url: 'http://127.0.0.1:8001/api/other/uploadFile', //仅为示例，非真实的接口地址
+							filePath: tempFilePaths[0],
+							name: 'files',
+							formData: {
+								'docid': this.dataList.docid,
+								'appid': this.dataList.appid,
+								'type': 'fileinput-dlzyfj'
+							},
+							header: {
+								'token': uni.getStorageSync("token")
+							},
+							success: (uploadFileRes) => {
+								console.log(uploadFileRes.data);
+							}
+						});
 					}
 				})
 			},
