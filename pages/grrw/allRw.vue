@@ -32,7 +32,7 @@
 					<text>{{item.fxdj}}</text>
 				</view>
 				<view class="mid-item2" @click="updateGrrw(item)">
-					<text>{{item.cxtime}}</text>
+					<text>{{item.cxtime.substring(0,10)}}</text>
 				</view>
 				<view class="mid-item3" @click="updateGrrw(item)">
 					<input type="text" v-model="item.sglx" maxlength="16" disabled=""/>
@@ -99,7 +99,7 @@
 			async getList() {
 				const res = await this.$myRequest({
 					method: 'POST',
-					url: 'api/other/getMyTask',
+					url: 'api/other/getTaskAll',
 				})
 				console.log(JSON.stringify(res));
 				if (res.data.code == 200) {

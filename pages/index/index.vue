@@ -57,7 +57,14 @@
 			<view class="mid1">
 				<image class="imgRy" src="../../static/grrw.png" mode=""></image>
 				<text>个人任务：</text>
-				<text>{{dbrw}}条</text>
+				<text>{{grrwCount}}条</text>
+			</view>
+		</view>
+		<view class="mid" @click="toall" v-if="showAll">
+			<view class="mid1">
+				<image class="imgRy" src="../../static/grrw.png" mode=""></image>
+				<text>所有任务：</text>
+				<text>{{allCount}}条</text>
 			</view>
 		</view>
 		<view class="mids">
@@ -180,6 +187,7 @@
 	export default {
 		data() {
 			return {
+				showAll:false,
 				show:true,
 				news: [],
 				notice:[],
@@ -192,7 +200,9 @@
 				deptName:'',
 				bian1: '1',
 				bian2: '0',
-				img:[]
+				img:[],
+				grrwCount:'',
+				allCount:''
 			}
 		},
 		onLoad() {
@@ -208,12 +218,13 @@
 				url: 'api/home/homeInfo',
 
 			})
-			console.log(res);
+			
 			if (res.data.code == 205) {
 				uni.navigateTo({
 					url: '../login/login'
 				})
 			}
+			
 			if (res.data.code == 200) {
 				this.deptName = res.data.data.dept.deptName
 				this.news = res.data.data.xinwen
@@ -224,7 +235,14 @@
 				this.cqwzg = res.data.data.overDanger
 				this.zdwxy = res.data.data.allCount
 				this.img = res.data.data.banners
-				console.log(this.img);
+				this.allCount = res.data.data.allTask.length
+				this.grrwCount = res.data.data.myTask.length
+				for(var i=0;i<res.data.data.userRoles.length;i++){
+					if(res.data.data.userRoles[i].roleId == 1 || res.data.data.userRoles[i].roleId == 4){
+						this.showAll = true
+					}
+				}
+				
 			}
 
 
@@ -376,7 +394,15 @@
 				})
 			},
 			toGr(){
-				
+				uni.navigateTo({
+					url:'../grrw/grrw'
+				})
+			},
+			toall(){
+				console.log('jin');
+				uni.navigateTo({
+					url:'../grrw/allRw'
+				})
 			}
 		}
 	}

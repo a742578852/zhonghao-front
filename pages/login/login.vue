@@ -111,13 +111,13 @@
 								password: that.From.PassWord
 							}
 						})
-						console.log(res.data.data);
+						
 						if (res.data.code == 200) {
 							uni.setStorageSync('admin', res.data.data.admin)
 							uni.setStorageSync('token', res.data.data.token)
 							uni.setStorageSync('username', that.From.UserName)
 							uni.setStorageSync('password', that.From.PassWord)
-							console.log(res.data.data.token);
+							
 							
 							uni.switchTab({
 								url: '../index/index'
@@ -136,7 +136,7 @@
 							})
 							//一级区域对象
 							this.areas = area.data.data
-							console.log(this.areas);
+							
 							uni.setStorageSync('areas',this.areas)
 							for(var i=0;i<this.areas.length;i++){
 								this.arrayArea.push(this.areas[i].dw)

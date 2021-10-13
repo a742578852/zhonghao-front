@@ -229,13 +229,13 @@
 					docuuid:'',
 					flowid:'75285ED6ABFB4D6FAEF011C2CACEBD38',
 					title:'隐患整改流程',
-					prenodeid:'',
-					prenodename:'',
-					preuserid:'',
-					preusername:'',
-					operatename:'',
-					nownodeid:'',
-					nownodename:'',
+					prenodeid:'系统',
+					prenodename:'开始',
+					preuserid:'系统ID',
+					preusername:'系统',
+					operatename:'送拟稿',
+					nownodeid:'rect6',
+					nownodename:'填报隐患',
 					nowuserid:'',
 					nowusername:'',
 					gettime:'',
@@ -417,6 +417,7 @@
 				})
 				console.log(res);
 				if(res.data.code == 200){
+					this.addLc()
 					uni.navigateTo({
 						url:'./yhzg'
 					})
@@ -428,6 +429,30 @@
 			        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
 			    }
 			    return (S4() + S4() +  S4() +  S4() +  S4() +  S4() + S4() + S4());
+			},
+			//添加流程
+			async addLc(){
+				var admin = uni.getStorageSync('admin')
+				this.lcobj.nowuserid = admin.userId
+				this.lcobj.nowusername = admin.userName
+				this.lcobj.docid = this.guid2()
+				this.lcobj.docuuid = this.dataList.docid
+				this.lcobj.gettime = this.getCurrentTime()
+				this.lcobj.sendtime = this.getCurrentTime()
+				var token = uni.getStorageSync('token')
+				const res = await this.$myRequest({
+					method: 'POST',
+					url: 'api/flow/addFlow',
+					header:{
+						'content-type': 'application/json;charset=utf-8',
+						'token': token
+					},
+					data:JSON.stringify(this.lcobj)
+				})
+				console.log(res);
+				if(res.data.code == 200){
+					console.log('流程添加成功');
+				}
 			},
 			//上传整改前照片
 			chooseImage() {

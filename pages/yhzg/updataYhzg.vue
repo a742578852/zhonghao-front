@@ -357,10 +357,12 @@
 			this.dataList = JSON.parse(option.items)
 			this.yinhuaId = JSON.parse(option.items).docid
 			this.lcobj.docuuid = JSON.parse(option.items).docid
+			console.log(JSON.parse(option.items).docid);
 			this.lcobj.docid = this.guid2()
 			// this.dataList.createtime = this.dataList.createtime.substring(0,10)
 		},
 		async onShow() {
+			this.getByMid()
 			//获取日志
 			this.getLog()
 			//获取所有区域对象
@@ -427,19 +429,38 @@
 							pdocid :this.yinhuaId
 						}
 					})
-					console.log(JSON.stringify(res));
+					// console.log(JSON.stringify(res));
 					if (res.data.code == 200) {
 						this.rizhis = res.data.data
 						this.dqlcclr = this.rizhis[this.rizhis.length-1].nowusername
 						
 						this.dqlc = this.rizhis[this.rizhis.length-1].nownodename
-						this.lcobj.nownodename = this.dqlc
+						if(this.rizhis[this.rizhis.length-1].nownodename == '填报隐患'){
+							this.lcobj.nownodename = '问题整改'
+						}
+						if(this.rizhis[this.rizhis.length-1].nownodename == '问题整改'){
+							this.lcobj.nownodename = '问题验证'
+						}
+						if(this.rizhis[this.rizhis.length-1].nownodename == '问题验证'){
+							this.lcobj.nownodename = '结束'
+						}
+						
 						this.lcobj.prenodeid = this.rizhis[this.rizhis.length-1].nownodeid
-						this.lcobj.prenodename = this.rizhis[this.rizhis.length-1].nowusername
+						this.lcobj.prenodename = this.rizhis[this.rizhis.length-1].nownodename
 						this.lcobj.preuserid = this.rizhis[this.rizhis.length-1].preuserid
 						this.lcobj.nowusername = this.username
+						this.lcobj.preusername = this.rizhis[this.rizhis.length-1].nowusername
 						this.lcobj.operatename = this.rizhis[this.rizhis.length-1].operatename
 						this.lcobj.nownodeid = this.rizhis[this.rizhis.length-1].nownodeid
+						if(this.rizhis[this.rizhis.length-1].operatename == '送拟稿'){
+							this.lcobj.operatename = '问题整改'
+						}
+						if(this.rizhis[this.rizhis.length-1].operatename == '送 问题整改'){
+							this.lcobj.operatename = '问题验证'
+						}
+						if(this.rizhis[this.rizhis.length-1].operatename == '送 问题验证'){
+							this.lcobj.operatename = '办结'
+						}
 						//当前节点处理人是不是当前登录人
 						if(this.username == this.dqlcclr){
 							this.lz = false
@@ -491,6 +512,11 @@
 					this.lcobj.nowusername = this.xzry
 					this.lcobj.gettime = this.getCurrentTime()
 					this.lcobj.sendtime = this.getCurrentTime()
+					for(var i=0;i<this.bmobj.length;i++){
+						if(this.bmobj[i].userName == this.xzry){
+							this.lcobj.nowuserid = this.bmobj[i].userId
+						}
+					}
 					this.addLc()
 				}
 				this.bmChoiseShow = false
@@ -511,7 +537,9 @@
 				})
 				console.log(res);
 				if(res.data.code == 200){
-					console.log('流程添加成功');
+					uni.navigateTo({
+						url:'yhzg'
+					})
 				}
 			},
 			//获取当前时间
@@ -540,10 +568,12 @@
 				
 				if (res.data.code == 200) {
 					this.bmobj = res.data.data
-					
+					// console.log(JSON.stringify(this.bmobj));
 					for(var i=0;i<this.bmobj.length;i++){
 						this.bmry.push(this.bmobj[i].userName)
+						
 					}
+					
 					
 				}
 			},
