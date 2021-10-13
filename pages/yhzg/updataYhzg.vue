@@ -2,7 +2,7 @@
 	<view>
 		<u-popup v-model="bmChoiseShow" mode="center" width="90%" height="75%" border-radius="14">
 			<view class="cu-form-group" @click="bmChoise=true" style="margin-bottom: 20rpx;">
-				<view class="title">选择部门:</view>
+				<view class="title">选择处理人部门:</view>
 				<view class="uni-input" style="border-bottom: solid 1rpx #cfcfcf;width: 300rpx;">{{bumen}}</view>
 				<u-select v-model="bmChoise" mode="mutil-column-auto" :list="arrayBz" @confirm="bmconfirm"></u-select>
 			</view>
@@ -15,7 +15,7 @@
 				</view>
 			</view>
 			<view class="" style="width: 98%;background-color: #ffffd7;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;">
-				<text>已选择人员</text>
+				<text>已选择处理人人员</text>
 			</view>
 			<view class="bms">
 				<u-tag :text="xzry" mode="light"  closeable  @close="tagClick()" />
@@ -293,7 +293,25 @@
 				areas:[],
 				did:'',
 				arrayYy:['人','物','料','法','环'],
-				
+				lcobj:{
+					docid:'',
+					docuuid:'',
+					flowid:'75285ED6ABFB4D6FAEF011C2CACEBD38',
+					title:'隐患整改流程',
+					prenodeid:'',
+					prenodename:'',
+					preuserid:'',
+					preusername:'',
+					operatename:'',
+					nownodeid:'',
+					nownodename:'',
+					nowuserid:'',
+					nowusername:'',
+					gettime:'',
+					sendtime:'',
+					lx:1,
+					url:'E45FFBBEC8C94B3CA3D453389AFD83C6'
+				},
 				dataList:{
 					docid:'',
 					appid:'E45FFBBEC8C94B3CA3D453389AFD83C6',
@@ -338,7 +356,8 @@
 		onLoad(option) {
 			this.dataList = JSON.parse(option.items)
 			this.yinhuaId = JSON.parse(option.items).docid
-			
+			this.lcobj.docuuid = JSON.parse(option.items).docid
+			this.lcobj.docid = this.guid2()
 			// this.dataList.createtime = this.dataList.createtime.substring(0,10)
 		},
 		async onShow() {
@@ -358,6 +377,13 @@
 			this.dataList.yzr = this.username
 		},
 		methods: {
+			//生成uuid
+			guid2() {
+			    function S4() {
+			        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+			    }
+			    return (S4() + S4() +  S4() +  S4() +  S4() +  S4() + S4() + S4());
+			},
 			//检查日期
 			jcrq(){
 				if(!this.up){
@@ -405,7 +431,15 @@
 					if (res.data.code == 200) {
 						this.rizhis = res.data.data
 						this.dqlcclr = this.rizhis[this.rizhis.length-1].nowusername
+						
 						this.dqlc = this.rizhis[this.rizhis.length-1].nownodename
+						this.lcobj.nownodename = this.dqlc
+						this.lcobj.prenodeid = this.rizhis[this.rizhis.length-1].nownodeid
+						this.lcobj.prenodename = this.rizhis[this.rizhis.length-1].nowusername
+						this.lcobj.preuserid = this.rizhis[this.rizhis.length-1].preuserid
+						this.lcobj.nowusername = this.username
+						this.lcobj.operatename = this.rizhis[this.rizhis.length-1].operatename
+						this.lcobj.nownodeid = this.rizhis[this.rizhis.length-1].nownodeid
 						//当前节点处理人是不是当前登录人
 						if(this.username == this.dqlcclr){
 							this.lz = false
@@ -454,10 +488,45 @@
 						title: '请选择流转人'
 					})
 				}else{
-					
+					this.lcobj.nowusername = this.xzry
+					this.lcobj.gettime = this.getCurrentTime()
+					this.lcobj.sendtime = this.getCurrentTime()
+					this.addLc()
 				}
 				this.bmChoiseShow = false
 				
+				
+			},
+			//添加流程
+			async addLc(){
+				var token = uni.getStorageSync('token')
+				const res = await this.$myRequest({
+					method: 'POST',
+					url: 'api/flow/addFlow',
+					header:{
+						'content-type': 'application/json;charset=utf-8',
+						'token': token
+					},
+					data:JSON.stringify(this.lcobj)
+				})
+				console.log(res);
+				if(res.data.code == 200){
+					console.log('流程添加成功');
+				}
+			},
+			//获取当前时间
+			getCurrentTime() {
+			
+			    let date = new Date()
+				let year = date.getFullYear();
+			    let M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
+			    let D = date.getDate() < 10 ? ('0' + date.getDate()) : date.getDate()
+			    let hours = date.getHours()
+			    let minutes = date.getMinutes() < 10 ? ('0' + date.getMinutes()) : date.getMinutes()
+			    let seconds = date.getSeconds() < 10 ? ('0' + date.getSeconds()) : date.getSeconds()
+			    date = year+ '-' + M + '-' + D + ' ' + hours + ':' + minutes + ':' + seconds
+			    return date
+			
 			},
 			//根据部门ID查询人员
 			async getByMid(){
@@ -468,14 +537,14 @@
 						deptId :this.bmid
 					}
 				})
-				console.log(JSON.stringify(res));
+				
 				if (res.data.code == 200) {
 					this.bmobj = res.data.data
-					console.log(this.bmobj.length);
+					
 					for(var i=0;i<this.bmobj.length;i++){
 						this.bmry.push(this.bmobj[i].userName)
 					}
-					console.log(this.bmry.length);
+					
 				}
 			},
 			//获取二级区域
