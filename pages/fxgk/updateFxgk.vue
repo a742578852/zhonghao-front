@@ -116,9 +116,14 @@
 						data: JSON.stringify(this.aqFxglAqfxfjgktz)
 						
 					})
+					console.log(res);
 					if(res.data.code == 200){
 						uni.navigateTo({
 							url:'./fxgk'
+						})
+					}else{
+						uni.showToast({
+							title:res.data.message
 						})
 					}
 					

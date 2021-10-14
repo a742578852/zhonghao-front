@@ -63,7 +63,7 @@
 		<view class="mid" @click="toall" v-if="showAll">
 			<view class="mid1">
 				<image class="imgRy" src="../../static/grrw.png" mode=""></image>
-				<text>所有任务：</text>
+				<text>指派任务：</text>
 				<text>{{allCount}}条</text>
 			</view>
 		</view>
@@ -239,6 +239,7 @@
 				this.allCount = res.data.data.allTask.length
 				this.grrwCount = res.data.data.myTask.length
 				for(var i=0;i<res.data.data.userRoles.length;i++){
+					console.log(res.data.data.userRoles[i].roleId);
 					if(res.data.data.userRoles[i].roleId == 1 || res.data.data.userRoles[i].roleId == 4){
 						this.showAll = true
 					}
@@ -402,7 +403,7 @@
 			toall(){
 				console.log('jin');
 				uni.navigateTo({
-					url:'../grrw/allRw'
+					url:'../grrw/fpRw'
 				})
 			}
 		}

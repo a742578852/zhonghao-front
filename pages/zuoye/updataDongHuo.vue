@@ -225,9 +225,14 @@
 					data: JSON.stringify(this.dataList)
 
 				})
+				
 				if (res.data.code == 200) {
 					uni.navigateTo({
 						url: './donghuo'
+					})
+				}else{
+					uni.showToast({
+						title:res.data.message
 					})
 				}
 			},

@@ -72,6 +72,8 @@
 				this.aqFxglAqfxfjgktz.createtime = e.result
 			},
 			async toFxgk(){
+				var admin = uni.getStorageSync('admin')
+				
 				//获取当前时间
 				let date = new Date();
 				let year = date.getFullYear();

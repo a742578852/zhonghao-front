@@ -1,49 +1,25 @@
 <template>
 	<view>
-		<!-- <u-popup v-model="show" mode="center" width="90%" height="40%" border-radius="14">
-			<view class="popup">
-				<view class="popup-item">
-					<text class="popup-item-text">印发日期：</text>
-					<input class="popup-item-input" type="text" v-model="yfsj" />
-				</view>
-				<button type="primary" size="mini" style="width: 50%; margin-left: 25%;margin-top: 120rpx;"  @click="serach">确定</button>
-			</view>
-			
-		</u-popup> --> 
-		<!-- <view class="content">
-			<view class="content-item1">
-				<text>安字文列表</text>
-			</view> 
-			 <view class="content-item2">
-				<view class="content-item2-son" @click="show = true">
-					<image class="content-item2-img" src="../../static/cx.png" mode=""></image>
-					<text>查询</text>
-				</view> 
-				 <view class="content-item2-son" @click="addAzw">
-					<image class="content-item2-img" src="../../static/xz.png" mode=""></image>
-					<text>新增</text>
-				</view>
-			 </view> 
-		</view> --> 
-		<view class="" style="overflow: hidden;">
-			<view class="mid" hover-class="mid-hover" :data-index="index" v-for="(item,index) in csListArrl" v-if="index <= count" >
-				<view class="mid-item1" @click="updateGrrw(item)">
-					<text style="width: 65%;">{{item.bsbw}}</text>
-					<text>{{item.fxdj}}</text>
-				</view>
-				<view class="mid-item2" @click="updateGrrw(item)">
-					<text>{{item.cxtime}}</text>
-				</view>
-				<view class="mid-item3" @click="updateGrrw(item)">
-					<input type="text" v-model="item.sglx" maxlength="16" disabled=""/>
-				</view>
-				<!-- <view class="remove" @click="delData(item)">删除</view> -->
-			</view>
-			<view class=""
-				style="width: 98%;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;height: 50rpx;">
-				<text>{{shanghua}}</text>
-			</view>
-		</view>
+		 <view class="" style="overflow: hidden;">
+		 	<view class="mid" hover-class="mid-hover" :data-index="index" v-for="(item,index) in csListArrl" v-if="index <= count" >
+		 		<view class="mid-item1" @click="updateGrrw(item)">
+		 			<text style="width: 65%;">{{item.xcmc}}</text>
+		 			<text>{{item.authorname}}</text>
+		 		</view>
+		 		<view class="mid-item2" @click="updateGrrw(item)">
+		 			<text>{{item.createtime.substring(0,10)}}</text>
+		 		</view>
+		 		<view class="mid-item3" @click="updateGrrw(item)">
+		 			<input type="text" v-model="item.xjr" maxlength="16" disabled=""/>
+		 		</view>
+		 		<!-- <view class="remove" @click="delData(item)">删除</view> -->
+		 	</view>
+		 	<view class=""
+		 		style="width: 98%;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;height: 50rpx;">
+		 		<text>{{shanghua}}</text>
+		 	</view>
+		 </view>
+		
 	</view>
 </template>
 
@@ -99,9 +75,9 @@
 			async getList() {
 				const res = await this.$myRequest({
 					method: 'POST',
-					url: 'api/other/getMyTask',
+					url: 'api/danger/getMyTask',
 				})
-				console.log(JSON.stringify(res));
+				// console.log(JSON.stringify(res));
 				if (res.data.code == 200) {
 					this.csListArrl = res.data.data
 				}

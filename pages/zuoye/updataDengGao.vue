@@ -223,6 +223,10 @@
 					uni.navigateTo({
 						url:'./denggao'
 					})
+				}else{
+					uni.showToast({
+						title:res.data.message
+					})
 				}
 			},
 			//上传附件

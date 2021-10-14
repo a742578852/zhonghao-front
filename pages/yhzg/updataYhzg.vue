@@ -24,7 +24,7 @@
 				</view> -->
 			</view>
 				<button type="primary" size="mini" style="width: 50%;margin-left: 25%;margin-top: 30rpx;" @click="tianjia">确定</button>
-			
+			<button type="primary" size="mini" style="width: 50%;margin-left: 25%;margin-top: 30rpx;" @click="back">退回</button>
 			
 		</u-popup>
 		
@@ -182,7 +182,7 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title">填报日期:</view>
-			<input name="input" v-model="dataList.zzzgtxrq" disabled="" @click="show3 = true"></input>
+			<input name="input" v-model="dataList.zzzgtxrq" disabled="" @click="zzzgtxrqshow" :disabled="up1"></input>
 		</view>
 		<view class="" style="width: 98%;background-color: #ffffd7;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;">
 			<text>问题整改</text>
@@ -197,7 +197,7 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title">整改完成日期:</view>
-			<input name="input" v-model="dataList.zgwcrq" disabled="" @click="zgwcdrq"></input>
+			<input name="input" v-model="dataList.zgwcrq" disabled="" @click="zgwcdrq" :disabled="up1"></input>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">治理资金(元):</view>
@@ -205,7 +205,7 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title">填写日期:</view>
-			<input name="input" v-model="dataList.zgrtxrq" disabled="" @click="zgtxrq"></input>
+			<input name="input" v-model="dataList.zgrtxrq" disabled="" @click="zgtxrq" :disabled="up1"></input>
 		</view>
 		<view class="cu-form-group" @click="chooseImage1">
 			<view class="title">整改后照片:</view>
@@ -250,7 +250,7 @@
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">验证情况:</view>
-			<textarea maxlength="-1"  v-model='dataList.yzqk' :disabled="up"></textarea>
+			<textarea maxlength="-1"  v-model='dataList.yzqk' :disabled="up2"></textarea>
 		</view>
 		<!-- <button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="updataYh">确定</button> -->
 		<view class="" style="display: flex;justify-content: space-around;margin-top: 30rpx;margin-bottom: 30rpx;">
@@ -385,10 +385,17 @@
 			
 		},
 		onLoad(option) {
+			var str = '+'
+			var cTime = JSON.parse(option.items).createtime;
+			 cTime = cTime.replace(' ','+')
+			
+			this.dataList.createtime = this.transformTimestamp(cTime)
+			
 			this.dataList = JSON.parse(option.items)
 			this.yinhuaId = JSON.parse(option.items).docid
+			
 			this.lcobj.docuuid = JSON.parse(option.items).docid
-			console.log(JSON.parse(option.items).docid);
+			
 			this.lcobj.docid = this.guid2()
 			// this.dataList.createtime = this.dataList.createtime.substring(0,10)
 		},
@@ -433,6 +440,20 @@
 			// this.fjs = res.data.data
 		},
 		methods: {
+			//时间转换
+			transformTimestamp(timestamp){
+			    let a = new Date(timestamp).getTime();
+			    const date = new Date(a);
+			    const Y = date.getFullYear() + '-';
+			    const M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+			    const D = (date.getDate() < 10 ? '0'+date.getDate() : date.getDate()) + ' ';
+			    const h = (date.getHours() < 10 ? '0'+date.getHours() : date.getHours()) + ':';
+			    const m = (date.getMinutes() <10 ? '0'+date.getMinutes() : date.getMinutes())+ ':' ;
+			    const s = date.getSeconds(); // 秒
+			    const dateString = Y + M + D + h + m + s;
+			    // console.log('dateString', dateString); // > dateString 2021-07-06 14:23
+			    return dateString;
+			},
 			shouqian(){
 				uni.navigateTo({
 					url:'../shouqian/shouqian'
@@ -459,6 +480,11 @@
 					this.show1 = true
 				}
 				
+			},
+			zzzgtxrqshow(){
+				if(!this.up1){
+					this.show3 = true
+				}
 			},
 			//整改完成日期
 			zgwcdrq(){
@@ -488,38 +514,14 @@
 							pdocid :this.yinhuaId
 						}
 					})
-					// console.log(JSON.stringify(res));
+					
 					if (res.data.code == 200) {
 						this.rizhis = res.data.data
+						// console.log(JSON.stringify(this.rizhis));
 						this.dqlcclr = this.rizhis[this.rizhis.length-1].nowusername
 						
 						this.dqlc = this.rizhis[this.rizhis.length-1].nownodename
-						if(this.rizhis[this.rizhis.length-1].nownodename == '填报隐患'){
-							this.lcobj.nownodename = '问题整改'
-						}
-						if(this.rizhis[this.rizhis.length-1].nownodename == '问题整改'){
-							this.lcobj.nownodename = '问题验证'
-						}
-						if(this.rizhis[this.rizhis.length-1].nownodename == '问题验证'){
-							this.lcobj.nownodename = '结束'
-						}
 						
-						this.lcobj.prenodeid = this.rizhis[this.rizhis.length-1].nownodeid
-						this.lcobj.prenodename = this.rizhis[this.rizhis.length-1].nownodename
-						this.lcobj.preuserid = this.rizhis[this.rizhis.length-1].preuserid
-						this.lcobj.nowusername = this.username
-						this.lcobj.preusername = this.rizhis[this.rizhis.length-1].nowusername
-						this.lcobj.operatename = this.rizhis[this.rizhis.length-1].operatename
-						this.lcobj.nownodeid = this.rizhis[this.rizhis.length-1].nownodeid
-						if(this.rizhis[this.rizhis.length-1].operatename == '送拟稿'){
-							this.lcobj.operatename = '问题整改'
-						}
-						if(this.rizhis[this.rizhis.length-1].operatename == '送 问题整改'){
-							this.lcobj.operatename = '问题验证'
-						}
-						if(this.rizhis[this.rizhis.length-1].operatename == '送 问题验证'){
-							this.lcobj.operatename = '办结'
-						}
 						//当前节点处理人是不是当前登录人
 						if(this.username == this.dqlcclr){
 							this.lz = false
@@ -568,22 +570,83 @@
 						title: '请选择流转人'
 					})
 				}else{
-					this.lcobj.nowusername = this.xzry
-					this.lcobj.gettime = this.getCurrentTime()
-					this.lcobj.sendtime = this.getCurrentTime()
-					for(var i=0;i<this.bmobj.length;i++){
-						if(this.bmobj[i].userName == this.xzry){
-							this.lcobj.nowuserid = this.bmobj[i].userId
+					if(this.rizhis[this.rizhis.length-1].operatename == '办结'){
+						
+						uni.showToast({
+							title: '流程已结束'
+						})
+					}else{
+						this.lcobj.nowusername = this.xzry
+						this.lcobj.gettime = this.getCurrentTime()
+						this.lcobj.sendtime = this.getCurrentTime()
+						for(var i=0;i<this.bmobj.length;i++){
+							if(this.bmobj[i].userName == this.xzry){
+								this.lcobj.nowuserid = this.bmobj[i].userId
+							}
 						}
+						this.addLc()
 					}
-					this.addLc()
+					
+					
 				}
 				this.bmChoiseShow = false
-				
-				
+			},
+			//退回上一级
+			back(){
+				this.xzry = ''
+				if(this.rizhis[this.rizhis.length-1].nownodename == '填报隐患' || this.rizhis[this.rizhis.length-1].nownodename == '结束' || this.rizhis[this.rizhis.length-1].operatename == '送拟稿' || this.rizhis[this.rizhis.length-1].operatename == '办结'){
+					uni.showToast({
+						title: '当前节点不可退回'
+					})
+				}else{
+					this.lcobj.docid = this.guid2()
+					this.lcobj.docuuid = this.rizhis[this.rizhis.length-2].docuuid
+					this.lcobj.nowuserid = this.rizhis[this.rizhis.length-2].nowuserid
+					this.lcobj.nowusername = this.rizhis[this.rizhis.length-2].nowusername
+					this.lcobj.preusername = this.username
+					for(var i=0;i<this.bmobj.length;i++){
+						if(this.bmobj[i].userName == this.xzry){
+							this.lcobj.preuserid = this.bmobj[i].userId
+						}
+					}
+					this.lcobj.prenodeid = this.rizhis[this.rizhis.length-2].prenodeid
+					this.lcobj.nownodename = this.rizhis[this.rizhis.length-2].nownodename
+					this.lcobj.operatename = this.rizhis[this.rizhis.length-2].operatename
+					this.lcobj.gettime = this.getCurrentTime()
+					this.lcobj.sendtime = this.getCurrentTime()
+					this.addLc()
+				}
 			},
 			//添加流程
 			async addLc(){
+				if(this.rizhis[this.rizhis.length-1].nownodename == '填报隐患'){
+					this.lcobj.nownodename = '问题整改'
+				}
+				if(this.rizhis[this.rizhis.length-1].nownodename == '问题整改'){
+					this.lcobj.nownodename = '问题验证'
+				}
+				if(this.rizhis[this.rizhis.length-1].nownodename == '问题验证'){
+					this.lcobj.nownodename = '结束'
+				}
+				
+				this.lcobj.prenodeid = this.rizhis[this.rizhis.length-1].nownodeid
+				this.lcobj.prenodename = this.rizhis[this.rizhis.length-1].nownodename
+				this.lcobj.preuserid = this.rizhis[this.rizhis.length-1].preuserid
+				this.lcobj.nowusername = this.username
+				this.lcobj.preusername = this.rizhis[this.rizhis.length-1].nowusername
+				this.lcobj.operatename = this.rizhis[this.rizhis.length-1].operatename
+				this.lcobj.nownodeid = this.rizhis[this.rizhis.length-1].nownodeid
+				if(this.rizhis[this.rizhis.length-1].operatename == '送拟稿'){
+					this.lcobj.operatename = '送 问题整改'
+				}
+				if(this.rizhis[this.rizhis.length-1].operatename == '送 问题整改'){
+					this.lcobj.operatename = '送 问题验证'
+				}
+				if(this.rizhis[this.rizhis.length-1].operatename == '送 问题验证'){
+					this.lcobj.operatename = '办结'
+				}
+				
+				
 				var token = uni.getStorageSync('token')
 				const res = await this.$myRequest({
 					method: 'POST',
@@ -661,6 +724,7 @@
 			},
 			//查看隐患
 			async updataYh(){
+				
 				var token = uni.getStorageSync('token')
 				
 				const res = await this.$myRequest({
@@ -673,8 +737,9 @@
 					data: JSON.stringify(this.dataList)
 					
 				})
+				console.log(res);
 				if(res.data.code == 200){
-					this.dataList.zzzgtbr = 
+					// this.dataList.zzzgtbr = 
 					uni.navigateTo({
 						url:'./yhzg'
 					})

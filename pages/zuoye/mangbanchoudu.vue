@@ -186,6 +186,10 @@
 				
 				if (res.data.code == 200) {
 					uni.startPullDownRefresh();
+				}else{
+					uni.showToast({
+						title:res.data.message
+					})
 				}
 			},
 			//删除方法
