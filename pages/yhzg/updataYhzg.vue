@@ -791,7 +791,7 @@
 							formData: {
 								'docid': this.dataList.docid,
 								'appid': this.dataList.appid,
-								'type': 'fileinput-gczyfj'
+								'type': 'fileinput-yhzp'
 							},
 							header: {
 								'token': uni.getStorageSync("token")
