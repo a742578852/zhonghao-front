@@ -306,7 +306,7 @@
             "path" : "pages/yhzg/yhzg",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "隐患整改",
+                "navigationBarTitleText": "政府检查问题",
                 "enablePullDownRefresh": true
             }
             
@@ -769,6 +769,33 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/yhzg/yhfj",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/yhzg/sjyh",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "上级公司检查",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/yhzg/bgsyh",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "本公司检查",
                 "enablePullDownRefresh": false
             }
             

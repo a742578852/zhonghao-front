@@ -252,6 +252,9 @@
 					authororgname:'生产部',
 					createtime:'',
 					zgdbh:'',
+					bgsjcwt:'',//本公司
+					sjgsjcwt:'',//上级公司
+					zfjjcwt:'',//政府
 					lastmodifiedtime:'',
 					appname:'整改通知流程',
 					pribeanname:'com.ruoyi.aqgl.jcyzg.models.Zgtz',
@@ -289,7 +292,7 @@
 				return false;
 			}
 			uni.navigateTo({
-				url:'./yhzg'
+				url:'./yhfj'
 			})
 			return true;
 		},
@@ -309,10 +312,29 @@
 			var time = year+ '-' + M + '-' + D
 			this.dataList.yhxxjcrq = time
 			var admin = uni.getStorageSync('admin')
-			console.log(admin);
+			// console.log(admin);
 			this.dataList.jcdwmc = admin.deptName
 			this.dataList.authorname = admin.userName
 			this.dataList.authorid = admin.userId
+		},
+		onLoad(option) {
+			var ids = option.ids
+			if(ids == 2){
+				this.dataList.zfjcwt = '政府检查问题'
+				this.dataList.bgsjcwt = ''
+				this.dataList.sjgsjcwt = ''
+			}
+			if(ids == 0){
+				this.dataList.zfjcwt = ''
+				this.dataList.bgsjcwt = '本公司检查问题'
+				this.dataList.sjgsjcwt = ''
+			}
+			if(ids == 1){
+				this.dataList.zfjcwt = ''
+				this.dataList.bgsjcwt = ''
+				this.dataList.sjgsjcwt = '上级公司检查问题'
+			}
+			console.log(ids);
 		},
 		methods: { 
 			//删除选择人员
@@ -385,16 +407,20 @@
 				}
 			},
 			async getBh(){
+				console.log('获取编号');
 				const res = await this.$myRequest({
 					method: 'POST',
 					url: 'api/danger/getDangerList',
 				})
+				console.log(res);
 				if (res.data.code == 200) {
 					this.bh = res.data.data[0].zgdbh.substring(11)
+					console.log(this.bh);
 				}
 			},
 			async addYh(){
-				console.log(this.bh);
+				
+				console.log(this.dataList.zfjcwt);
 				let date = new Date()
 				let year = date.getFullYear();
 				 var bhs = parseInt(this.bh)+1
@@ -420,9 +446,10 @@
 				console.log(res);
 				if(res.data.code == 200){
 					this.addLc()
-					uni.navigateTo({
-						url:'./yhzg'
-					})
+					uni.navigateBack()
+					// uni.navigateTo({
+					// 	url:'./yhzg'
+					// })
 				}
 			},
 			//生成uuid

@@ -294,7 +294,7 @@
 			//隐患整改
 			toYihuan() {
 				uni.navigateTo({
-					url: '../yhzg/yhzg'
+					url: '../yhzg/yhfj'
 				})
 			},
 			//三违上报

@@ -77,8 +77,8 @@
 			if (event.from === 'navigateBack') {
 				return false;
 			}
-			uni.switchTab({
-				url:'../index/index'
+			uni.navigateTo({
+				url:'yhfj'
 			})
 			return true;
 		},
@@ -112,6 +112,9 @@
 				const res = await this.$myRequest({
 					method: 'POST',
 					url: 'api/danger/getDangerList',
+					data:{
+						'type':2
+					}
 				})
 				if (res.data.code == 200) {
 					this.csListArrl = res.data.data
@@ -123,7 +126,7 @@
 			//新增隐患整改
 			addYhzg(){
 				uni.navigateTo({
-					url:'./addYhzg'
+					url:'./addYhzg?ids=2'
 				})
 			},
 			//查看/修改风险管控信息
