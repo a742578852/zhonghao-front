@@ -87,6 +87,7 @@
 		<u-calendar v-model="show3" :mode="mode" @change="change3"></u-calendar>
 		<u-calendar v-model="show4" :mode="mode" @change="change4"></u-calendar>
 		<u-calendar v-model="show5" :mode="mode" @change="change5"></u-calendar>
+		
 		<view class="cu-form-group align-start">
 			<view class="title">隐患问题:</view>
 			<textarea maxlength="-1"  v-model='dataList.bhgys' :disabled="up"></textarea>
@@ -143,6 +144,12 @@
 			<view class="title">附件列表:</view>
 			<picker  @change="bindPickerChanges" :value="fjindex" :range="fj">
 				<view class="uni-input">{{fj[fjindex]}}</view>
+			</picker>
+		</view>
+		<view class="cu-form-group">
+			<view class="title">附件预览:</view>
+			<picker  @change="bindPickerChanges11" :value="fjindex" :range="arrayfjs" disabled="">
+				<image :src="arrayfjs[fjindex]" mode=""></image>
 			</picker>
 		</view>
 		<view class="cu-form-group">
@@ -217,6 +224,13 @@
 				<view class="uni-input">{{fj1[fjindex1]}}</view>
 			</picker>
 		</view>
+		<view class="cu-form-group">
+			<view class="title">附件预览:</view>
+			<picker  @change="bindPickerChanges12" :value="fjindex1" :range="arrayfjs1" disabled="">
+				
+				<image :src="arrayfjs1[fjindex1]" mode=""></image>
+			</picker>
+		</view>
 		<view class="" style="width: 98%;background-color: #ffffd7;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;">
 			<text>问题验证</text>
 		</view>
@@ -244,10 +258,18 @@
 				<view class="uni-input">{{fj2[fjindex2]}}</view>
 			</picker>
 		</view>
+		<view class="cu-form-group">
+			<view class="title">附件预览:</view>
+			<picker  @change="bindPickerChanges22" :value="fjindex2" :range="arrayfjs2" disabled="">
+				
+				<image :src="arrayfjs2[fjindex2]" mode=""></image>
+			</picker>
+		</view>
 		<view class="cu-form-group" @click="shouqian">
 			<view class="title">手写签名:</view>
 			<input name="input" placeholder="点击进行签名"  disabled=""></input>
 		</view>
+		<image :src="yhPath" mode=""></image>
 		<view class="cu-form-group align-start">
 			<view class="title">验证情况:</view>
 			<textarea maxlength="-1"  v-model='dataList.yzqk' :disabled="up2"></textarea>
@@ -266,6 +288,7 @@
 	export default {
 		data() {
 			return {
+				yhPath:'',//隐患手写签名地址
 				fj:[],
 				fjs:[],
 				fjindex:0,
@@ -321,6 +344,9 @@
 				arrayBz:['安全部','财务部'],
 				arrayArea1:[],
 				arrayArea2:[],
+				arrayfjs:[],
+				arrayfjs1:[],
+				arrayfjs2:[],
 				areas:[],
 				did:'',
 				arrayYy:['人','物','料','法','环'],
@@ -400,7 +426,8 @@
 			// this.dataList.createtime = this.dataList.createtime.substring(0,10)
 		},
 		async onShow() {
-			
+			//获取隐患签名地址
+			this.yhPath = uni.getStorageSync('yhPath')
 			this.getByMid()
 			//获取日志
 			this.getLog()
@@ -429,14 +456,18 @@
 				if(res.data.data[i].attachtype == 'fileinput-yhzp'){
 					this.fj.push(res.data.data[i].sfilename)
 					this.fjs.push(res.data.data[i])
+					this.arrayfjs.push('http://124.70.192.154:7703/img/'+this.fjs[this.fjindex].filepath+this.fjs[this.fjindex].attachmentid)
+					
 				}
 				if(res.data.data[i].attachtype == 'fileinput-zgzp'){
 					this.fj1.push(res.data.data[i].sfilename)
 					this.fjs1.push(res.data.data[i])
+					this.arrayfjs1.push('http://124.70.192.154:7703/img/'+this.fjs1[this.fjindex1].filepath+this.fjs1[this.fjindex1].attachmentid)
 				}
 				if(res.data.data[i].attachtype == 'fileinput-yzzp'){
 					this.fj2.push(res.data.data[i].sfilename)
 					this.fjs2.push(res.data.data[i])
+					this.arrayfjs2.push('http://124.70.192.154:7703/img/'+this.fjs2[this.fjindex2].filepath+this.fjs2[this.fjindex2].attachmentid)
 				}
 			}
 			// this.fjs = res.data.data
@@ -458,7 +489,7 @@
 			},
 			shouqian(){
 				uni.navigateTo({
-					url:'../shouqian/shouqian'
+					url:'../shouqian/shouqian?type=1&docid='+this.lcobj.docuuid
 				})
 			},
 			//生成uuid
@@ -806,6 +837,7 @@
 				uni.chooseImage({
 					success: (chooseImageRes) => {
 						const tempFilePaths = chooseImageRes.tempFilePaths;
+						console.log(tempFilePaths[0]);
 						uni.uploadFile({
 							url: 'http://124.70.192.154:7702/api/other/uploadFile', //仅为示例，非真实的接口地址
 							filePath: tempFilePaths[0],
@@ -893,6 +925,15 @@
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index2 = e.detail.value
 				this.dataList.jclx = this.arrayjclx[this.index2]
+			},
+			bindPickerChanges11(){
+				
+			},
+			bindPickerChanges12(){
+				
+			},
+			bindPickerChanges22(){
+				
 			},
 			confirm(e){
 				console.log(JSON.stringify(e));

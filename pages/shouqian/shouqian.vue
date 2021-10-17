@@ -15,11 +15,15 @@
 	export default{
 		data(){
 			return {
+				docid:'',
+				type:'',//1:隐患，2：个人任务
 				ctx:'',         //绘图图像
 				points:[]       //路径点集合 
 			}
 		},
-		onLoad() {
+		onLoad(option) {
+			this.type = option.type
+			this.docid = option.docid
 			this.ctx = uni.createCanvasContext("mycanvas",this);   //创建绘图对象
 			
 			//设置画笔样式
@@ -105,6 +109,25 @@
 					  },1000)
 					  console.log(res)
 				    let path = res.tempFilePath;
+					uni.setStorageSync('yhPath',path)
+					/////////////////
+					 uni.uploadFile({
+					            url: 'http://124.70.192.154:7702/api/danger/addAuthimg', 
+					            filePath: path,
+					            // name: 'file',
+					            formData: {
+					                'docid': this.docid,
+									
+					            },
+								header: {
+									'token': uni.getStorageSync("token")
+								},
+					            complete: (uploadFileRes) => {
+					                console.log(uploadFileRes);
+					            }
+					        });
+					///////////////////
+					console.log(path);
 					uni.saveImageToPhotosAlbum({
 						filePath:path,
 					})
