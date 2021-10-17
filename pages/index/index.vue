@@ -2,15 +2,25 @@
 	<view>
 		<view class="swipers">
 			<swiper class="swiper" indicator-dots="true" autoplay="true" circular="true">
-				<swiper-item class="swiper-item" v-for="item in img">
+				<!-- <swiper-item class="swiper-item" v-for="item in img">
 					<image :src="'http://'+item" mode=""></image>
-				</swiper-item>
-				<!-- <swiper-item class="swiper-item">
+				</swiper-item> -->
+				<swiper-item class="swiper-item">
 					<image src="../../static/jpg2.jpg" mode=""></image>
 				</swiper-item>
 				<swiper-item class="swiper-item">
 					<image src="../../static/jpg1.jpg" mode=""></image>
-				</swiper-item> -->
+				</swiper-item>
+				<swiper-item class="swiper-item">
+					<image src="../../static/jpg3.jpg" mode=""></image>
+				</swiper-item>
+				<swiper-item class="swiper-item">
+					<image src="../../static/jpg4.jpg" mode=""></image>
+				</swiper-item>
+				<swiper-item class="swiper-item">
+					<image src="../../static/jpg5.jpg" mode=""></image>
+				</swiper-item>
+				
 			</swiper>
 		</view>
 		<view class="content">

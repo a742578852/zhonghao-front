@@ -9,7 +9,13 @@
 					<image src="../../static/jpg2.jpg" mode=""></image>
 				</swiper-item>
 				<swiper-item class="swiper-item">
-					<image src="../../static/jpg1.jpg" mode=""></image>
+					<image src="../../static/jpg3.jpg" mode=""></image>
+				</swiper-item>
+				<swiper-item class="swiper-item">
+					<image src="../../static/jpg4.jpg" mode=""></image>
+				</swiper-item>
+				<swiper-item class="swiper-item">
+					<image src="../../static/jpg5.jpg" mode=""></image>
 				</swiper-item>
 			</swiper>
 		</view>
