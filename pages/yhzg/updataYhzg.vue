@@ -400,6 +400,7 @@
 			// this.dataList.createtime = this.dataList.createtime.substring(0,10)
 		},
 		async onShow() {
+			
 			this.getByMid()
 			//获取日志
 			this.getLog()
@@ -415,6 +416,7 @@
 			this.username = uni.getStorageSync('admin').userName
 			this.dataList.zzzgtbr = this.username
 			this.dataList.yzr = this.username
+			
 			
 			//获取附件列表
 			const res = await this.$myRequest({
@@ -576,6 +578,7 @@
 							title: '流程已结束'
 						})
 					}else{
+						console.log(this.xzry);
 						this.lcobj.nowusername = this.xzry
 						this.lcobj.gettime = this.getCurrentTime()
 						this.lcobj.sendtime = this.getCurrentTime()
@@ -632,7 +635,7 @@
 				this.lcobj.prenodeid = this.rizhis[this.rizhis.length-1].nownodeid
 				this.lcobj.prenodename = this.rizhis[this.rizhis.length-1].nownodename
 				this.lcobj.preuserid = this.rizhis[this.rizhis.length-1].preuserid
-				this.lcobj.nowusername = this.username
+				// this.lcobj.nowusername = this.username
 				this.lcobj.preusername = this.rizhis[this.rizhis.length-1].nowusername
 				this.lcobj.operatename = this.rizhis[this.rizhis.length-1].operatename
 				this.lcobj.nownodeid = this.rizhis[this.rizhis.length-1].nownodeid
@@ -737,11 +740,11 @@
 					data: JSON.stringify(this.dataList)
 					
 				})
-				console.log(res);
+				
 				if(res.data.code == 200){
 					// this.dataList.zzzgtbr = 
-					uni.navigateTo({
-						url:'./yhzg'
+					uni.showToast({
+						title:'保存成功'
 					})
 				}
 			},

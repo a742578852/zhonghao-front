@@ -162,7 +162,7 @@
 				}
 				for(var i=0;i<this.rwList.length;i++){
 					this.rwList[i].docid = this.guid2()
-					
+					this.rwList[i].xjjg = 1
 					this.rwList[i].pdocid = this.dataList.docid
 					var time = year+'-' + month+'-' + day
 					this.rwList[i].createtime = time
@@ -175,7 +175,7 @@
 						},
 						data:JSON.stringify(this.rwList[i])
 					})
-					 console.log(JSON.stringify(ress.data));
+					 
 					
 				}
 				

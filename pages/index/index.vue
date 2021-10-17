@@ -77,8 +77,8 @@
 			<view class="mids-item" hover-class="swing1" @click="toCq">
 				<text>超期未整改：{{cqwzg}}</text>
 			</view>
-			<view class="mids-item">
-				<text>重大危险源：{{zdwxy}}</text>
+			<view class="mids-item" @click="toTongji">
+				<text>两重点一重大情况</text>
 			</view>
 		</view>
 		
@@ -140,6 +140,14 @@
 					<text>培训资料</text>
 				</view>
 			</view>
+			<view class="deep-items" @click="toGg">
+				<view class="deep-item" hover-class="swing3">
+					<image class="deep-item-img" src="../../static/zysq.png" mode=""></image>
+				</view>
+				<view class="">
+					<text>通知公告</text>
+				</view>
+			</view>
 			<view class="deep-items" @click="toAzw">
 				<view class="deep-item" hover-class="swing3">
 					<image class="deep-item-img" src="../../static/azw.png" mode=""></image>
@@ -170,12 +178,12 @@
 			
 			<text @click="dianji(1)" :class="{changeColor1: this.bian2==1}">安全新闻</text>
 		</view>
-		<view class="deeps1" v-for="(item,index) in news" v-if="!show" @click="toNews()">
+		<view class="deeps1" v-for="(item,index) in news" v-if="!show " v-show="index<=3" @click="toNews()">
 			<view class="deeps1-item" hover-class="swing4">
 				<text>{{item.bt}}</text>
 			</view>
 		</view>
-		<view class="deeps1" v-for="(item,index) in notice" v-if="show" @click="toGg()">
+		<view class="deeps1" v-for="(item,index) in notice" v-if="show" v-show="index<=3" @click="toGg()">
 			<view class="deeps1-item" hover-class="swing4">
 				<text>{{item.bt}}</text>
 			</view>
@@ -235,11 +243,11 @@
 				this.cqwzg = res.data.data.overDanger
 				this.zdwxy = res.data.data.allCount
 				this.img = res.data.data.banners
-				console.log(this.img);
+				
 				this.allCount = res.data.data.allTask.length
 				this.grrwCount = res.data.data.myTask.length
 				for(var i=0;i<res.data.data.userRoles.length;i++){
-					console.log(res.data.data.userRoles[i].roleId);
+					
 					if(res.data.data.userRoles[i].roleId == 1 || res.data.data.userRoles[i].roleId == 4){
 						this.showAll = true
 					}
@@ -310,6 +318,12 @@
 			toCq(){
 				uni.navigateTo({
 					url: '../yhzg/chaoqi'
+				})
+			},
+			toTongji(){
+				uni.setStorageSync('maodian','maodian')
+				uni.switchTab({
+					url:'../tongji/tongji'
 				})
 			},
 			//有毒气体

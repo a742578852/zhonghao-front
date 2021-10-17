@@ -10,8 +10,13 @@
 					<text class="popup-item-text">风险等级：</text>
 					<input class="popup-item-input" type="text" v-model="fxdj" />
 				</view>
+				<view class="popup-item">
+					<text class="popup-item-text">责任部门：</text>
+					<input class="popup-item-input" type="text" v-model="zrbm" />
+				</view>
+				<button type="primary" size="mini" style="width: 50%;margin-left: 25%;margin-top: 10rpx;" @click="serach">确定</button>
 			</view>
-			<button type="primary" size="mini" style="width: 50%;margin-left: 25%;" @click="serach">确定</button>
+			
 		</u-popup>
 		<view class="content">
 			<view class="content-item1">
@@ -58,6 +63,7 @@
 				delBtnWidth: 100,
 				riskList:[],
 				riskLists:[],
+				zrbm:'',
 				bsbw:'',
 				fxdj:'',
 				startX:'',

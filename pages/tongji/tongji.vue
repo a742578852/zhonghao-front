@@ -1,5 +1,6 @@
 <template>
-	<view>
+	<view class="Follows">
+		
 		<!-- 安全运行天数 -->
 		<view style="background-image: url(../../static/bg.png);height: 400rpx;">
 			<view style="text-align: center;padding-top:120rpx ;color: #FFFFFF;font-size: 80rpx;">{{day}}</view>
@@ -46,7 +47,7 @@
 
 		</view>
 		<!-- 重大危险源 -->
-		<view style="margin-top: 40rpx;">
+		<view style="margin-top: 40rpx;" class="Follow-auto">
 			<text style="font-size: 40rpx;font-weight: 500;margin: 20rpx;">重大危险源统计</text>
 			<view style="margin-top: 20rpx;">
 				<u-line color="green" border-style="dashed"></u-line>
@@ -172,6 +173,19 @@
 			}
 		},
 		methods: {
+			//跳转到页面固定位置
+			but(){
+				uni.createSelectorQuery().select('.Follow-auto').boundingClientRect(data=>{//目标位置的节点：类class或者id
+				uni.createSelectorQuery().select(".Follows").boundingClientRect(res=>{//最外层盒子的节点：类class或者id
+				uni.pageScrollTo({
+				duration: 100,//过渡时间
+				scrollTop:data.top+90 - res.top,//到达距离顶部的top值
+				//scrollTop:data.top - res.top,//如果置顶
+						})
+					}).exec()
+				}).exec();
+			},
+
 			bindDateChange: function(e) {
 				this.date = e.target.value
 			
@@ -193,6 +207,11 @@
 			}
 		},
 		async onShow() {
+			//获取触发锚点参数
+			if(uni.getStorageSync('maodian') == 'maodian'){
+				this.but()
+				uni.removeStorageSync('maodian')
+			}
 			//获取当前月
 			var myDate = new Date();
 			var tYear = myDate.getFullYear();

@@ -309,6 +309,8 @@
 			var time = year+ '-' + M + '-' + D
 			this.dataList.yhxxjcrq = time
 			var admin = uni.getStorageSync('admin')
+			console.log(admin);
+			this.dataList.jcdwmc = admin.deptName
 			this.dataList.authorname = admin.userName
 			this.dataList.authorid = admin.userId
 		},

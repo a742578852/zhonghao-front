@@ -45,8 +45,11 @@
 					<text>{{item.xjnr}}</text>
 				</view>
 				<view class="content-item" style="width: 18%;">
-					<picker @change="bindPickerChange" @click="zgfsClick(index)" :value="ind" :range="arrayZgfs" class="item2" style="">
-						<view class="uni-input" v-if="index == 0">{{zgfs[0]}}</view>
+					<picker @change="bindPickerChange" @click="zgfsClick(findex = index)"  :range="arrayZgfs" >
+						<view class="uni-input" v-if="item.xjjg == 0">隐患整改通知</view>
+						<view class="uni-input" v-if="item.xjjg == 1">已检查无隐患</view>
+						<view class="uni-input" v-if="item.xjjg == 2">现场立即整改</view>
+						<!-- <view class="uni-input" v-if="index == 0">{{zgfs[0]}}</view>
 						<view class="uni-input" v-if="index == 1">{{zgfs[1]}}</view>
 						<view class="uni-input" v-if="index == 2">{{zgfs[2]}}</view>
 						<view class="uni-input" v-if="index == 3">{{zgfs[3]}}</view>
@@ -55,7 +58,7 @@
 						<view class="uni-input" v-if="index == 6">{{zgfs[6]}}</view>
 						<view class="uni-input" v-if="index == 7">{{zgfs[7]}}</view>
 						<view class="uni-input" v-if="index == 8">{{zgfs[8]}}</view>
-						<view class="uni-input" v-if="index == 9">{{zgfs[9]}}</view>
+						<view class="uni-input" v-if="index == 9">{{zgfs[9]}}</view> -->
 					</picker>
 				</view>
 			</view>
@@ -91,6 +94,7 @@
 	export default {
 		data() {
 			return {
+				findex:0,
 				bmChoiseShow:false,
 				bmChoise:false,
 				bumen:'',
@@ -120,7 +124,7 @@
 				picker3:false,
 				ind:0,
 				rwList:[],
-				arrayZgfs:['已检查无隐患','隐患整改通知','现场立即整改'],
+				arrayZgfs:['隐患整改通知','已检查无隐患','现场立即整改'],
 				docid:'',
 				dataList:{
 					xjqk:'',
@@ -245,7 +249,7 @@
 						},
 						data:JSON.stringify(this.rwList[i])
 					})
-					console.log(ress);
+					// console.log(ress);
 					
 				}
 			},
@@ -292,25 +296,26 @@
 						pdocid:this.docid
 					}
 				})
-				console.log(res);
+				// console.log(res);
 				if (res.data.code == 200) {
 					this.rwList = res.data.data
-					for(var i=0;i<this.rwList.length;i++){
-						console.log(this.rwList[i].xjjg);
-						if(this.rwList[i].xjjg == ''){
-							this.zgfs[i] = '已检查无隐患'
-						}
-						if(this.rwList[i].xjjg == '0'){
-								this.zgfs[i] = '隐患整改通知'
-						}
-						if(this.rwList[i].xjjg == '1'){
-							this.zgfs[i] = '已检查无隐患'
-						}
-						if(this.rwList[i].xjjg == '2'){
-							this.zgfs[i] = '现场立即整改'
-						}
+					// console.log(this.rwList[14].xjjg);
+					// for(var i=0;i<this.rwList.length;i++){
+					// 	console.log(this.rwList[i].xjjg);
+					// 	if(this.rwList[i].xjjg == ''){
+					// 		this.zgfs[i] = '已检查无隐患'
+					// 	}
+					// 	if(this.rwList[i].xjjg == '0'){
+					// 			this.zgfs[i] = '隐患整改通知'
+					// 	}
+					// 	if(this.rwList[i].xjjg == '1'){
+					// 		this.zgfs[i] = '已检查无隐患'
+					// 	}
+					// 	if(this.rwList[i].xjjg == '2'){
+					// 		this.zgfs[i] = '现场立即整改'
+					// 	}
 						
-					}
+					// }
 					// console.log(JSON.stringify(this.bmobj));
 					
 				}
@@ -326,153 +331,161 @@
 						
 			        },
 			bindPickerChange(e) {
-				this.ind = e.detail.value
 				
-				if(this.zgfsIndex == 0){
-					if(this.ind == 0){
-						this.zgfs[0] = '已检查无隐患'
-						this.rwList[0].xjjg = 1
-					}
-					if(this.ind == 1){
-						this.zgfs[0] = '隐患整改通知'
-						this.rwList[0].xjjg = 0
-					}
-					if(this.ind == 2){
-						this.zgfs[0] = '现场立即整改'
-						this.rwList[0].xjjg = 2
-					}
+				var ind = e.detail.value
+				
+				this.rwList[this.findex].xjjg = ind
+				
+				// for(var i=0;i<this.rwList.length;i++){
+				// 	this.rwList[this.findex].xjjg = ind
+				// 	console.log(this.rwList[15].xjjg);
+				// }
+				
+				// if(this.zgfsIndex == 0){
+				// 	if(this.ind == 0){
+				// 		this.zgfs[0] = '已检查无隐患'
+				// 		this.rwList[0].xjjg = 1
+				// 	}
+				// 	if(this.ind == 1){
+				// 		this.zgfs[0] = '隐患整改通知'
+				// 		this.rwList[0].xjjg = 0
+				// 	}
+				// 	if(this.ind == 2){
+				// 		this.zgfs[0] = '现场立即整改'
+				// 		this.rwList[0].xjjg = 2
+				// 	}
 					
-				}
-				if(this.zgfsIndex == 1){
-					if(this.ind == 0){
-						this.zgfs[1] = '已检查无隐患'
-						this.rwList[1].xjjg = 1
-					}
-					if(this.ind == 1){
-						this.zgfs[1] = '隐患整改通知'
-						this.rwList[1].xjjg = 0
-					}
-					if(this.ind == 2){
-						this.zgfs[1] = '现场立即整改'
-						this.rwList[1].xjjg = 2
-					}
-				}
-				if(this.zgfsIndex == 2){
-					if(this.ind == 0){
-						this.zgfs[2] = '已检查无隐患'
-						this.rwList[2].xjjg = 1
-					}
-					if(this.ind == 1){
-						this.zgfs[2] = '隐患整改通知'
-						this.rwList[2].xjjg = 0
-					}
-					if(this.ind == 2){
-						this.zgfs[2] = '现场立即整改'
-						this.rwList[2].xjjg = 2
-					}
-				}
-				if(this.zgfsIndex == 3){
-					if(this.ind == 0){
-						this.zgfs[3] = '已检查无隐患'
-						this.rwList[3].xjjg = 1
-					}
-					if(this.ind == 1){
-						this.zgfs[3] = '隐患整改通知'
-						this.rwList[3].xjjg = 0
-					}
-					if(this.ind == 2){
-						this.zgfs[3] = '现场立即整改'
-						this.rwList[3].xjjg = 2
-					}
-				}
-				if(this.zgfsIndex == 4){
-					if(this.ind == 0){
-						this.zgfs[4] = '已检查无隐患'
-						this.rwList[4].xjjg = 1
-					}
-					if(this.ind == 1){
-						this.zgfs[4] = '隐患整改通知'
-						this.rwList[4].xjjg = 0
-					}
-					if(this.ind == 2){
-						this.zgfs[4] = '现场立即整改'
-						this.rwList[4].xjjg = 2
-					}
-				}
-				if(this.zgfsIndex == 5){
-					if(this.ind == 0){
-						this.zgfs[5] = '已检查无隐患'
-						this.rwList[5].xjjg = 1
-					}
-					if(this.ind == 1){
-						this.zgfs[5] = '隐患整改通知'
-						this.rwList[5].xjjg = 0
-					}
-					if(this.ind == 2){
-						this.zgfs[5] = '现场立即整改'
-						this.rwList[5].xjjg = 2
-					}
-				}
-				if(this.zgfsIndex == 6){
-					if(this.ind == 0){
-						this.zgfs[6] = '已检查无隐患'
-						this.rwList[6].xjjg = 1
-					}
-					if(this.ind == 1){
-						this.zgfs[6] = '隐患整改通知'
-						this.rwList[6].xjjg = 0
-					}
-					if(this.ind == 2){
-						this.zgfs[6] = '现场立即整改'
-						this.rwList[6].xjjg = 2
-					}
-				}
-				if(this.zgfsIndex == 7){
-					if(this.ind == 0){
-						this.zgfs[7] = '已检查无隐患'
-						this.rwList[7].xjjg = 1
-					}
-					if(this.ind == 1){
-						this.zgfs[7] = '隐患整改通知'
-						this.rwList[7].xjjg = 0
-					}
-					if(this.ind == 2){
-						this.zgfs[7] = '现场立即整改'
-						this.rwList[7].xjjg = 2
-					}
-				}
-				if(this.zgfsIndex == 8){
-					if(this.ind == 0){
-						this.zgfs[8] = '已检查无隐患'
-						this.rwList[8].xjjg = 1
-					}
-					if(this.ind == 1){
-						this.zgfs[8] = '隐患整改通知'
-						this.rwList[8].xjjg = 0
-					}
-					if(this.ind == 2){
-						this.zgfs[8] = '现场立即整改'
-						this.rwList[8].xjjg = 2
-					}
-				}
-				if(this.zgfsIndex == 9){
-					if(this.ind == 0){
-						this.zgfs[9] = '已检查无隐患'
-						this.rwList[9].xjjg = 1
-					}
-					if(this.ind == 1){
-						this.zgfs[9] = '隐患整改通知'
-						this.rwList[9].xjjg = 0
-					}
-					if(this.ind == 2){
-						this.zgfs[9] = '现场立即整改'
-						this.rwList[9].xjjg = 2
-					}
-				}
+				// }
+				// if(this.zgfsIndex == 1){
+				// 	if(this.ind == 0){
+				// 		this.zgfs[1] = '已检查无隐患'
+				// 		this.rwList[1].xjjg = 1
+				// 	}
+				// 	if(this.ind == 1){
+				// 		this.zgfs[1] = '隐患整改通知'
+				// 		this.rwList[1].xjjg = 0
+				// 	}
+				// 	if(this.ind == 2){
+				// 		this.zgfs[1] = '现场立即整改'
+				// 		this.rwList[1].xjjg = 2
+				// 	}
+				// }
+				// if(this.zgfsIndex == 2){
+				// 	if(this.ind == 0){
+				// 		this.zgfs[2] = '已检查无隐患'
+				// 		this.rwList[2].xjjg = 1
+				// 	}
+				// 	if(this.ind == 1){
+				// 		this.zgfs[2] = '隐患整改通知'
+				// 		this.rwList[2].xjjg = 0
+				// 	}
+				// 	if(this.ind == 2){
+				// 		this.zgfs[2] = '现场立即整改'
+				// 		this.rwList[2].xjjg = 2
+				// 	}
+				// }
+				// if(this.zgfsIndex == 3){
+				// 	if(this.ind == 0){
+				// 		this.zgfs[3] = '已检查无隐患'
+				// 		this.rwList[3].xjjg = 1
+				// 	}
+				// 	if(this.ind == 1){
+				// 		this.zgfs[3] = '隐患整改通知'
+				// 		this.rwList[3].xjjg = 0
+				// 	}
+				// 	if(this.ind == 2){
+				// 		this.zgfs[3] = '现场立即整改'
+				// 		this.rwList[3].xjjg = 2
+				// 	}
+				// }
+				// if(this.zgfsIndex == 4){
+				// 	if(this.ind == 0){
+				// 		this.zgfs[4] = '已检查无隐患'
+				// 		this.rwList[4].xjjg = 1
+				// 	}
+				// 	if(this.ind == 1){
+				// 		this.zgfs[4] = '隐患整改通知'
+				// 		this.rwList[4].xjjg = 0
+				// 	}
+				// 	if(this.ind == 2){
+				// 		this.zgfs[4] = '现场立即整改'
+				// 		this.rwList[4].xjjg = 2
+				// 	}
+				// }
+				// if(this.zgfsIndex == 5){
+				// 	if(this.ind == 0){
+				// 		this.zgfs[5] = '已检查无隐患'
+				// 		this.rwList[5].xjjg = 1
+				// 	}
+				// 	if(this.ind == 1){
+				// 		this.zgfs[5] = '隐患整改通知'
+				// 		this.rwList[5].xjjg = 0
+				// 	}
+				// 	if(this.ind == 2){
+				// 		this.zgfs[5] = '现场立即整改'
+				// 		this.rwList[5].xjjg = 2
+				// 	}
+				// }
+				// if(this.zgfsIndex == 6){
+				// 	if(this.ind == 0){
+				// 		this.zgfs[6] = '已检查无隐患'
+				// 		this.rwList[6].xjjg = 1
+				// 	}
+				// 	if(this.ind == 1){
+				// 		this.zgfs[6] = '隐患整改通知'
+				// 		this.rwList[6].xjjg = 0
+				// 	}
+				// 	if(this.ind == 2){
+				// 		this.zgfs[6] = '现场立即整改'
+				// 		this.rwList[6].xjjg = 2
+				// 	}
+				// }
+				// if(this.zgfsIndex == 7){
+				// 	if(this.ind == 0){
+				// 		this.zgfs[7] = '已检查无隐患'
+				// 		this.rwList[7].xjjg = 1
+				// 	}
+				// 	if(this.ind == 1){
+				// 		this.zgfs[7] = '隐患整改通知'
+				// 		this.rwList[7].xjjg = 0
+				// 	}
+				// 	if(this.ind == 2){
+				// 		this.zgfs[7] = '现场立即整改'
+				// 		this.rwList[7].xjjg = 2
+				// 	}
+				// }
+				// if(this.zgfsIndex == 8){
+				// 	if(this.ind == 0){
+				// 		this.zgfs[8] = '已检查无隐患'
+				// 		this.rwList[8].xjjg = 1
+				// 	}
+				// 	if(this.ind == 1){
+				// 		this.zgfs[8] = '隐患整改通知'
+				// 		this.rwList[8].xjjg = 0
+				// 	}
+				// 	if(this.ind == 2){
+				// 		this.zgfs[8] = '现场立即整改'
+				// 		this.rwList[8].xjjg = 2
+				// 	}
+				// }
+				// if(this.zgfsIndex == 9){
+				// 	if(this.ind == 0){
+				// 		this.zgfs[9] = '已检查无隐患'
+				// 		this.rwList[9].xjjg = 1
+				// 	}
+				// 	if(this.ind == 1){
+				// 		this.zgfs[9] = '隐患整改通知'
+				// 		this.rwList[9].xjjg = 0
+				// 	}
+				// 	if(this.ind == 2){
+				// 		this.zgfs[9] = '现场立即整改'
+				// 		this.rwList[9].xjjg = 2
+				// 	}
+				// }
 				
 			},
 			zgfsClick(index){
-				this.zgfsIndex = index
+				// this.zgfsIndex = index
 			}
 		},
 		
