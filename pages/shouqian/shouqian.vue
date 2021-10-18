@@ -109,24 +109,47 @@
 					  },1000)
 					  console.log(res)
 				    let path = res.tempFilePath;
-					uni.setStorageSync('yhPath',path)
-					/////////////////
-					 uni.uploadFile({
-					            url: 'http://124.70.192.154:7702/api/danger/addAuthimg', 
-					            filePath: path,
-					            // name: 'file',
-					            formData: {
-					                'docid': this.docid,
-									
-					            },
-								header: {
-									'token': uni.getStorageSync("token")
-								},
-					            complete: (uploadFileRes) => {
-					                console.log(uploadFileRes);
-					            }
-					        });
-					///////////////////
+					if(this.type == 1){
+						uni.setStorageSync('yhPath',path)
+						/////////////////
+						 uni.uploadFile({
+						            url: 'http://124.70.192.154:7702/api/danger/addAuthimg', 
+						            filePath: path,
+						            // name: 'file',
+						            formData: {
+						                'docid': this.docid,
+										
+						            },
+									header: {
+										'token': uni.getStorageSync("token")
+									},
+						            complete: (uploadFileRes) => {
+						                console.log(uploadFileRes);
+						            }
+						        });
+						///////////////////
+					}
+					if(this.type == 2){
+						uni.setStorageSync('grPath',path)
+						/////////////////
+						 uni.uploadFile({
+						            url: 'http://124.70.192.154:7702/api/danger/addAuthimgTask', 
+						            filePath: path,
+						            // name: 'file',
+						            formData: {
+						                'docid': this.docid,
+										
+						            },
+									header: {
+										'token': uni.getStorageSync("token")
+									},
+						            complete: (uploadFileRes) => {
+						                console.log(uploadFileRes);
+						            }
+						        });
+						///////////////////
+					}
+					
 					console.log(path);
 					uni.saveImageToPhotosAlbum({
 						filePath:path,

@@ -81,8 +81,8 @@
 		</u-popup>
 		
 		
-		<u-calendar v-model="show" :mode="mode" @change="change"></u-calendar>
-		<u-calendar v-model="show1" :mode="mode" @change="change1"></u-calendar>
+		<u-calendar v-model="show" :mode="mode" @change="change" ></u-calendar>
+		<u-calendar v-model="show1" :mode="mode" @change="change1" max-date="2030-01-01"></u-calendar>
 		<u-calendar v-model="show2" :mode="mode" @change="change2"></u-calendar>
 		<u-calendar v-model="show3" :mode="mode" @change="change3"></u-calendar>
 		<u-calendar v-model="show4" :mode="mode" @change="change4"></u-calendar>
@@ -421,6 +421,7 @@
 			this.yinhuaId = JSON.parse(option.items).docid
 			
 			this.lcobj.docuuid = JSON.parse(option.items).docid
+			console.log(this.lcobj.docuuid);
 			
 			this.lcobj.docid = this.guid2()
 			// this.dataList.createtime = this.dataList.createtime.substring(0,10)
@@ -441,8 +442,8 @@
 			this.arrayBz = uni.getStorageSync('arrayBz')
 			//获取登录人
 			this.username = uni.getStorageSync('admin').userName
-			this.dataList.zzzgtbr = this.username
-			this.dataList.yzr = this.username
+			
+			
 			
 			
 			//获取附件列表
@@ -452,7 +453,7 @@
 				data:{docid:this.dataList.docid}
 			})
 			for(var i = 0;i<res.data.data.length;i++){
-				
+				console.log(res.data.data[i].attachtype);
 				if(res.data.data[i].attachtype == 'fileinput-yhzp'){
 					this.fj.push(res.data.data[i].sfilename)
 					this.fjs.push(res.data.data[i])
@@ -562,9 +563,11 @@
 								this.up = false
 							}
 							if(this.dqlc == '问题整改'){
+								this.dataList.zzzgtbr = this.username
 								this.up1 = false
 							}
 							if(this.dqlc == '问题验证'){
+								this.dataList.yzr = this.username
 								this.up2 = false
 							}
 						}
@@ -693,9 +696,13 @@
 				})
 				console.log(res);
 				if(res.data.code == 200){
-					uni.navigateTo({
-						url:'yhzg'
+					uni.showToast({
+						title:'操作成功'
 					})
+					uni.navigateBack()
+					// uni.navigateTo({
+					// 	url:'yhzg'
+					// })
 				}
 			},
 			//获取当前时间
@@ -777,6 +784,17 @@
 					uni.showToast({
 						title:'保存成功'
 					})
+				}
+				if(this.rizhis[this.rizhis.length-1].nownodename == '问题验证'){
+					this.lcobj.nowusername = this.username
+					this.lcobj.gettime = this.getCurrentTime()
+					this.lcobj.sendtime = this.getCurrentTime()
+					for(var i=0;i<this.bmobj.length;i++){
+						if(this.bmobj[i].userName == this.xzry){
+							this.lcobj.nowuserid = this.bmobj[i].userId
+						}
+					}
+					this.addLc()
 				}
 			},
 			//上传整改前照片

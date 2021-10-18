@@ -258,7 +258,7 @@
 				this.grrwCount = res.data.data.myTask.length
 				for(var i=0;i<res.data.data.userRoles.length;i++){
 					
-					if(res.data.data.userRoles[i].roleId == 1 || res.data.data.userRoles[i].roleId == 4){
+					if(res.data.data.userRoles[i].roleId == 1 || res.data.data.userRoles[i].roleId == 4 || res.data.data.userRoles[i].roleId == 10){
 						this.showAll = true
 					}
 				}

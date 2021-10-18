@@ -28,7 +28,7 @@
 		</u-popup>
 		
 		<u-calendar v-model="show" :mode="mode" @change="change"></u-calendar>
-		<u-calendar v-model="show1" :mode="mode" @change="change1"></u-calendar>
+		<u-calendar v-model="show1" :mode="mode" @change="change1" max-date="2030-01-01"></u-calendar>
 		<u-calendar v-model="show2" :mode="mode" @change="change2"></u-calendar>
 		<u-calendar v-model="show3" :mode="mode" @change="change3"></u-calendar>
 		<u-calendar v-model="show4" :mode="mode" @change="change4"></u-calendar>
@@ -297,6 +297,7 @@
 			return true;
 		},
 		async onShow() {
+			this.dataList.docid = this.guid2()
 			//从缓存获取所有部门
 			this.arrayBz = uni.getStorageSync('arrayBz')
 			
@@ -430,7 +431,7 @@
 				}else{
 					this.dataList.zgdbh = 'YHZGD-'+year+'-'+bhs
 				}
-				this.dataList.docid = this.guid2()
+				
 				console.log(this.dataList.docid);
 				var token = uni.getStorageSync('token')
 				const res = await this.$myRequest({

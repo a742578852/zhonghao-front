@@ -787,7 +787,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "上级公司检查",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": true
             }
             
         }
@@ -796,7 +796,7 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "本公司检查",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": true
             }
             
         }

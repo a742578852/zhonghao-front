@@ -81,6 +81,7 @@
 			<view class="title">手写签名:</view>
 			<input name="input" placeholder="点击进行签名"  disabled=""></input>
 		</view>
+		<image :src="grPath" mode=""></image>
 		<view class="cu-form-group">
 			<view class="title">巡检完成日期:</view>
 			<input name="input" v-model="dataList.lastmodifiedtime" disabled="" @click="show = true"></input>
@@ -94,6 +95,7 @@
 	export default {
 		data() {
 			return {
+				grPath:'',
 				findex:0,
 				bmChoiseShow:false,
 				bmChoise:false,
@@ -146,6 +148,8 @@
 			
 		},
 		async onShow() {
+			//获取个人任务签名地址
+			this.grPath = uni.getStorageSync('grPath')
 			this.getByMid()
 			//获取所有部门
 			this.arrayBz = uni.getStorageSync('arrayBz')
@@ -256,7 +260,7 @@
 			//手写签名
 			shouqian(){
 				uni.navigateTo({
-					url:'../shouqian/shouqian'
+					url:'../shouqian/shouqian?type=2&docid='+this.docid
 				})
 			},
 			change(e){

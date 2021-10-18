@@ -7,7 +7,7 @@
 		 			<text>{{item.authorname}}</text>
 		 		</view>
 		 		<view class="mid-item2" @click="updateGrrw(item)">
-		 			<text>{{item.createtime.substring(0,10)}}</text>
+		 			<text >{{item.createtime}}</text>
 		 		</view>
 		 		<view class="mid-item3" @click="updateGrrw(item)">
 		 			<input type="text" v-model="item.xjr" maxlength="16" disabled=""/>
