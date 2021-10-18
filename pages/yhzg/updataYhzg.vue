@@ -445,7 +445,12 @@
 			
 			
 			
-			
+			this.fj = []
+			this.fj1 = []
+			this.fj2 = []
+			this.fjs = []
+			this.fjs1 = []
+			this.fjs2 = []
 			//获取附件列表
 			const res = await this.$myRequest({
 				method: 'POST',
