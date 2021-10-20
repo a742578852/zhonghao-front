@@ -180,6 +180,12 @@
 			}
 			this.fjs = res.data.data
 		},
+		onLoad(option) {
+			this.mapList.lng = option.lng
+			this.mapList.lat = option.lat
+			console.log(option.lng);
+			console.log(option.lat);
+		},
 		methods: {
 			//获取二级区域
 			async getArea2(){
@@ -205,16 +211,18 @@
 				}
 			},
 			//接收坐标
-			otherFun(obj){
-				if(!!obj){
-					this.mapList.lng = obj.lon
-					this.mapList.lat = obj.lat
-				}
-			},
+			// otherFun(obj){
+			// 	if(!!obj){
+			// 		console.log(obj.lon);
+			// 		console.log(obj.lat);
+			// 		this.mapList.lng = obj.lon
+			// 		this.mapList.lat = obj.lat
+			// 	}
+			// },
 			//获取坐标
 			getZb(){
 				uni.navigateTo({
-					url:'../zuobiao/map'
+					url:'../zuobiao/map1'
 				})
 			},
 			//添加登高

@@ -135,6 +135,12 @@
 			})
 			return true;
 		},
+		onLoad(option) {
+			this.mapList.lng = option.lng
+			this.mapList.lat = option.lat
+			console.log(option.lng);
+			console.log(option.lat);
+		},
 		async onShow() {
 			//获取所有区域对象
 			this.areas = uni.getStorageSync('areas')
@@ -198,16 +204,16 @@
 				}
 			},
 			//接收坐标
-			otherFun(obj){
-				if(!!obj){
-					this.mapList.lng = obj.lon
-					this.mapList.lat = obj.lat
-				}
-			},
+			// otherFun(obj){
+			// 	if(!!obj){
+			// 		this.mapList.lng = obj.lon
+			// 		this.mapList.lat = obj.lat
+			// 	}
+			// },
 			//获取坐标
 			getZb(){
 				uni.navigateTo({
-					url:'../zuobiao/map'
+					url:'../zuobiao/mangbanMap'
 				})
 			},
 			//添加盲板

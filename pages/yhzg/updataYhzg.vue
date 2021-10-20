@@ -299,6 +299,7 @@
 				fjs2:[],
 				fjindex2:0,
 				lz:true,//流转按钮
+				lzRole:false,//流转权限
 				dqlc:'',//当前节点名称
 				dqlcclr:'',//当前流程处理人
 				yinhuaId:'',
@@ -416,7 +417,7 @@
 			 cTime = cTime.replace(' ','+')
 			
 			this.dataList.createtime = this.transformTimestamp(cTime)
-			
+			console.log(option.items);
 			this.dataList = JSON.parse(option.items)
 			this.yinhuaId = JSON.parse(option.items).docid
 			
@@ -458,7 +459,7 @@
 				data:{docid:this.dataList.docid}
 			})
 			for(var i = 0;i<res.data.data.length;i++){
-				console.log(res.data.data[i].attachtype);
+				
 				if(res.data.data[i].attachtype == 'fileinput-yhzp'){
 					this.fj.push(res.data.data[i].sfilename)
 					this.fjs.push(res.data.data[i])
@@ -561,8 +562,14 @@
 						
 						this.dqlc = this.rizhis[this.rizhis.length-1].nownodename
 						
+						for(var i=0;i<res.data.data.userRoles.length;i++){
+							
+							if( res.data.data.userRoles[i].roleId == 10){
+								this.lzRole = true
+							}
+						}
 						//当前节点处理人是不是当前登录人
-						if(this.username == this.dqlcclr){
+						if(this.username == this.dqlcclr || this.lzRole){
 							this.lz = false
 							if(this.dqlc == '填报隐患'){
 								this.up = false

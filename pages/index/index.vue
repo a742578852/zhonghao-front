@@ -256,6 +256,8 @@
 				
 				this.allCount = res.data.data.allTask.length
 				this.grrwCount = res.data.data.myTask.length
+				//权限放在缓存
+				uni.setStorageSync('roles',res.data.data.userRoles)
 				for(var i=0;i<res.data.data.userRoles.length;i++){
 					
 					if(res.data.data.userRoles[i].roleId == 1 || res.data.data.userRoles[i].roleId == 4 || res.data.data.userRoles[i].roleId == 10){

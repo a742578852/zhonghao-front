@@ -1,13 +1,21 @@
 <template>
-	<view class="">
-		<view class="" style="width: 98%;background-color: #ffffd7;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;height: 50rpx;">
+	<view class="" style="height: 100%;">
+		<!-- <view class="" style="width: 98%;background-color: #ffffd7;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;height: 50rpx;">
 			<text>点击位置选取坐标</text>
-		</view>
-		<view>
-			<map style="height: 1000rpx;" :longitude="119.059389" :latitude="39.251497" :scale="15.7" enable-satellite=true
+		</view> -->
+		<!-- <view style="position: relative;  display: inline-block;" >
+			<image src="../../static/map.jpg" mode="" style="position: absolute;"></image>
+			<map style="height: 1000rpx;opacity: 0.1;" :longitude="119.059389" :latitude="39.251497" :scale="15.7" enable-satellite=true
 				enable-zoom=true :polyline="polyline" @tap="getPostion" :markers="markers" ></map>
+		</view> -->
+		<view class="" style="height: 1000rpx;">
+		<web-view :src="baseurl" style="height: 100%;"></web-view>
+		<!-- <web-view src="https://www.baidu.com/" style="height: 100%;"></web-view> -->
+		
 		</view>
+		
 		<button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="save">保存坐标</button>
+		<uni-link href="../../static/index.html" text="">go</uni-link>
 	</view>
 </template>
 
@@ -15,6 +23,7 @@
 	export default {
 		data() {
 			return {
+				baseurl:'../../static/index.html',
 				backLng: '',
 				backLat: '',
 				markers: [],
@@ -48,7 +57,13 @@
 
 			}
 		},
+		onShow() {
+			this.open()
+		},
 		methods: {
+			open(){
+				plus.runtime.openURL("../../static/index.html");
+			},
 				save(){
 					var pages = getCurrentPages();
 					var prevPage = pages[pages.length - 2]; //上一个页面
