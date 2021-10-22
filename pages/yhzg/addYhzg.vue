@@ -37,6 +37,10 @@
 			<view class="title">隐患问题:</view>
 			<textarea maxlength="-1"  v-model='dataList.bhgys'></textarea>
 		</view>
+		<view class="cu-form-group" @click="getZb">
+			<view class="title">获取坐标:</view>
+			<input name="input" placeholder="点击获取坐标" disabled="" ></input>
+		</view>
 		<view class="cu-form-group">
 			<view class="title">发起人:</view>
 			<input name="input" v-model="dataList.authorname" disabled=""></input>
@@ -224,6 +228,14 @@
 				arrayBz:[],
 				arrayYy:['人','物','料','法','环'],
 				bh:'',
+				mapList:{
+					docid:'',
+					appid:'',
+					lat:'',
+					lng:'',
+					todaytip:'隐患整改',
+					dj:1
+				},
 				lcobj:{
 					docid:'',
 					docuuid:'',
@@ -244,6 +256,7 @@
 					url:'E45FFBBEC8C94B3CA3D453389AFD83C6'
 				},
 				dataList:{
+					
 					docid:'',
 					appid:'E45FFBBEC8C94B3CA3D453389AFD83C6',
 					authorid:'',
@@ -317,8 +330,65 @@
 			this.dataList.jcdwmc = admin.deptName
 			this.dataList.authorname = admin.userName
 			this.dataList.authorid = admin.userId
+			
+			
+			//选择地图后的回显
+			if(uni.getStorageSync('index') !='' && uni.getStorageSync('index') !=null){
+				this.index = uni.getStorageSync('index')
+			}
+			uni.removeStorageSync('index')
+			if(uni.getStorageSync('index1') !='' && uni.getStorageSync('index1') !=null){
+				this.index1 = uni.getStorageSync('index1')
+			}
+			uni.removeStorageSync('index1')
+			if(uni.getStorageSync('bhgys') !='' && uni.getStorageSync('bhgys') !=null){
+				this.dataList.bhgys = uni.getStorageSync('bhgys')
+			}
+			uni.removeStorageSync('bhgys')
+			if(uni.getStorageSync('zrbmmc') !='' && uni.getStorageSync('zrbmmc') !=null){
+				this.dataList.zrbmmc = uni.getStorageSync('zrbmmc')
+			}
+			uni.removeStorageSync('zrbmmc')
+			if(uni.getStorageSync('yhxxjcrq') !='' && uni.getStorageSync('yhxxjcrq') !=null){
+				this.dataList.yhxxjcrq = uni.getStorageSync('yhxxjcrq')
+			}
+			uni.removeStorageSync('yhxxjcrq')
+			if(uni.getStorageSync('index2') !='' && uni.getStorageSync('index2') !=null){
+				this.index2 = uni.getStorageSync('index2')
+			}
+			uni.removeStorageSync('index2')
+			if(uni.getStorageSync('jcdwmc') !='' && uni.getStorageSync('jcdwmc') !=null){
+				this.dataList.jcdwmc = uni.getStorageSync('jcdwmc')
+			}
+			uni.removeStorageSync('jcdwmc')
+			if(uni.getStorageSync('index5') !='' && uni.getStorageSync('index5') !=null){
+				this.index5 = uni.getStorageSync('index5')
+			}
+			uni.removeStorageSync('index5')
+			if(uni.getStorageSync('index6') !='' && uni.getStorageSync('index6') !=null){
+				this.index6 = uni.getStorageSync('index6')
+			}
+			uni.removeStorageSync('index6')
+			if(uni.getStorageSync('jcry') !='' && uni.getStorageSync('jcry') !=null){
+				this.dataList.jcry = uni.getStorageSync('jcry')
+			}
+			uni.removeStorageSync('jcry')
+			if(uni.getStorageSync('yhzgqk') !='' && uni.getStorageSync('yhzgqk') !=null){
+				this.dataList.yhzgqk = uni.getStorageSync('yhzgqk')
+			}
+			uni.removeStorageSync('yhzgqk')
+			if(uni.getStorageSync('zzzgzgqx') !='' && uni.getStorageSync('zzzgzgqx') !=null){
+				this.dataList.zzzgzgqx = uni.getStorageSync('zzzgzgqx')
+			}
+			uni.removeStorageSync('zzzgzgqx')
 		},
 		onLoad(option) {
+			
+				this.mapList.lng = option.lng
+				this.mapList.lat = option.lat
+				console.log(option.lng);
+				console.log(option.lat);
+			
 			var ids = option.ids
 			if(ids == 2){
 				this.dataList.zfjcwt = '政府检查问题'
@@ -338,9 +408,27 @@
 			console.log(ids);
 		},
 		methods: { 
+			//获取坐标
+			getZb(){
+				uni.setStorageSync('index',this.index)
+				uni.setStorageSync('index1',this.index1)
+				uni.setStorageSync('index5',this.index5)
+				uni.setStorageSync('bhgys',this.dataList.bhgys)
+				uni.setStorageSync('zrbmmc',this.dataList.zrbmmc)
+				uni.setStorageSync('yhxxjcrq',this.dataList.yhxxjcrq)
+				uni.setStorageSync('index2',this.index2)
+				uni.setStorageSync('index6',this.index6)
+				uni.setStorageSync('jcdwmc',this.dataList.jcdwmc)
+				uni.setStorageSync('jcry',this.dataList.jcry)
+				uni.setStorageSync('yhzgqk',this.dataList.yhzgqk)
+				uni.setStorageSync('zzzgzgqx',this.dataList.zzzgzgqx)
+				uni.navigateTo({
+					url:'../zuobiao/yinhuanMap'
+				})
+			},
 			//删除选择人员
 			tagClick(item){
-				console.log(item);
+				// console.log(item);
 				for(var i=0;i<this.xzry.length;i++){
 					if(this.xzry[i] == item){
 						this.xzry.splice(i,1)
@@ -350,8 +438,11 @@
 			//添加人员
 			addRy(item){
 				this.xzry.push(item)
+				console.log(this.xzry);
 			},
 			tianjia(){
+				this.dataList.jcry = ''
+				console.log(this.xzry);
 				this.bmChoiseShow = false
 				for(var i=0;i<this.xzry.length;i++){
 					this.dataList.jcry += this.xzry[i]+';'
@@ -400,23 +491,23 @@
 				console.log(JSON.stringify(res));
 				if (res.data.code == 200) {
 					this.bmobj = res.data.data
-					console.log(this.bmobj.length);
+					
 					for(var i=0;i<this.bmobj.length;i++){
 						this.bmry.push(this.bmobj[i].userName)
 					}
-					console.log(this.bmry.length);
+					
 				}
 			},
 			async getBh(){
-				console.log('获取编号');
+				
 				const res = await this.$myRequest({
 					method: 'POST',
 					url: 'api/danger/getDangerList',
 				})
-				console.log(res);
+				
 				if (res.data.code == 200) {
 					this.bh = res.data.data[0].zgdbh.substring(11)
-					console.log(this.bh);
+					
 				}
 			},
 			async addYh(){

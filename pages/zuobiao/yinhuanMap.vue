@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<web-view src="../../static/index.html" style="height: 100%;"></web-view>
+		<web-view src="../../static/yinhuan.html" style="height: 100%;"></web-view>
 
 	</view>
 </template>

@@ -24,6 +24,10 @@
 			<view class="title"><span class='star'>*</span>作业时间:</view>
 			<input name="input" v-model="dataList.yjzysj" disabled="" @click="show = true"></input>
 		</view>
+		<view class="cu-form-group" @click="getZb">
+			<view class="title">获取坐标:</view>
+			<input name="input" placeholder="点击获取坐标" disabled="" ></input>
+		</view>
 		<view class="cu-form-group">
 			<view class="title">断路位置:</view>
 			<picker @change="bindPickerChange2" :value="index2" :range="arrayArea1" class="item2" style="">
@@ -36,10 +40,7 @@
 				<view class="uni-input" style="">{{arrayArea2[index3]}}</view>
 			</picker>
 		</view>
-		<view class="cu-form-group" @click="getZb">
-			<view class="title">获取坐标:</view>
-			<input name="input" placeholder="点击获取坐标" disabled="" ></input>
-		</view>
+		
 		<view class="cu-form-group" v-if="false">
 			<view class="title">经度:</view>
 			<input name="input" v-model="mapList.lng" disabled=""></input>
@@ -50,7 +51,7 @@
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title"><span class='star'>*</span>断路作业内容:</view>
-			<textarea maxlength="-1"  v-model='dataList.dhnr'></textarea>
+			<textarea maxlength="-1"  v-model='dataList.dlzywzjnr'></textarea>
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">备注:</view>
@@ -161,6 +162,40 @@
 			this.dataList.authorname = admin.userName
 			this.dataList.authorid = admin.userId
 			
+			//选择地图后的回显
+			if(uni.getStorageSync('index1') !='' && uni.getStorageSync('index1') !=null){
+				this.index1 = uni.getStorageSync('index1')
+			}
+			uni.removeStorageSync('index1')
+			if(uni.getStorageSync('dlzyszdw') !='' && uni.getStorageSync('dlzyszdw') !=null){
+				this.dataList.dlzyszdw = uni.getStorageSync('dlzyszdw')
+			}
+			uni.removeStorageSync('dlzyszdw')
+			if(uni.getStorageSync('sgdw') !='' && uni.getStorageSync('sgdw') !=null){
+				this.dataList.sgdw = uni.getStorageSync('sgdw')
+			}
+			uni.removeStorageSync('sgdw')
+			if(uni.getStorageSync('yjzysj') !='' && uni.getStorageSync('yjzysj') !=null){
+				this.dataList.yjzysj = uni.getStorageSync('yjzysj')
+			}
+			uni.removeStorageSync('yjzysj')
+			if(uni.getStorageSync('index2') !='' && uni.getStorageSync('index2') !=null){
+				this.index2 = uni.getStorageSync('index2')
+			}
+			uni.removeStorageSync('index2')
+			if(uni.getStorageSync('dlzywzjnr') !='' && uni.getStorageSync('dlzywzjnr') !=null){
+				this.dataList.dlzywzjnr = uni.getStorageSync('dlzywzjnr')
+			}
+			uni.removeStorageSync('dlzywzjnr')
+			if(uni.getStorageSync('index3') !='' && uni.getStorageSync('index3') !=null){
+				this.index3 = uni.getStorageSync('index3')
+			}
+			uni.removeStorageSync('index3')
+			if(uni.getStorageSync('bz') !='' && uni.getStorageSync('bz') !=null){
+				this.dataList.bz = uni.getStorageSync('bz')
+			}
+			uni.removeStorageSync('bz')
+			
 			//获取附件列表
 			const res = await this.$myRequest({
 				method: 'POST',
@@ -212,6 +247,14 @@
 			// },
 			//获取坐标
 			getZb(){
+				uni.setStorageSync('index1',this.index1)
+				uni.setStorageSync('dlzyszdw',this.dataList.dlzyszdw)
+				uni.setStorageSync('sgdw',this.dataList.sgdw)
+				uni.setStorageSync('yjzysj',this.dataList.yjzysj)
+				uni.setStorageSync('index2',this.index2)
+				uni.setStorageSync('index3',this.index3)
+				uni.setStorageSync('dlzywzjnr',this.dataList.dlzywzjnr)
+				uni.setStorageSync('bz',this.dataList.bz)
 				uni.navigateTo({
 					url:'../zuobiao/duanluMap'
 				})

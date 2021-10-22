@@ -109,7 +109,8 @@
 				if (this.csListArrl.length <= 8) {
 					this.shanghua = ''
 				}
-				if (this.csListArrl.length <= 0) {
+				console.log(this.csListArrl.length);
+				if (this.csListArrl.length > 0) {
 					this.empty = false
 				}
 			},
