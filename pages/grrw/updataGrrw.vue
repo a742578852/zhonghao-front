@@ -48,7 +48,7 @@
 					<picker @change="bindPickerChange" @click="zgfsClick(findex = index)"  :range="arrayZgfs" >
 						<view class="uni-input" v-if="item.xjjg == 0">隐患整改通知</view>
 						<view class="uni-input" v-if="item.xjjg == 1">已检查无隐患</view>
-						<view class="uni-input" v-if="item.xjjg == 2">现场立即整改</view>
+						<!-- <view class="uni-input" v-if="item.xjjg == 2">现场立即整改</view> -->
 						<!-- <view class="uni-input" v-if="index == 0">{{zgfs[0]}}</view>
 						<view class="uni-input" v-if="index == 1">{{zgfs[1]}}</view>
 						<view class="uni-input" v-if="index == 2">{{zgfs[2]}}</view>
@@ -76,6 +76,10 @@
 			<picker  @change="bindPickerChange1" :value="fjindex" :range="fj">
 				<view class="uni-input">{{fj[fjindex]}}</view>
 			</picker>
+		</view>
+		<view class="cu-form-group" @click="shouqian">
+			<view class="title">巡检人:</view>
+			<input name="input" v-model="dataList.xjrqz" disabled=""></input>
 		</view>
 		<view class="cu-form-group" @click="shouqian">
 			<view class="title">手写签名:</view>
@@ -126,12 +130,13 @@
 				picker3:false,
 				ind:0,
 				rwList:[],
-				arrayZgfs:['隐患整改通知','已检查无隐患','现场立即整改'],
+				arrayZgfs:['隐患整改通知','已检查无隐患'],
 				docid:'',
 				dataList:{
 					xjqk:'',
 					lastmodifiedtime:'',
-					
+					xjrqz:'',
+					xjrqzid:''
 				}
 					
 				
@@ -148,6 +153,9 @@
 			
 		},
 		async onShow() {
+			//获取登录人
+			this.dataList.xjrqz = uni.getStorageSync('admin').userName
+			this.dataList.xjrqzid = uni.getStorageSync('admin').userId
 			//获取个人任务签名地址
 			this.grPath = uni.getStorageSync('grPath')
 			this.getByMid()
@@ -165,6 +173,32 @@
 			
 			}
 			this.fjs = res.data.data
+			
+			//获取当前时间
+			let date = new Date();
+			let year = date.getFullYear();
+			let month = date.getMonth() + 1;
+			let day = date.getDate();
+			let hours = date.getHours()
+			let mins = date.getMinutes()
+			let sens = date.getSeconds()
+			if(month < 10){
+				month = '0' + month;
+			}
+			if(hours < 10){
+				hours = '0' + hours;
+			}
+			if(day < 10){
+				day = '0' + day;
+			}
+			if(mins < 10){
+				mins = '0' + mins;
+			}
+			if(sens < 10){
+				sens = '0' + sens;
+			}
+			var time = year+'-' + month+'-' + day+ ' '+hours+':'+mins+':'+sens
+			this.dataList.lastmodifiedtime = time
 		},
 		methods: {
 			//转交
@@ -334,12 +368,16 @@
 						// window.open("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
 						
 			        },
-			bindPickerChange(e) {
-				
+			async bindPickerChange(e) {
+				this.tijiao()
 				var ind = e.detail.value
 				
 				this.rwList[this.findex].xjjg = ind
-				
+				if(ind == 0){
+					uni.navigateTo({
+						url:'../yhzg/addYhzg?rw=1'
+					})
+				}
 				// for(var i=0;i<this.rwList.length;i++){
 				// 	this.rwList[this.findex].xjjg = ind
 				// 	console.log(this.rwList[15].xjjg);

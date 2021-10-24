@@ -31,13 +31,13 @@
 		<view class="cu-form-group">
 			<view class="title">动土位置:</view>
 			<picker @change="bindPickerChange2" :value="index2" :range="arrayArea1" class="item2" style="">
-				<view class="uni-input" style="">{{arrayArea1[index2]}}</view>
+				<view class="uni-input" style="width: 100%;height: 60rpx;">{{arrayArea1[index2]}}</view>
 			</picker>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">动土详细位置:</view>
 			<picker @change="bindPickerChange3" :value="index3" :range="arrayArea2" class="item2" style="">
-				<view class="uni-input" style="">{{arrayArea2[index3]}}</view>
+				<view class="uni-input" style="width: 100%;height: 60rpx;">{{arrayArea2[index3]}}</view>
 			</picker>
 		</view>
 		
@@ -86,8 +86,8 @@
 				show:false,
 				index:0,
 				index1:0,
-				index2:0,
-				index3:0,
+				index2:-1,
+				index3:-1,
 				arrayBz:['安全部','财务部'],
 				
 				arrayArea1:[],

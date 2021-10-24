@@ -100,14 +100,14 @@
 		</view>
 		<view class="cu-form-group">
 			<view class="title">检查区域:</view>
-			<picker @change="bindPickerChange5" :value="index5" :range="arrayArea1" class="item2" style="">
-				<view class="uni-input" style="">{{arrayArea1[index5]}}</view>
+			<picker @change="bindPickerChange5" :value="index5" :range="arrayArea1" class="item2" >
+				<view class="uni-input" style="width: 100%;height: 60rpx;">{{arrayArea1[index5]}}</view>
 			</picker>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">检查详细区域:</view>
 			<picker @change="bindPickerChange6" :value="index6" :range="arrayArea2" class="item2" style="">
-				<view class="uni-input" style="">{{arrayArea2[index6]}}</view>
+				<view class="uni-input" style="width: 100%;height: 60rpx;">{{arrayArea2[index6]}}</view>
 			</picker>
 		</view>
 		<view class="" style="width: 98%;background-color: #ffffd7;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;">
@@ -215,8 +215,8 @@
 				index2:0,
 				index3:0,
 				index4:0,
-				index5:0,
-				index6:0,
+				index5:-1,
+				index6:-1,
 				index7:0,
 				arrayYhdj:['一般隐患','重大隐患'],
 				arrayjccj:['班组级','部门级','公司级'],
@@ -383,13 +383,18 @@
 			uni.removeStorageSync('zzzgzgqx')
 		},
 		onLoad(option) {
-			
+				console.log(option.rw);
 				this.mapList.lng = option.lng
 				this.mapList.lat = option.lat
 				console.log(option.lng);
 				console.log(option.lat);
 			
 			var ids = option.ids
+			if(option.rw == 1){
+				this.dataList.zfjcwt = ''
+				this.dataList.bgsjcwt = '本公司检查问题'
+				this.dataList.sjgsjcwt = ''
+			}
 			if(ids == 2){
 				this.dataList.zfjcwt = '政府检查问题'
 				this.dataList.bgsjcwt = ''

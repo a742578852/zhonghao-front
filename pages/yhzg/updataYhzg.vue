@@ -417,7 +417,7 @@
 			 cTime = cTime.replace(' ','+')
 			
 			this.dataList.createtime = this.transformTimestamp(cTime)
-			console.log(option.items);
+			
 			this.dataList = JSON.parse(option.items)
 			this.yinhuaId = JSON.parse(option.items).docid
 			
@@ -430,6 +430,7 @@
 		async onShow() {
 			//获取隐患签名地址
 			this.yhPath = uni.getStorageSync('yhPath')
+			console.log(this.yhPath);
 			this.getByMid()
 			//获取日志
 			this.getLog()
@@ -917,7 +918,7 @@
 						console.log(this.fjindex);
 						var path = 'http://124.70.192.154:7703/img/'+this.fjs[this.fjindex].filepath+this.fjs[this.fjindex].attachmentid
 						console.log(path);
-						plus.runtime.openURL("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
+						plus.runtime.openURL(path);
 						// window.open("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
 						
 			        },

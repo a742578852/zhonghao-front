@@ -242,7 +242,7 @@
 					url: '../login/login'
 				})
 			}
-			
+			console.log(res);
 			if (res.data.code == 200) {
 				this.deptName = res.data.data.dept.deptName
 				this.news = res.data.data.xinwen

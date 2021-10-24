@@ -18,9 +18,14 @@
 				<text>已选择巡检人</text>
 			</view>
 			<view class="bms">
-				<u-tag :text="dataList.xjr" mode="light"  closeable  @close="tagClick()" />
+				<view class="bmrys" v-for="(item,index) in xzry" >
+					<u-tag :text="item" mode="light"  closeable  @close="tagClick(item)" />
+				</view>
 			</view>
-				<button type="primary" size="mini" style="width: 50%;margin-left: 25%;margin-top: 30rpx;" @click="bmChoiseShow = false">确定</button>
+			<!-- <view class="bms">
+				<u-tag :text="dataList.xjr" mode="light"  closeable  @close="tagClick()" />
+			</view> -->
+				<button type="primary" size="mini" style="width: 50%;margin-left: 25%;margin-top: 30rpx;" @click="tianjia">确定</button>
 			
 			
 		</u-popup>
@@ -77,7 +82,7 @@
 				arrayBz:'',
 				bmChoise:false,
 				bmry:[],
-				xzry:'',
+				xzry:[],
 				bmobj:[],
 				arrayJcnr:[],
 				arrayZq:['天','周','月','季度','年'],
@@ -93,8 +98,8 @@
 					xcmc:'',
 					xjr:'',
 					xjrid:'',
-					pcpl:'天',
-					pccs:1,
+					pcpl:'',
+					pccs:'',
 				},
 				rwList:[],
 				docid:''
@@ -111,7 +116,9 @@
 			this.dataList.userName = admin.userName
 		},
 		onLoad(option) {
-			// this.dataList = JSON.parse(option.items)
+			this.dataList = JSON.parse(option.items)
+			this.dataList.xcmc = this.dataList.xcmc
+			this.dataList.xjr = this.dataList.xjr
 			
 			// this.dataList.docid = JSON.parse(option.items).docid
 			this.docid = JSON.parse(option.items).docid
@@ -120,6 +127,9 @@
 		methods: {
 			//指派任务
 			async zhipai(){
+				for(var j=0;j<this.xzry.length;j++){
+					this.dataList.xjr = this.xzry[j]
+				
 				//获取当前时间
 				let date = new Date();
 				let year = date.getFullYear();
@@ -178,7 +188,7 @@
 					 
 					
 				}
-				
+				}
 			},
 			//生成uuid
 			guid2() {
@@ -222,14 +232,27 @@
 				}
 			},
 			//删除选择人员
-			tagClick(){
-				
-				this.dataList.xjr = ''
+			tagClick(item){
+				for(var i=0;i<this.xzry.length;i++){
+					if(this.xzry[i] == item){
+						this.xzry.splice(i,1)
+					}
+				}
+				// this.dataList.xjr = ''
 			},
 			//添加人员
 			addRy(item){
+				this.xzry.push(item)
+				// this.dataList.xjr = ''
+				// this.dataList.xjr = item
+			},
+			tianjia(){
 				this.dataList.xjr = ''
-				this.dataList.xjr = item
+				console.log(this.xzry);
+				this.bmChoiseShow = false
+				for(var i=0;i<this.xzry.length;i++){
+					this.dataList.xjr += this.xzry[i]+';'
+				}
 			},
 			bmconfirm(e){
 				this.bumen = e[e.length-1].label

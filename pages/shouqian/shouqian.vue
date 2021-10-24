@@ -23,6 +23,7 @@
 		},
 		onLoad(option) {
 			this.type = option.type
+			console.log(this.type);
 			this.docid = option.docid
 			this.ctx = uni.createCanvasContext("mycanvas",this);   //创建绘图对象
 			
@@ -91,6 +92,7 @@
 			
 			//完成绘画并保存到本地
 			finish:function(){
+				if(this.type == 1){
 				uni.canvasToTempFilePath({
 				  canvasId: 'mycanvas',
 				  success: function(res) {
@@ -109,7 +111,8 @@
 					  },1000)
 					  console.log(res)
 				    let path = res.tempFilePath;
-					if(this.type == 1){
+					// if(this.type == 1){
+						// uni.removeStorageSync('yhPath')
 						uni.setStorageSync('yhPath',path)
 						/////////////////
 						 uni.uploadFile({
@@ -128,8 +131,38 @@
 						            }
 						        });
 						///////////////////
-					}
-					if(this.type == 2){
+					// }
+					
+					
+					console.log(path);
+					// uni.saveImageToPhotosAlbum({
+					// 	filePath:path,
+					// })
+				  } 
+				})
+				}
+				
+				if(this.type == 2){
+				uni.canvasToTempFilePath({
+				  canvasId: 'mycanvas',
+				  success: function(res) {
+					  uni.showLoading({
+					  	title:'签名成功！'
+					  })
+					  setTimeout(function(){
+					  	uni.hideLoading()
+						// uni.navigateTo({
+						// 	url:'../yhzg/yhzg'
+						// })
+						var pages = getCurrentPages();
+						var prevPage = pages[pages.length - 2];
+						// prevPage.$vm.otherFun(obj);
+						uni.navigateBack()
+					  },1000)
+					  console.log(res)
+				    let path = res.tempFilePath;
+					
+					// if(this.type == 2){
 						uni.setStorageSync('grPath',path)
 						/////////////////
 						 uni.uploadFile({
@@ -147,15 +180,16 @@
 						                console.log(uploadFileRes);
 						            }
 						        });
-						///////////////////
-					}
+					// 	///////////////////
+					// }
 					
 					console.log(path);
-					uni.saveImageToPhotosAlbum({
-						filePath:path,
-					})
+					// uni.saveImageToPhotosAlbum({
+					// 	filePath:path,
+					// })
 				  } 
 				})
+				}
 			}
 		},
 	}
