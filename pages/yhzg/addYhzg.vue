@@ -281,7 +281,7 @@
 					zrbmmc:'',//责任部门
 					jcry:'',//检查人
 					zywzdw:'动力车间',//检查区域
-					zywzqymc:'中控配电室---李文明',//详细区域
+					zywzqymc:'中控配电室---李文明',//详细区域zywzqymc
 					yhxxjcrq:'',//检查日期
 					
 					zzzgtbr:'',//整改填报人
@@ -538,7 +538,7 @@
 					this.dataList.sjgsjcwt = ''
 				}
 				
-				console.log(this.dataList.zfjcwt);
+				console.log(this.dataList.zywzqymc);
 				let date = new Date()
 				let year = date.getFullYear();
 				 var bhs = parseInt(this.bh)+1
@@ -747,7 +747,7 @@
 			bindPickerChange6(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index6 = e.detail.value
-				this.dataList.zywzqymc = this.arrayBz[this.index6]
+				this.dataList.zywzqymc = this.arrayArea2[this.index6]
 			},
 			bindPickerChange7(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)

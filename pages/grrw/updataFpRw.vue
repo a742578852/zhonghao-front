@@ -129,7 +129,7 @@
 			
 			//指派任务
 			async zhipai(){
-				console.log(this.xzry.length);
+				this.dataList.appid = 'DF194980E6EC47DBAE2D85B8CAE54660'
 				for(var j=0;j<this.xzry.length;j++){
 					this.dataList.xjr = this.xzry[j]
 				

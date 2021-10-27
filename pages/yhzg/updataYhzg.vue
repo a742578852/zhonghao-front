@@ -414,11 +414,17 @@
 		onLoad(option) {
 			var str = '+'
 			var cTime = JSON.parse(option.items).createtime;
-			 cTime = cTime.replace(' ','+')
+			if(cTime != '' && cTime != null){
+				cTime = cTime.replace(' ','+')
+			}
+			 
 			
 			this.dataList.createtime = this.transformTimestamp(cTime)
 			
 			this.dataList = JSON.parse(option.items)
+			this.yhPath = 'http://124.70.192.154:7703/img'+this.dataList.autographImg
+			
+			
 			this.yinhuaId = JSON.parse(option.items).docid
 			
 			this.lcobj.docuuid = JSON.parse(option.items).docid
@@ -428,9 +434,10 @@
 			// this.dataList.createtime = this.dataList.createtime.substring(0,10)
 		},
 		async onShow() {
+			
 			//获取隐患签名地址
-			this.yhPath = uni.getStorageSync('yhPath')
-			console.log(this.yhPath);
+			// this.yhPath = uni.getStorageSync('yhPath')
+			// console.log(this.yhPath);
 			this.getByMid()
 			//获取日志
 			this.getLog()
@@ -562,14 +569,16 @@
 						this.dqlcclr = this.rizhis[this.rizhis.length-1].nowusername
 						
 						this.dqlc = this.rizhis[this.rizhis.length-1].nownodename
-						
-						for(var i=0;i<res.data.data.userRoles.length;i++){
+						var roles = uni.getStorageSync('roles')
+						for(var i=0;i<roles.length;i++){
 							
-							if( res.data.data.userRoles[i].roleId == 10){
+							if( roles[i].roleId == 10){
 								this.lzRole = true
+								
 							}
 						}
 						//当前节点处理人是不是当前登录人
+						
 						if(this.username == this.dqlcclr || this.lzRole){
 							this.lz = false
 							if(this.dqlc == '填报隐患'){

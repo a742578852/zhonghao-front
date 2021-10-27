@@ -77,7 +77,7 @@
 				<view class="uni-input">{{fj[fjindex]}}</view>
 			</picker>
 		</view>
-		<view class="cu-form-group" @click="shouqian">
+		<view class="cu-form-group" >
 			<view class="title">巡检人:</view>
 			<input name="input" v-model="dataList.xjrqz" disabled=""></input>
 		</view>
@@ -145,6 +145,8 @@
 		onLoad(option) {
 			
 			this.dataList = JSON.parse(option.items)
+			this.grPath = 'http://124.70.192.154:7703/img'+this.dataList.autographImg
+			console.log(option.items);
 			this.dataList.xjr = ''
 			
 			// this.dataList.docid = JSON.parse(option.items).docid
@@ -157,7 +159,7 @@
 			this.dataList.xjrqz = uni.getStorageSync('admin').userName
 			this.dataList.xjrqzid = uni.getStorageSync('admin').userId
 			//获取个人任务签名地址
-			this.grPath = uni.getStorageSync('grPath')
+			// this.grPath = uni.getStorageSync('grPath')
 			this.getByMid()
 			//获取所有部门
 			this.arrayBz = uni.getStorageSync('arrayBz')
@@ -359,26 +361,18 @@
 						pdocid:this.docid
 					}
 				})
-				// console.log(res);
+				console.log(JSON.stringify(res));
 				if (res.data.code == 200) {
 					this.rwList = res.data.data
-					// console.log(this.rwList[14].xjjg);
-					// for(var i=0;i<this.rwList.length;i++){
-					// 	console.log(this.rwList[i].xjjg);
-					// 	if(this.rwList[i].xjjg == ''){
-					// 		this.zgfs[i] = '已检查无隐患'
-					// 	}
-					// 	if(this.rwList[i].xjjg == '0'){
-					// 			this.zgfs[i] = '隐患整改通知'
-					// 	}
-					// 	if(this.rwList[i].xjjg == '1'){
-					// 		this.zgfs[i] = '已检查无隐患'
-					// 	}
-					// 	if(this.rwList[i].xjjg == '2'){
-					// 		this.zgfs[i] = '现场立即整改'
-					// 	}
+					
+					for(var i=0;i<this.rwList.length;i++){
 						
-					// }
+						if(this.rwList[i].xjjg == '' || this.rwList[i].xjjg == null){
+							this.rwList[i].xjjg = 1
+						}
+						
+						
+					}
 					// console.log(JSON.stringify(this.bmobj));
 					
 				}

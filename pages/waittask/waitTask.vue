@@ -52,11 +52,12 @@
 		methods: {
 			//查看/修改风险管控信息
 			updateDbrw(item) {
-				console.log(item.title);
-				uni.navigateTo({
-					// url:'../../updataYhzg?item='+JSON.stringify(item)
-					url:'../yhzg/updataYhzg?item='+JSON.stringify(item)
-				})
+				
+				// var items = JSON.stringify(item)
+				// console.log(items);
+				// uni.navigateTo({
+				// 	url:'../yhzg/updataYhzg?items='+items
+				// })
 			}
 		},
 		async onShow() {
