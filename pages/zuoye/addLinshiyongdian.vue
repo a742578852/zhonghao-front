@@ -99,7 +99,7 @@
 					appid:'630903BBB975486BBE509F4FFFBC6DB3',
 					lat:'',
 					lng:'',
-					todaytip:'用电作业票',
+					todaytip:'用电作业票: ',
 					dj:1
 				},
 				dataList:{
@@ -281,6 +281,7 @@
 						url:'./linshiyongdian'
 					})
 				}
+				this.mapList.todaytip += this.dataList.zywzjzynr
 				//添加坐标
 				const ress = await this.$myRequest({
 					method: 'POST',

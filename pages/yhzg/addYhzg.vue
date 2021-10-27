@@ -385,35 +385,30 @@
 			uni.removeStorageSync('zzzgzgqx')
 		},
 		onLoad(option) {
-			this.rw = option.rw
-				console.log(option.rw);
+			
 				this.mapList.lng = option.lng
 				this.mapList.lat = option.lat
 				console.log(option.lng);
 				console.log(option.lat);
 			
-			this.ids = option.ids
-			if(this.rw == 1){
-				this.dataList.zfjcwt = ''
-				this.dataList.bgsjcwt = '本公司检查问题'
-				this.dataList.sjgsjcwt = ''
-			}
-			if(this.ids == 2){
-				this.dataList.zfjcwt = '政府检查问题'
-				this.dataList.bgsjcwt = ''
-				this.dataList.sjgsjcwt = ''
-			}
-			if(this.ids == 0){
-				this.dataList.zfjcwt = ''
-				this.dataList.bgsjcwt = '本公司检查问题'
-				this.dataList.sjgsjcwt = ''
-			}
-			if(this.ids == 1){
-				this.dataList.zfjcwt = ''
-				this.dataList.bgsjcwt = ''
-				this.dataList.sjgsjcwt = '上级公司检查问题'
-			}
-			console.log(this.ids);
+			
+			
+			// if(this.ids == 2){
+			// 	this.dataList.zfjcwt = '政府检查问题'
+			// 	this.dataList.bgsjcwt = ''
+			// 	this.dataList.sjgsjcwt = ''
+			// }
+			// if(this.ids == 0){
+			// 	this.dataList.zfjcwt = ''
+			// 	this.dataList.bgsjcwt = '本公司检查问题'
+			// 	this.dataList.sjgsjcwt = ''
+			// }
+			// if(this.ids == 1){
+			// 	this.dataList.zfjcwt = ''
+			// 	this.dataList.bgsjcwt = ''
+			// 	this.dataList.sjgsjcwt = '上级公司检查问题'
+			// }
+			// console.log(this.ids);
 		},
 		methods: { 
 			//获取坐标
@@ -519,6 +514,29 @@
 				}
 			},
 			async addYh(){
+				this.ids = uni.getStorageSync('jcjb')
+				uni.removeStorageSync('jcjb')
+				if(this.ids == 2){
+					this.dataList.zfjcwt = '政府检查问题'
+					this.dataList.bgsjcwt = ''
+					this.dataList.sjgsjcwt = ''
+				}
+				if(this.ids == 0){
+					this.dataList.zfjcwt = ''
+					this.dataList.bgsjcwt = '本公司检查问题'
+					this.dataList.sjgsjcwt = ''
+				}
+				if(this.ids == 1){
+					this.dataList.zfjcwt = ''
+					this.dataList.bgsjcwt = ''
+					this.dataList.sjgsjcwt = '上级公司检查问题'
+				}
+				this.rw = uni.getStorageSync('rw')
+				if(this.rw == 1){
+					this.dataList.zfjcwt = ''
+					this.dataList.bgsjcwt = '本公司检查问题'
+					this.dataList.sjgsjcwt = ''
+				}
 				
 				console.log(this.dataList.zfjcwt);
 				let date = new Date()
@@ -547,7 +565,9 @@
 				if(res.data.code == 200){
 					this.addLc()
 					if(this.rw == 1){
-						uni.navigateBack()
+						uni.navigateBack({
+						    delta: 3
+						});
 					}
 					if(this.ids == 0){
 						uni.navigateTo({

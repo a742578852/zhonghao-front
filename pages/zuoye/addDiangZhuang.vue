@@ -106,7 +106,7 @@
 					appid:'630903BBB975486BBE509F4FFFBC6DB3',
 					lat:'',
 					lng:'',
-					todaytip:'吊装作业票',
+					todaytip:'吊装作业票: ',
 					dj:1
 				},
 				dataList:{
@@ -289,6 +289,7 @@
 						url:'./dianzhuang'
 					})
 				}
+				this.mapList.todaytip += this.dataList.dzzywzjnr
 				//添加坐标
 				const ress = await this.$myRequest({
 					method: 'POST',

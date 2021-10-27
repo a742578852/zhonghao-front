@@ -125,6 +125,7 @@
 			},
 			//新增隐患整改
 			addYhzg(){
+				uni.setStorageSync('jcjb',0)
 				uni.navigateTo({
 					url:'./addYhzg?ids=0'
 				})

@@ -99,7 +99,7 @@
 					appid:'630903BBB975486BBE509F4FFFBC6DB3',
 					lat:'',
 					lng:'',
-					todaytip:'盲板作业票',
+					todaytip:'盲板作业票: ',
 					dj:1
 				},
 				dataList:{
@@ -281,6 +281,7 @@
 						url:'./mangbanchoudu'
 					})
 				}
+				this.mapList.todaytip += this.dataList.zywzjnr
 				//添加坐标
 				const ress = await this.$myRequest({
 					method: 'POST',

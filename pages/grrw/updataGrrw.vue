@@ -399,8 +399,9 @@
 				
 				this.rwList[this.findex].xjjg = ind
 				if(ind == 0){
+					uni.setStorageSync('rw',1)
 					uni.navigateTo({
-						url:'../yhzg/addYhzg?rw=1'
+						url:'../yhzg/addYhzg'
 					})
 				}
 				// for(var i=0;i<this.rwList.length;i++){

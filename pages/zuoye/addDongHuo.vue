@@ -111,7 +111,7 @@
 					appid:'630903BBB975486BBE509F4FFFBC6DB3',
 					lat:'',
 					lng:'',
-					todaytip:'动火作业票',
+					todaytip:'动火作业票: ',
 					dj:1
 				},
 				dataList:{
@@ -296,6 +296,7 @@
 						url:'./donghuo'
 					})
 				}
+				this.mapList.todaytip += this.dataList.dhzywzjnr
 				//添加坐标
 				const ress = await this.$myRequest({
 					method: 'POST',
