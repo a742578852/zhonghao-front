@@ -70,7 +70,7 @@
 			 			type:1
 			 		}
 			 	})
-			 	
+			 	console.log(JSON.stringify(res));
 			 	if(res.data.code == 200){
 			 		this.krqy = res.data.data
 			 		

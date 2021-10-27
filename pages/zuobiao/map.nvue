@@ -67,9 +67,7 @@
 				save(){
 					var pages = getCurrentPages();
 					var prevPage = pages[pages.length - 2]; //上一个页面
-					// prevPage.setData({
-					// mdata:1
-					// })
+					
 					var obj = {
 						lat:this.backLat,
 						lon:this.backLng

@@ -119,14 +119,17 @@
 			this.dataList = JSON.parse(option.items)
 			this.dataList.xcmc = this.dataList.xcmc
 			this.dataList.xjr = this.dataList.xjr
-			
+			this.xzry.push(this.dataList.xjr)
+			console.log(this.dataList.xjr);
 			// this.dataList.docid = JSON.parse(option.items).docid
 			this.docid = JSON.parse(option.items).docid
 			
 		},
 		methods: {
+			
 			//指派任务
 			async zhipai(){
+				console.log(this.xzry.length);
 				for(var j=0;j<this.xzry.length;j++){
 					this.dataList.xjr = this.xzry[j]
 				

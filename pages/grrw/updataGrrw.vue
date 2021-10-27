@@ -261,6 +261,31 @@
 				this.getByMid()
 			},
 			async tijiao(){
+				//获取当前时间
+				let date = new Date();
+				let year = date.getFullYear();
+				let month = date.getMonth() + 1;
+				let day = date.getDate();
+				let hours = date.getHours()
+				let mins = date.getMinutes()
+				let sens = date.getSeconds()
+				if(month < 10){
+					month = '0' + month;
+				}
+				if(hours < 10){
+					hours = '0' + hours;
+				}
+				if(day < 10){
+					day = '0' + day;
+				}
+				if(mins < 10){
+					mins = '0' + mins;
+				}
+				if(sens < 10){
+					sens = '0' + sens;
+				}
+				var time = year+'-' + month+'-' + day+ ' '+hours+':'+mins+':'+sens
+				this.dataList.lastmodifiedtime = time
 				var token = uni.getStorageSync('token')
 				const res = await this.$myRequest({
 					method: 'POST',

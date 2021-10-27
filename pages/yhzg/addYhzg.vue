@@ -189,6 +189,8 @@
 	export default {
 		data() {
 			return {
+				rw:'',
+				ids:'',
 				showTag:true,
 				bmobj:[],//部门对象
 				bmry:[],//部门人员
@@ -383,34 +385,35 @@
 			uni.removeStorageSync('zzzgzgqx')
 		},
 		onLoad(option) {
+			this.rw = option.rw
 				console.log(option.rw);
 				this.mapList.lng = option.lng
 				this.mapList.lat = option.lat
 				console.log(option.lng);
 				console.log(option.lat);
 			
-			var ids = option.ids
-			if(option.rw == 1){
+			this.ids = option.ids
+			if(this.rw == 1){
 				this.dataList.zfjcwt = ''
 				this.dataList.bgsjcwt = '本公司检查问题'
 				this.dataList.sjgsjcwt = ''
 			}
-			if(ids == 2){
+			if(this.ids == 2){
 				this.dataList.zfjcwt = '政府检查问题'
 				this.dataList.bgsjcwt = ''
 				this.dataList.sjgsjcwt = ''
 			}
-			if(ids == 0){
+			if(this.ids == 0){
 				this.dataList.zfjcwt = ''
 				this.dataList.bgsjcwt = '本公司检查问题'
 				this.dataList.sjgsjcwt = ''
 			}
-			if(ids == 1){
+			if(this.ids == 1){
 				this.dataList.zfjcwt = ''
 				this.dataList.bgsjcwt = ''
 				this.dataList.sjgsjcwt = '上级公司检查问题'
 			}
-			console.log(ids);
+			console.log(this.ids);
 		},
 		methods: { 
 			//获取坐标
@@ -543,7 +546,24 @@
 				console.log(res);
 				if(res.data.code == 200){
 					this.addLc()
-					uni.navigateBack()
+					if(this.rw == 1){
+						uni.navigateBack()
+					}
+					if(this.ids == 0){
+						uni.navigateTo({
+							url:'./bgsyh'
+						})
+					}
+					if(this.ids == 1){
+						uni.navigateTo({
+							url:'./sjyh'
+						})
+					}
+					if(this.ids == 2){
+						uni.navigateTo({
+							url:'./yhzg'
+						})
+					}
 					// uni.navigateTo({
 					// 	url:'./yhzg'
 					// })
