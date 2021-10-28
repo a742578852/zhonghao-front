@@ -232,10 +232,10 @@
 				bh:'',
 				mapList:{
 					docid:'',
-					appid:'',
+					appid:'630903BBB975486BBE509F4FFFBC6DB3',
 					lat:'',
 					lng:'',
-					todaytip:'隐患整改',
+					todaytip:'隐患整改: ',
 					dj:1
 				},
 				lcobj:{
@@ -588,6 +588,19 @@
 					// 	url:'./yhzg'
 					// })
 				}
+				this.mapList.todaytip += this.dataList.bhgys
+				//添加坐标
+				this.mapList.docid = this.guid2()
+				const ress = await this.$myRequest({
+					method: 'POST',
+					url: 'api/other/insertMap',
+					header:{
+						'content-type': 'application/json;charset=utf-8',
+						'token': token
+					},
+					data: JSON.stringify(this.mapList)
+					
+				})
 			},
 			//生成uuid
 			guid2() {

@@ -125,8 +125,9 @@
 			},
 			//新增隐患整改
 			addYhzg(){
+				uni.setStorageSync('jcjb',2)
 				uni.navigateTo({
-					url:'./addYhzg?ids=2'
+					url:'./addYhzg'
 				})
 			},
 			//查看/修改风险管控信息

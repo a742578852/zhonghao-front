@@ -127,7 +127,7 @@
 			addYhzg(){
 				uni.setStorageSync('jcjb',0)
 				uni.navigateTo({
-					url:'./addYhzg?ids=0'
+					url:'./addYhzg'
 				})
 			},
 			//查看/修改风险管控信息
