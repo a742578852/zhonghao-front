@@ -138,16 +138,28 @@
 				let year = date.getFullYear();
 				let month = date.getMonth() + 1;
 				let day = date.getDate();
+				let h = date.getHours()
+				let m = date.getMinutes()
+				let s = date.getSeconds()
 				if(month < 10){
 					month = '0' + month;
 				}
 				if(day < 10){
 					day = '0' + day;
 				}
-				var time = year+'-' + month+'-' + day
+				if(h < 10){
+					h = '0' + h;
+				}
+				if(m < 10){
+					m = '0' + m;
+				}
+				if(s < 10){
+					s = '0' + s;
+				}
+				var time = year+'-' + month+'-' + day +' '+h+':'+m+':'+s
 				console.log(time);
-				this.dataList.createtime = time+' 00:00:00'
-				this.dataList.lastmodifiedtime = time+' 00:00:00'
+				this.dataList.createtime = time
+				this.dataList.lastmodifiedtime = time
 				console.log(this.dataList.xjr);
 				this.dataList.docid = this.guid2()
 				for(var i=0;i<this.bmobj.length;i++){

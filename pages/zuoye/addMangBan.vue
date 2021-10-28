@@ -100,6 +100,7 @@
 					lat:'',
 					lng:'',
 					todaytip:'盲板作业票: ',
+					todaytipurl:'/common/list/4B96D8CBE7854BD4AA1896A0AEA694F7/D12C9CE552F447349D45D260E3988BB8',
 					dj:1
 				},
 				dataList:{

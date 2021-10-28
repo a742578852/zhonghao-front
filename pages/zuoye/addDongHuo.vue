@@ -112,7 +112,8 @@
 					lat:'',
 					lng:'',
 					todaytip:'动火作业票: ',
-					dj:1
+					dj:1,
+					todaytipurl:'/common/list/82D69FBB522B42D99ED87C5F5CF6ACAC/242E465CAE6642689258471054D2A707'
 				},
 				dataList:{
 					docid:'',

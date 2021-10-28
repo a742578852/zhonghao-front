@@ -41,7 +41,7 @@
 			<view class="mid" hover-class="mid-hover" :data-index="index" v-for="(item,index) in csListArrl" v-if="index <= count" @touchstart="drawStart" @touchmove="drawMove" @touchend="drawEnd" :style="'right:'+item.right+'px'" @click="updateYhzg(item)">
 				<view class="mid-item1">
 					<text style="width: 65%;">{{item.zgdbh}}</text>
-					<text>{{item.jcry}}</text>
+					<text>{{item.authorname}}</text>
 				</view>
 				<view class="mid-item2">
 					<text>{{item.yhxxjcrq}}</text>
@@ -115,6 +115,7 @@
 				})
 				if (res.data.code == 200) {
 					this.csListArrl = res.data.data
+					console.log(JSON.stringify(this.csListArrl));
 				}
 				if (this.csListArrl.length <= 8) {
 					this.shanghua = ''

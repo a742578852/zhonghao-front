@@ -100,6 +100,7 @@
 					lat:'',
 					lng:'',
 					todaytip:'动土作业票: ',
+					todaytipurl:'/common/list/A8F3860DA6D94630987D2EADBAF0A79D/1658FAA9492A4621A002530783200C07',
 					dj:1
 				},
 				dataList:{

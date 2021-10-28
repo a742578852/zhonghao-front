@@ -107,6 +107,7 @@
 					lat:'',
 					lng:'',
 					todaytip:'吊装作业票: ',
+					todaytipurl:'/common/list/48E75145AE524CD795D802CEBC82A5F1/2BD03006A9224FD8A38991AE501C4631',
 					dj:1
 				},
 				dataList:{

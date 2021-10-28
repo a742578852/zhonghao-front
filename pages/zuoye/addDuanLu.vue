@@ -100,6 +100,7 @@
 					lat:'',
 					lng:'',
 					todaytip:'断路作业票: ',
+					todaytipurl:'/common/list/13658B0114B44B8EBE2B188E68E62F4E/F330817DD1CA4065AC9D921347089221',
 					dj:1
 				},
 				dataList:{

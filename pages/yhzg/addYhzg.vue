@@ -236,6 +236,7 @@
 					lat:'',
 					lng:'',
 					todaytip:'隐患整改: ',
+					todaytipurl:'',
 					dj:1
 				},
 				lcobj:{
@@ -517,22 +518,26 @@
 				this.ids = uni.getStorageSync('jcjb')
 				uni.removeStorageSync('jcjb')
 				if(this.ids == 2){
+					this.mapList.todaytipurl = '/common/list/844B0BA811C8461485E5D37EF770D94B/C79849CF70C1464883C25F610813B19E'
 					this.dataList.zfjcwt = '政府检查问题'
 					this.dataList.bgsjcwt = ''
 					this.dataList.sjgsjcwt = ''
 				}
 				if(this.ids == 0){
+					this.mapList.todaytipurl = '/common/list/4E327BC1FB9A4B97AA8F446D042B462C/E45FFBBEC8C94B3CA3D453389AFD83C6'
 					this.dataList.zfjcwt = ''
 					this.dataList.bgsjcwt = '本公司检查问题'
 					this.dataList.sjgsjcwt = ''
 				}
 				if(this.ids == 1){
+					this.mapList.todaytipurl = '/common/list/6FFB686C1C834FF9A1EE44A119A89C1B/4E214C5D499940598D9A68FB4E42D838'
 					this.dataList.zfjcwt = ''
 					this.dataList.bgsjcwt = ''
 					this.dataList.sjgsjcwt = '上级公司检查问题'
 				}
 				this.rw = uni.getStorageSync('rw')
 				if(this.rw == 1){
+					this.mapList.todaytipurl = '/common/list/4E327BC1FB9A4B97AA8F446D042B462C/E45FFBBEC8C94B3CA3D453389AFD83C6'
 					this.dataList.zfjcwt = ''
 					this.dataList.bgsjcwt = '本公司检查问题'
 					this.dataList.sjgsjcwt = ''

@@ -100,6 +100,7 @@
 					lat:'',
 					lng:'',
 					todaytip:'用电作业票: ',
+					todaytipurl:'/common/list/9295D247ECF54E99BA11A743EDD9E249/28D6DD4762E8431B9FB0A1EF85735329',
 					dj:1
 				},
 				dataList:{

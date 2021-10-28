@@ -79,6 +79,7 @@
 			}
 			var admin = uni.getStorageSync('admin')
 			this.dataList.jcr = admin.userName
+			this.dataList.authorname = admin.userName
 			this.dataList.authorid = admin.userId
 			var time = year+'-' + month+'-' + day
 			this.dataList.ccrq = time

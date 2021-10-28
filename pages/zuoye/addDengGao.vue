@@ -107,6 +107,7 @@
 					lat:'',
 					lng:'',
 					todaytip:'登高作业票: ',
+					todaytipurl:'/common/list/90744BE50C97495FB4C1416BA0484CEE/8554A93D56054B67B44E16EC488762B7',
 					dj:1
 				},
 				dataList:{

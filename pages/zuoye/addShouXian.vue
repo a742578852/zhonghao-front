@@ -104,6 +104,7 @@
 					lat:'',
 					lng:'',
 					todaytip:'受限空间作业票: ',
+					todaytipurl:'/common/list/27F1D4529E4443DCB496C83FEA5F3684/C2C012A7DBAC4385B1891DC2902A58A1',
 					dj:1
 				},
 				dataList:{
