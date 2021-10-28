@@ -106,7 +106,7 @@
 					appid:'630903BBB975486BBE509F4FFFBC6DB3',
 					lat:'',
 					lng:'',
-					todaytip:'动高作业票: ',
+					todaytip:'登高作业票: ',
 					dj:1
 				},
 				dataList:{

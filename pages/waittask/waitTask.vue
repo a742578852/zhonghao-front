@@ -52,12 +52,13 @@
 		methods: {
 			//查看/修改风险管控信息
 			updateDbrw(item) {
-				
-				// var items = JSON.stringify(item)
-				// console.log(items);
-				// uni.navigateTo({
-				// 	url:'../yhzg/updataYhzg?items='+items
-				// })
+				// var dbId = item.docid
+				var items = JSON.stringify(item)
+				console.log(items);
+				uni.navigateTo({
+					url:'danger/dangerDetail?items='+items
+					
+				})
 			}
 		},
 		async onShow() {
