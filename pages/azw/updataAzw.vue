@@ -83,9 +83,12 @@
 						console.log(this.fjindex);
 						var path = 'http://124.70.192.154:7703/img/'+this.fjs[this.fjindex].filepath+this.fjs[this.fjindex].attachmentid
 						console.log(path);
+						//#ifdef APP-PLUS
 						plus.runtime.openURL(path);
-						// plus.runtime.openURL("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
-						// window.open("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
+						//#endif
+						//#ifdef H5
+						window.open(path);
+						//#endif
 						
 			        },
 		}

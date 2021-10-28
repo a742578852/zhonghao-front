@@ -2,7 +2,7 @@
     "name" : "中浩化工",
     "appid" : "__UNI__C1D5FD2",
     "description" : "应用描述",
-    "versionName" : "3.0.0",
+    "versionName" : "3.0.5",
     "versionCode" : 3,
     "transformPx" : false,
     /* 5+App特有相关 */
@@ -129,10 +129,18 @@
         "usingComponents" : true
     },
     "h5" : {
-        "template" : "template.h5.html",
+        "template" : "",
         "router" : {
-            "mode" : "history",
-            "base" : "/h5/"
-        }
+            "mode" : "hash",
+            "base" : "./"
+        },
+        "sdkConfigs" : {
+            "maps" : {
+                "qqmap" : {
+                    "key" : ""
+                }
+            }
+        },
+        "domain" : "124.70.192.154"
     }
 }

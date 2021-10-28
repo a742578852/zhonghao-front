@@ -927,8 +927,12 @@
 						console.log(this.fjindex);
 						var path = 'http://124.70.192.154:7703/img/'+this.fjs[this.fjindex].filepath+this.fjs[this.fjindex].attachmentid
 						console.log(path);
+						//#ifdef APP-PLUS
 						plus.runtime.openURL(path);
-						// window.open("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
+						//#endif
+						//#ifdef H5
+						window.open(path);
+						//#endif
 						
 			        },
 					bindPickerChanges1: function(e) {
@@ -937,8 +941,12 @@
 								console.log(this.fjindex);
 								var path = 'http://124.70.192.154:7703/img/'+this.fjs1[this.fjindex1].filepath+this.fjs1[this.fjindex1].attachmentid
 								console.log(path);
-								plus.runtime.openURL("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
-								// window.open("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
+								//#ifdef APP-PLUS
+								plus.runtime.openURL(path);
+								//#endif
+								//#ifdef H5
+								window.open(path);
+								//#endif
 								
 					        },
 							bindPickerChanges2: function(e) {
@@ -947,8 +955,12 @@
 										console.log(this.fjindex);
 										var path = 'http://124.70.192.154:7703/img/'+this.fjs2[this.fjindex2].filepath+this.fjs2[this.fjindex2].attachmentid
 										console.log(path);
-										plus.runtime.openURL("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
-										// window.open("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
+										//#ifdef APP-PLUS
+										plus.runtime.openURL(path);
+										//#endif
+										//#ifdef H5
+										window.open(path);
+										//#endif
 										
 							        },
 			bindPickerChange(e) {
