@@ -83,6 +83,7 @@
 				bmChoise:false,
 				bmry:[],
 				xzry:[],
+				xjridArray:[],
 				bmobj:[],
 				arrayJcnr:[],
 				arrayZq:['天','周','月','季度','年'],
@@ -117,10 +118,12 @@
 		},
 		onLoad(option) {
 			this.dataList = JSON.parse(option.items)
+			console.log(option.items);
 			this.dataList.xcmc = this.dataList.xcmc
 			this.dataList.xjr = this.dataList.xjr
-			this.xzry.push(this.dataList.xjr)
-			console.log(this.dataList.xjr);
+			this.xzry = this.dataList.xjr.split(';')
+			this.xjridArray = this.dataList.xjrid.split(';')
+			// this.xzry.push(this.dataList.xjr)
 			// this.dataList.docid = JSON.parse(option.items).docid
 			this.docid = JSON.parse(option.items).docid
 			
@@ -129,10 +132,12 @@
 			
 			//指派任务
 			async zhipai(){
+				this.dataList.xjr = ''
 				this.dataList.appid = 'DF194980E6EC47DBAE2D85B8CAE54660'
 				for(var j=0;j<this.xzry.length;j++){
 					this.dataList.xjr = this.xzry[j]
-				
+					this.dataList.xjrid = this.xjridArray[j]
+				console.log(this.dataList.xjr);
 				//获取当前时间
 				let date = new Date();
 				let year = date.getFullYear();
@@ -157,17 +162,16 @@
 					s = '0' + s;
 				}
 				var time = year+'-' + month+'-' + day +' '+h+':'+m+':'+s
-				console.log(time);
 				this.dataList.createtime = time
 				this.dataList.lastmodifiedtime = time
-				console.log(this.dataList.xjr);
 				this.dataList.docid = this.guid2()
 				for(var i=0;i<this.bmobj.length;i++){
 					if(this.bmobj[i].userName == this.dataList.xjr){
 						this.dataList.xjrid = this.bmobj[i].userId
+						
 					}
 				}
-				console.log(this.dataList.xjrid);
+				
 				var token = uni.getStorageSync('token')
 				const res = await this.$myRequest({
 					method: 'POST',
@@ -179,7 +183,7 @@
 					data:JSON.stringify(this.dataList)
 					
 				})
-				console.log(res);
+				
 				if (res.data.code == 200) {
 					uni.navigateTo({
 						url:'fpRw'

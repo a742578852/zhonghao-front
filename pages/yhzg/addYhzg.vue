@@ -281,8 +281,8 @@
 					jcdwmc:'',//检查单位
 					zrbmmc:'',//责任部门
 					jcry:'',//检查人
-					zywzdw:'动力车间',//检查区域
-					zywzqymc:'中控配电室---李文明',//详细区域zywzqymc
+					zywzdw:'',//检查区域
+					zywzqymc:'',//详细区域zywzqymc
 					yhxxjcrq:'',//检查日期
 					
 					zzzgtbr:'',//整改填报人
@@ -466,7 +466,7 @@
 					for(var i=0;i<area.data.data.length;i++){
 						this.arrayArea2.push(area.data.data[i].qymc+'---'+area.data.data[i].zrr)
 					}
-					this.dataList.zywzqymc = this.arrayArea2[0]
+					// this.dataList.zywzqymc = this.arrayArea2[0]
 				}
 			},
 			//获取当前时间
@@ -571,7 +571,7 @@
 					this.addLc()
 					if(this.rw == 1){
 						uni.navigateBack({
-						    delta: 3
+						    delta: 1
 						});
 					}
 					if(this.ids == 0){

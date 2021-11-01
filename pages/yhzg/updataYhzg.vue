@@ -163,13 +163,13 @@
 		<view class="cu-form-group">
 			<view class="title">检查区域:</view>
 			<picker @change="bindPickerChange5" :value="index5" :range="arrayArea1" class="item2" style=""  :disabled="up">
-				<view class="uni-input" style="">{{dataList.zywzdw}}</view>
+				<view class="uni-input" style="width: 100%;height: 60rpx;">{{dataList.zywzdw}}</view>
 			</picker>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">检查详细区域:</view>
 			<picker @change="bindPickerChange6" :value="index6" :range="arrayArea2" class="item2" style="" :disabled="up">
-				<view class="uni-input" style="">{{dataList.zywzqymc}}</view>
+				<view class="uni-input" style="width: 100%;height: 60rpx;">{{dataList.zywzqymc}}</view>
 			</picker>
 		</view>
 		<view class="" style="width: 98%;background-color: #ffffd7;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;">
