@@ -413,6 +413,7 @@
 			
 		},
 		onLoad(option) {
+			console.log();
 			this.dbId = JSON.parse(option.items).docuuid
 			console.log(this.dbId);
 			var str = '+'
@@ -429,8 +430,9 @@
 			
 			
 			this.yinhuaId = JSON.parse(option.items).docuuid
+			console.log(this.yinhuaId);
 			
-			this.lcobj.docuuid = JSON.parse(option.items).docid
+			this.lcobj.docuuid = JSON.parse(option.items).docuuid
 			console.log(this.lcobj.docuuid);
 			
 			this.lcobj.docid = this.guid2()

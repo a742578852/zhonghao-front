@@ -138,10 +138,32 @@
 			return true;
 		},
 		onLoad(option) {
-			this.mapList.lng = option.lng
-			this.mapList.lat = option.lat
-			console.log(option.lng);
-			console.log(option.lat);
+			// this.mapList.lng = parseFloat(option.lng) + 0.00006
+			// this.mapList.lat = (parseFloat(option.lat) - 0.0016)
+			// if(parseFloat(option.lng) < 119.054741){
+			// 	this.mapList.lng = parseFloat(option.lng) + 0.00004
+			// 	this.mapList.lat = (parseFloat(option.lat) - 0.0016)
+			// }else{
+			// 	this.mapList.lng = option.lng
+			// 	this.mapList.lat = option.lat
+			// }
+			if(parseFloat(option.lat) > 39.253756){
+				
+					this.mapList.lng = (parseFloat(option.lng) - 0.001)
+					this.mapList.lat = (parseFloat(option.lat) - 0.0012)
+				
+			}else{
+				if(parseFloat(option.lng) < 119.054741){
+					this.mapList.lng = parseFloat(option.lng) + 0.00004
+					this.mapList.lat = (parseFloat(option.lat) - 0.0016)
+				}else{
+					this.mapList.lng = option.lng
+					this.mapList.lat = option.lat
+				}
+			}
+			
+			console.log(this.mapList.lng);
+			console.log(this.mapList.lat);
 		},
 		async onShow() {
 			//获取所有区域对象
@@ -262,6 +284,7 @@
 			},
 			//添加盲板
 			async addMb(){
+				if(this.mapList.lat != null && this.mapList.lng != null){
 				this.mapList.docid = this.guid2()
 				this.dataList.docid = this.guid2()
 				console.log(this.dataList.docid);
@@ -294,8 +317,11 @@
 					data: JSON.stringify(this.mapList)
 					
 				})
-				console.log(ress);
-				
+				}else{
+					uni.showToast({
+						title:'请选取坐标点'
+					})
+				}
 			},
 			//生成uuid
 			guid2() {

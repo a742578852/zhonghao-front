@@ -31,8 +31,10 @@
     var imageLayer = new AMap.ImageLayer({
         url: './map.png',
         bounds: new AMap.Bounds(
-            [119.049111, 39.244912],
-            [119.068711, 39.258712],
+            // [119.049111, 39.245992],
+            // [119.068711, 39.258712],
+			[119.049111, 39.244912],
+			[119.068711, 39.258712],
         ),
         zooms: [2, 15]
     });
@@ -46,7 +48,7 @@
     var map = new AMap.Map('container', {
         resizeEnable: true,
         center: [119.05811, 39.251712],
-        zoom: 15.4,
+        zoom: 14.5,
         layers: [
             new AMap.TileLayer.Satellite(),
             imageLayer

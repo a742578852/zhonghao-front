@@ -113,6 +113,7 @@
 						})
 						
 						if (res.data.code == 200) {
+							console.log(res.data.data.admin);
 							uni.setStorageSync('admin', res.data.data.admin)
 							uni.setStorageSync('token', res.data.data.token)
 							uni.setStorageSync('username', that.From.UserName)

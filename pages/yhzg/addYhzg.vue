@@ -265,7 +265,7 @@
 					authorid:'',
 					authorname:'',
 					authororgid:'',
-					authororgname:'生产部',
+					authororgname:'',
 					createtime:'',
 					zgdbh:'',
 					bgsjcwt:'',//本公司
@@ -333,6 +333,9 @@
 			this.dataList.jcdwmc = admin.deptName
 			this.dataList.authorname = admin.userName
 			this.dataList.authorid = admin.userId
+			console.log(admin.deptId, admin.deptName);
+			this.dataList.authororgid = admin.deptId
+			this.dataList.authororgname = admin.deptName
 			
 			
 			//选择地图后的回显
@@ -387,8 +390,22 @@
 		},
 		onLoad(option) {
 			
-				this.mapList.lng = option.lng
-				this.mapList.lat = option.lat
+				// this.mapList.lng = option.lng
+				// this.mapList.lat = option.lat
+				if(parseFloat(option.lat) > 39.253756){
+					
+						this.mapList.lng = (parseFloat(option.lng) - 0.001)
+						this.mapList.lat = (parseFloat(option.lat) - 0.0012)
+					
+				}else{
+					if(parseFloat(option.lng) < 119.054741){
+						this.mapList.lng = parseFloat(option.lng) + 0.00004
+						this.mapList.lat = (parseFloat(option.lat) - 0.0016)
+					}else{
+						this.mapList.lng = option.lng
+						this.mapList.lat = option.lat
+					}
+				}
 				console.log(option.lng);
 				console.log(option.lat);
 			
@@ -515,6 +532,7 @@
 				}
 			},
 			async addYh(){
+				if(this.mapList.lat != null && this.mapList.lng != null){
 				this.ids = uni.getStorageSync('jcjb')
 				uni.removeStorageSync('jcjb')
 				if(this.ids == 2){
@@ -553,8 +571,6 @@
 				}else{
 					this.dataList.zgdbh = 'YHZGD-'+year+'-'+bhs
 				}
-				
-				console.log(this.dataList.docid);
 				var token = uni.getStorageSync('token')
 				const res = await this.$myRequest({
 					method: 'POST',
@@ -606,6 +622,11 @@
 					data: JSON.stringify(this.mapList)
 					
 				})
+				}else{
+					uni.showToast({
+						title:'请选取坐标点'
+					})
+				}
 			},
 			//生成uuid
 			guid2() {
