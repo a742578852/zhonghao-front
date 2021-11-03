@@ -93,6 +93,7 @@
 			},
 			//查看/修改个人任务
 			updateGrrw(item){
+				console.log('111111');
 				var items = JSON.stringify(item)
 				uni.navigateTo({
 					url:'./updataGrrw?items='+items

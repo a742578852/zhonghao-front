@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<u-top-tips ref="uTips"></u-top-tips>
 		<u-popup v-model="bmChoiseShow" mode="center" width="90%" height="75%" border-radius="14">
 			<view class="cu-form-group" @click="bmChoise=true" style="margin-bottom: 20rpx;">
 				<view class="title">选择指派人部门:</view>
@@ -45,7 +46,7 @@
 					<text>{{item.xjnr}}</text>
 				</view>
 				<view class="content-item" style="width: 18%;">
-					<picker @change="bindPickerChange" @click="zgfsClick(findex = index)"  :range="arrayZgfs" >
+					<picker @change="bindPickerChange" @click="zgfsClick(rwList,index)"  :range="arrayZgfs" >
 						<view class="uni-input" v-if="item.xjjg == 0">隐患整改通知</view>
 						<view class="uni-input" v-if="item.xjjg == 1">已检查无隐患</view>
 						<!-- <view class="uni-input" v-if="item.xjjg == 2">请选择</view> -->
@@ -92,7 +93,7 @@
 		</view>
 		<button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="bmChoiseShow = true">转交当前任务</button>
 		<button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="tijiao">确定</button>
-		<u-top-tips ref="uTips"></u-top-tips>
+		
 	</view>
 	
 </template>
@@ -101,6 +102,7 @@
 	export default {
 		data() {
 			return {
+				grrwRwList:[],
 				grPath:'',
 				findex:0,
 				bmChoiseShow:false,
@@ -144,11 +146,20 @@
 				
 			}
 		},
+		onBackPress(event) {
+			if (event.from === 'navigateBack') {
+				return false;
+			}
+			uni.navigateTo({
+				url:'grrw'
+			})
+			return true;
+		},
 		onLoad(option) {
 			
 			this.dataList = JSON.parse(option.items)
 			this.grPath = 'http://124.70.192.154:7703/img'+this.dataList.autographImg
-			console.log(option.items);
+			
 			this.dataList.xjr = ''
 			
 			// this.dataList.docid = JSON.parse(option.items).docid
@@ -164,7 +175,6 @@
 					})
 				},
 		async onShow() {
-			
 			//获取登录人
 			this.dataList.xjrqz = uni.getStorageSync('admin').userName
 			this.dataList.xjrqzid = uni.getStorageSync('admin').userId
@@ -173,8 +183,28 @@
 			this.getByMid()
 			//获取所有部门
 			this.arrayBz = uni.getStorageSync('arrayBz')
-			//获取任务列表
-			this.getRwList()
+			if(uni.getStorageSync('docidd') !=null && uni.getStorageSync('docidd') !=''){
+				this.docid = uni.getStorageSync('docidd')
+				uni.removeStorageSync('docidd')
+				this.getRwList()
+			}else{
+				this.getRwList()
+			}
+			// if(uni.getStorageSync('rwList')!=null && uni.getStorageSync('rwList')!=''){
+			// 	console.log('get');
+			// 	this.rwList = JSON.parse(uni.getStorageSync('rwList'))
+			// 	console.log(this.docid);
+			// 	this.getRwList()
+			// 	uni.removeStorageSync('rwList')
+			// 	// for(var i=0;i<this.rwList.length;i++){
+			// 	// 	if(this.rwList[i].xjjg == '' || this.rwList[i].xjjg == null){
+			// 	// 		this.rwList[i].xjjg = 1
+			// 	// 	}
+			// 	// }
+			// }else{
+			// 	//获取任务列表
+			// 	this.getRwList()
+			// }
 			//获取附件列表
 			const res = await this.$myRequest({
 				method: 'POST',
@@ -276,6 +306,11 @@
 				this.getByMid()
 			},
 			async tijiao(){
+				var _this = this
+				uni.showToast({
+					title:'切记处理隐患',
+					duration:1000
+				})
 				//获取当前时间
 				let date = new Date();
 				let year = date.getFullYear();
@@ -311,19 +346,15 @@
 					},
 					data:JSON.stringify(this.dataList)
 				})
+				console.log(res);
 				if(res.data.code == 200){
-					uni.showToast({
-						title:'切记处理隐患',
-						duration:1000
-					})
+					console.log('进来');
+					
 					setTimeout(() => {
 					    uni.navigateTo({
 					    	url:'grrw'
 					    })
 					  }, 1000);
-					
-					
-					
 				}
 				for(var i=0;i<this.rwList.length;i++){
 					
@@ -376,10 +407,10 @@
 					},
 					data:JSON.stringify(this.dataList)
 				})
-				if(res.data.code == 200){
+				// if(res.data.code == 200){
+				// 	uni.setStorageSync('rwList',JSON.stringify(this.rwLsit))
 					
-					
-				}
+				// }
 				for(var i=0;i<this.rwList.length;i++){
 					
 					const ress = await this.$myRequest({
@@ -442,7 +473,6 @@
 					this.rwList = res.data.data
 					
 					for(var i=0;i<this.rwList.length;i++){
-						console.log(this.rwList[i].xjjg);
 						if(this.rwList[i].xjjg == '' || this.rwList[i].xjjg == null){
 							this.rwList[i].xjjg = 1
 						}
@@ -627,8 +657,11 @@
 				// }
 				
 			},
-			zgfsClick(index){
-				// this.zgfsIndex = index
+			zgfsClick(rwLsit,index){
+				// console.log(JSON.stringify(rwLsit));
+				// uni.setStorageSync('rwList',JSON.stringify(rwLsit))
+				uni.setStorageSync('docidd',this.docid)
+				this.findex = index
 			}
 		},
 		

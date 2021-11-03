@@ -189,6 +189,7 @@
 	export default {
 		data() {
 			return {
+				grrwRwList:[],
 				rw:'',
 				ids:'',
 				showTag:true,
@@ -320,9 +321,6 @@
 			
 			//隐患级别
 			this.ids = uni.getStorageSync('jcjb')
-			
-			console.log('rw: '+this.rw);
-			console.log('ids: '+this.ids);
 			this.dataList.docid = this.guid2()
 			//从缓存获取所有部门
 			this.arrayBz = uni.getStorageSync('arrayBz')
@@ -398,6 +396,8 @@
 			uni.removeStorageSync('zzzgzgqx')
 		},
 		onLoad(option) {
+			
+			
 			
 				// this.mapList.lng = option.lng
 				// this.mapList.lat = option.lat
@@ -541,8 +541,6 @@
 				}
 			},
 			async addYh(){
-				console.log('rw: '+this.rw);
-				console.log('ids: '+this.ids);
 				if(this.mapList.lat != null && this.mapList.lng != null){
 				
 				if(this.ids == 2){
@@ -594,9 +592,12 @@
 				if(res.data.code == 200){
 					this.addLc()
 					if(this.rw == 1){
-						uni.navigateBack({
-							delta:3
-						});
+						// uni.navigateBack({
+						// 	delta:3
+						// });
+						uni.navigateTo({
+							url:'../grrw/updataGrrw'
+						})
 					}
 					if(this.ids == 0){
 						uni.navigateTo({
