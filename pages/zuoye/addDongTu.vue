@@ -8,7 +8,7 @@
 			</picker>
 		</view> -->
 		<view class="cu-form-group" @click="bmshow=true">
-			<view class="title">作业单位:</view>
+			<view class="title">作业所在单位:</view>
 			<view class="uni-input" style="">{{dataList.dtzyszdw}}</view>
 			<u-select v-model="bmshow" mode="mutil-column-auto" :list="arrayBz" @confirm="confirm"></u-select>
 		</view>

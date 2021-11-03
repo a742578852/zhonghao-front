@@ -48,7 +48,7 @@
 					<picker @change="bindPickerChange" @click="zgfsClick(findex = index)"  :range="arrayZgfs" >
 						<view class="uni-input" v-if="item.xjjg == 0">隐患整改通知</view>
 						<view class="uni-input" v-if="item.xjjg == 1">已检查无隐患</view>
-						<!-- <view class="uni-input" v-if="item.xjjg == 2">现场立即整改</view> -->
+						<!-- <view class="uni-input" v-if="item.xjjg == 2">请选择</view> -->
 						<!-- <view class="uni-input" v-if="index == 0">{{zgfs[0]}}</view>
 						<view class="uni-input" v-if="index == 1">{{zgfs[1]}}</view>
 						<view class="uni-input" v-if="index == 2">{{zgfs[2]}}</view>
@@ -92,7 +92,9 @@
 		</view>
 		<button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="bmChoiseShow = true">转交当前任务</button>
 		<button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="tijiao">确定</button>
+		<u-top-tips ref="uTips"></u-top-tips>
 	</view>
+	
 </template>
 
 <script>
@@ -154,7 +156,15 @@
 			console.log(this.docid);
 			
 		},
+		onReady() {
+					this.$refs.uTips.show({
+						title: '至少上报一条隐患',
+						type: 'error',
+						duration: '1500'
+					})
+				},
 		async onShow() {
+			
 			//获取登录人
 			this.dataList.xjrqz = uni.getStorageSync('admin').userName
 			this.dataList.xjrqzid = uni.getStorageSync('admin').userId
@@ -163,6 +173,7 @@
 			this.getByMid()
 			//获取所有部门
 			this.arrayBz = uni.getStorageSync('arrayBz')
+			//获取任务列表
 			this.getRwList()
 			//获取附件列表
 			const res = await this.$myRequest({
@@ -202,7 +213,9 @@
 			var time = year+'-' + month+'-' + day+ ' '+hours+':'+mins+':'+sens
 			// this.dataList.lastmodifiedtime = time
 		},
+		
 		methods: {
+			
 			//转交
 			async zhuanjiao(){
 				this.bmChoiseShow = false
@@ -299,9 +312,73 @@
 					data:JSON.stringify(this.dataList)
 				})
 				if(res.data.code == 200){
-					uni.navigateTo({
-						url:'grrw'
+					uni.showToast({
+						title:'切记处理隐患',
+						duration:1000
 					})
+					setTimeout(() => {
+					    uni.navigateTo({
+					    	url:'grrw'
+					    })
+					  }, 1000);
+					
+					
+					
+				}
+				for(var i=0;i<this.rwList.length;i++){
+					
+					const ress = await this.$myRequest({
+						method: 'POST',
+						url: 'api/danger/updateInspect',
+						header:{
+							'content-type': 'application/json;charset=utf-8',
+							'token': token
+						},
+						data:JSON.stringify(this.rwList[i])
+					})
+					// console.log(ress);
+					
+				}
+			},
+			async tijiao1(){
+				//获取当前时间
+				let date = new Date();
+				let year = date.getFullYear();
+				let month = date.getMonth() + 1;
+				let day = date.getDate();
+				let hours = date.getHours()
+				let mins = date.getMinutes()
+				let sens = date.getSeconds()
+				if(month < 10){
+					month = '0' + month;
+				}
+				if(hours < 10){
+					hours = '0' + hours;
+				}
+				if(day < 10){
+					day = '0' + day;
+				}
+				if(mins < 10){
+					mins = '0' + mins;
+				}
+				if(sens < 10){
+					sens = '0' + sens;
+				}
+				var time = year+'-' + month+'-' + day+ ' '+hours+':'+mins+':'+sens
+				this.dataList.lastmodifiedtime = time
+				var token = uni.getStorageSync('token')
+				const res = await this.$myRequest({
+					method: 'POST',
+					url: 'api/danger/updateTask',
+					header:{
+						'content-type': 'application/json;charset=utf-8',
+						'token': token
+					},
+					data:JSON.stringify(this.dataList)
+				})
+				if(res.data.code == 200){
+					
+					
 				}
 				for(var i=0;i<this.rwList.length;i++){
 					
@@ -361,12 +438,11 @@
 						pdocid:this.docid
 					}
 				})
-				console.log(JSON.stringify(res));
 				if (res.data.code == 200) {
 					this.rwList = res.data.data
 					
 					for(var i=0;i<this.rwList.length;i++){
-						
+						console.log(this.rwList[i].xjjg);
 						if(this.rwList[i].xjjg == '' || this.rwList[i].xjjg == null){
 							this.rwList[i].xjjg = 1
 						}
@@ -393,7 +469,7 @@
 						//#endif
 			        },
 			async bindPickerChange(e) {
-				this.tijiao()
+				this.tijiao1()
 				var ind = e.detail.value
 				
 				this.rwList[this.findex].xjjg = ind

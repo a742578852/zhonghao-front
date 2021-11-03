@@ -313,6 +313,16 @@
 			return true;
 		},
 		async onShow() {
+			this.rw = ''
+			this.ids = ''
+			//个人任务
+			this.rw = uni.getStorageSync('rw')
+			
+			//隐患级别
+			this.ids = uni.getStorageSync('jcjb')
+			
+			console.log('rw: '+this.rw);
+			console.log('ids: '+this.ids);
 			this.dataList.docid = this.guid2()
 			//从缓存获取所有部门
 			this.arrayBz = uni.getStorageSync('arrayBz')
@@ -333,7 +343,6 @@
 			this.dataList.jcdwmc = admin.deptName
 			this.dataList.authorname = admin.userName
 			this.dataList.authorid = admin.userId
-			console.log(admin.deptId, admin.deptName);
 			this.dataList.authororgid = admin.deptId
 			this.dataList.authororgname = admin.deptName
 			
@@ -532,9 +541,10 @@
 				}
 			},
 			async addYh(){
+				console.log('rw: '+this.rw);
+				console.log('ids: '+this.ids);
 				if(this.mapList.lat != null && this.mapList.lng != null){
-				this.ids = uni.getStorageSync('jcjb')
-				uni.removeStorageSync('jcjb')
+				
 				if(this.ids == 2){
 					this.mapList.todaytipurl = '/common/list/844B0BA811C8461485E5D37EF770D94B/C79849CF70C1464883C25F610813B19E'
 					this.dataList.zfjcwt = '政府检查问题'
@@ -553,7 +563,7 @@
 					this.dataList.bgsjcwt = ''
 					this.dataList.sjgsjcwt = '上级公司检查问题'
 				}
-				this.rw = uni.getStorageSync('rw')
+				
 				if(this.rw == 1){
 					this.mapList.todaytipurl = '/common/list/4E327BC1FB9A4B97AA8F446D042B462C/E45FFBBEC8C94B3CA3D453389AFD83C6'
 					this.dataList.zfjcwt = ''
@@ -561,7 +571,6 @@
 					this.dataList.sjgsjcwt = ''
 				}
 				
-				console.log(this.dataList.zywzqymc);
 				let date = new Date()
 				let year = date.getFullYear();
 				 var bhs = parseInt(this.bh)+1
@@ -582,12 +591,11 @@
 					data: JSON.stringify(this.dataList)
 					
 				})
-				console.log(res);
 				if(res.data.code == 200){
 					this.addLc()
 					if(this.rw == 1){
 						uni.navigateBack({
-						    delta: 1
+							delta:3
 						});
 					}
 					if(this.ids == 0){
@@ -605,6 +613,8 @@
 							url:'./yhzg'
 						})
 					}
+					uni.removeStorageSync('rw')
+					uni.removeStorageSync('jcjb')
 					// uni.navigateTo({
 					// 	url:'./yhzg'
 					// })
@@ -654,7 +664,6 @@
 					},
 					data:JSON.stringify(this.lcobj)
 				})
-				console.log(res);
 				if(res.data.code == 200){
 					console.log('流程添加成功');
 				}
