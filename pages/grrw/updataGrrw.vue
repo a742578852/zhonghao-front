@@ -46,10 +46,10 @@
 					<text>{{item.xjnr}}</text>
 				</view>
 				<view class="content-item" style="width: 18%;">
-					<picker @change="bindPickerChange" @click="zgfsClick(rwList,index)"  :range="arrayZgfs" >
-						<view class="uni-input" v-if="item.xjjg == 0">隐患整改通知</view>
-						<view class="uni-input" v-if="item.xjjg == 1">已检查无隐患</view>
-						<!-- <view class="uni-input" v-if="item.xjjg == 2">请选择</view> -->
+					<picker @change="bindPickerChange" @click="zgfsClick(rwList,index)"  :range="arrayZgfs" style="width: 200rpx;height: 10rpx;">
+						<view class="uni-input" v-if="item.xjjg == 0 ">隐患整改通知</view>
+						<view class="uni-input" v-if="item.xjjg == 1 ">已检查无隐患</view>
+						<view class="uni-input" v-if="item.xjjg == 2">请选择</view>
 						<!-- <view class="uni-input" v-if="index == 0">{{zgfs[0]}}</view>
 						<view class="uni-input" v-if="index == 1">{{zgfs[1]}}</view>
 						<view class="uni-input" v-if="index == 2">{{zgfs[2]}}</view>
@@ -66,7 +66,7 @@
 		</scroll-view>
 		<view class="cu-form-group align-start">
 			<view class="title">巡检情况:</view>
-			<textarea maxlength="-1"  v-model='dataList.xjqk' ></textarea>
+			<textarea maxlength="-1"  v-model='dataList.xjqk' oninput="value = value.replace(/(^\s*)|(\s*$)/g,'')"></textarea>
 		</view>
 		<view class="cu-form-group" @click="chooseImage">
 			<view class="title">上传附件:</view>
@@ -80,7 +80,7 @@
 		</view>
 		<view class="cu-form-group" >
 			<view class="title">巡检人:</view>
-			<input name="input" v-model="dataList.xjrqz" disabled=""></input>
+			<input name="input" v-model="dataList.xjr" disabled=""></input>
 		</view>
 		<view class="cu-form-group" @click="shouqian">
 			<view class="title">手写签名:</view>
@@ -91,6 +91,7 @@
 			<view class="title">巡检完成日期:</view>
 			<input name="input" v-model="dataList.lastmodifiedtime" disabled="" @click="show = true"></input>
 		</view>
+		<u-toast ref="uToast" />
 		<button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="bmChoiseShow = true">转交当前任务</button>
 		<button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="tijiao">确定</button>
 		
@@ -102,6 +103,7 @@
 	export default {
 		data() {
 			return {
+				fuck:-1,
 				grrwRwList:[],
 				grPath:'',
 				findex:0,
@@ -160,7 +162,7 @@
 			this.dataList = JSON.parse(option.items)
 			this.grPath = 'http://124.70.192.154:7703/img'+this.dataList.autographImg
 			
-			this.dataList.xjr = ''
+			// this.dataList.xjr = ''
 			
 			// this.dataList.docid = JSON.parse(option.items).docid
 			this.docid = JSON.parse(option.items).docid
@@ -306,10 +308,13 @@
 				this.getByMid()
 			},
 			async tijiao(){
+				
+				if(this.dataList.xjqk !='' && this.dataList.xjqk !=null){
 				var _this = this
-				uni.showToast({
-					title:'切记处理隐患',
-					duration:1000
+				
+				this.$refs.uToast.show({
+					title: '请在隐患整改栏目中将隐患流转',
+				type: 'error',
 				})
 				//获取当前时间
 				let date = new Date();
@@ -337,6 +342,7 @@
 				var time = year+'-' + month+'-' + day+ ' '+hours+':'+mins+':'+sens
 				this.dataList.lastmodifiedtime = time
 				var token = uni.getStorageSync('token')
+				console.log(JSON.stringify(this.dataList));
 				const res = await this.$myRequest({
 					method: 'POST',
 					url: 'api/danger/updateTask',
@@ -348,8 +354,6 @@
 				})
 				console.log(res);
 				if(res.data.code == 200){
-					console.log('进来');
-					
 					setTimeout(() => {
 					    uni.navigateTo({
 					    	url:'grrw'
@@ -367,8 +371,11 @@
 						},
 						data:JSON.stringify(this.rwList[i])
 					})
-					// console.log(ress);
-					
+				}
+				}else{
+					uni.showToast({
+						title:'填写巡检情况'
+					})
 				}
 			},
 			async tijiao1(){
@@ -474,7 +481,7 @@
 					
 					for(var i=0;i<this.rwList.length;i++){
 						if(this.rwList[i].xjjg == '' || this.rwList[i].xjjg == null){
-							this.rwList[i].xjjg = 1
+							this.rwList[i].xjjg = 2
 						}
 						
 						
@@ -658,6 +665,7 @@
 				
 			},
 			zgfsClick(rwLsit,index){
+				this.fuck = index
 				// console.log(JSON.stringify(rwLsit));
 				// uni.setStorageSync('rwList',JSON.stringify(rwLsit))
 				uni.setStorageSync('docidd',this.docid)

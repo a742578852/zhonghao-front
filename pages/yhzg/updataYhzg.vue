@@ -277,9 +277,9 @@
 		<!-- <button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="updataYh">确定</button> -->
 		<view class="" style="display: flex;justify-content: space-around;margin-top: 30rpx;margin-bottom: 30rpx;">
 			<button type="primary" size="mini"  @click="xiugai">修改</button>
-			<button type="primary" size="mini"  @click="bmChoiseShow = true" :disabled="lz">流转</button>
+			<button type="primary" size="mini"  @click="lzShow" :disabled="lz">流转</button>
 			<button type="primary" size="mini"  @click="rizhi = true">日志</button>
-			<button type="primary" size="mini"  @click="updataYh">确定</button>
+			<button type="primary" size="mini"  @click="isNull">确定</button>
 		</view>
 	</view>
 </template>
@@ -412,6 +412,7 @@
 			
 		},
 		onLoad(option) {
+			console.log(JSON.parse(option.items).docid);
 			var str = '+'
 			var cTime = JSON.parse(option.items).createtime;
 			if(cTime != '' && cTime != null){
@@ -503,9 +504,12 @@
 			    return dateString;
 			},
 			shouqian(){
-				uni.navigateTo({
-					url:'../shouqian/shouqian?type=1&docid='+this.lcobj.docuuid
-				})
+				if(this.username == this.dqlcclr){
+					uni.navigateTo({
+						url:'../shouqian/shouqian?type=1&docid='+this.lcobj.docuuid
+					})
+				}
+				
 			},
 			//生成uuid
 			guid2() {
@@ -621,8 +625,21 @@
 				this.xzry = []
 				this.xzry = item
 			},
+			//流程结束不在流转
+			lzShow(){
+				if(this.rizhis[this.rizhis.length-1].operatename == '办结'){
+					
+					uni.showToast({
+						title: '流程已结束'
+					})
+				}else{
+					this.bmChoiseShow = true
+				}
+				
+			},
 			//流转
 			tianjia(){
+				
 				if(this.xzry == ''|| this.xzry == null){
 					uni.showToast({
 						title: '请选择流转人'
@@ -659,7 +676,7 @@
 					})
 				}else{
 					this.lcobj.docid = this.guid2()
-					this.lcobj.docuuid = this.rizhis[this.rizhis.length-2].docuuid
+					// this.lcobj.docuuid = this.rizhis[this.rizhis.length-2].docuuid
 					this.lcobj.nowuserid = this.rizhis[this.rizhis.length-2].nowuserid
 					this.lcobj.nowusername = this.rizhis[this.rizhis.length-2].nowusername
 					this.lcobj.preusername = this.username
@@ -783,6 +800,28 @@
 						this.arrayArea2.push(area.data.data[i].qymc+'---'+area.data.data[i].zrr)
 					}
 					// this.dataList.zywzqymc = this.arrayArea2[0]
+				}
+			},
+			//字段不为空
+			isNull(){
+				if(this.rizhis[this.rizhis.length-1].nownodename == '问题整改'){
+					if(this.dataList.zgwcrq !='' && this.dataList.zgr !='' && this.dataList.zgrtxrq !='' && this.dataList.zlzj !='' && this.dataList.wtyzzgqk !=''){
+						this.updataYh()
+					}else{
+						uni.showToast({
+							title:'请完整填写'
+						})
+					}
+				}else if(this.rizhis[this.rizhis.length-1].nownodename == '问题验证'){
+					if(this.dataList.wtyzyyfx !='' && this.dataList.yzr !='' && this.dataList.yzrtxrq !='' && this.dataList.yzqk !=''){
+						this.updataYh()
+					}else{
+						uni.showToast({
+							title:'请完整填写'
+						})
+					}
+				}else{
+					this.updataYh()
 				}
 			},
 			//查看隐患

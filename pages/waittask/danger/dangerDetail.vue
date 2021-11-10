@@ -279,7 +279,7 @@
 			<button type="primary" size="mini"  @click="xiugai">修改</button>
 			<button type="primary" size="mini"  @click="bmChoiseShow = true" :disabled="lz">流转</button>
 			<button type="primary" size="mini"  @click="rizhi = true">日志</button>
-			<button type="primary" size="mini"  @click="updataYh">确定</button>
+			<button type="primary" size="mini"  @click="isNull">确定</button>
 		</view>
 	</view>
 </template>
@@ -807,6 +807,28 @@
 						this.arrayArea2.push(area.data.data[i].qymc+'---'+area.data.data[i].zrr)
 					}
 					// this.dataList.zywzqymc = this.arrayArea2[0]
+				}
+			},
+			//字段不为空
+			isNull(){
+				if(this.rizhis[this.rizhis.length-1].nownodename == '问题整改'){
+					if(this.dataList.zgwcrq !='' && this.dataList.zgr !='' && this.dataList.zgrtxrq !='' && this.dataList.zlzj !='' && this.dataList.wtyzzgqk !=''){
+						this.updataYh()
+					}else{
+						uni.showToast({
+							title:'请完整填写'
+						})
+					}
+				}else if(this.rizhis[this.rizhis.length-1].nownodename == '问题验证'){
+					if(this.dataList.wtyzyyfx !='' && this.dataList.yzr !='' && this.dataList.yzrtxrq !='' && this.dataList.yzqk !=''){
+						this.updataYh()
+					}else{
+						uni.showToast({
+							title:'请完整填写'
+						})
+					}
+				}else{
+					this.updataYh()
 				}
 			},
 			//查看隐患

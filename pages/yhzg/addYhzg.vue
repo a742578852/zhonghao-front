@@ -283,7 +283,7 @@
 					zrbmmc:'',//责任部门
 					jcry:'',//检查人
 					zywzdw:'',//检查区域
-					zywzqymc:'',//详细区域zywzqymc
+					zywzqymc:'',//详细区域
 					yhxxjcrq:'',//检查日期
 					
 					zzzgtbr:'',//整改填报人
@@ -541,7 +541,7 @@
 				}
 			},
 			async addYh(){
-				if(this.mapList.lat != null && this.mapList.lng != null){
+				if(this.mapList.lat != null && this.mapList.lng != null && this.dataList.bhgys !='' && this.dataList.zrbmmc !='' && this.dataList.jcry !='' && this.dataList.zywzdw !=null && this.dataList.zywzqymc !='' && this.dataList.yhzgqk !='' && this.dataList.zzzgzgqx != ''){
 				
 				if(this.ids == 2){
 					this.mapList.todaytipurl = '/common/list/844B0BA811C8461485E5D37EF770D94B/C79849CF70C1464883C25F610813B19E'
@@ -635,7 +635,7 @@
 				})
 				}else{
 					uni.showToast({
-						title:'请选取坐标点'
+						title:'请完整填写'
 					})
 				}
 			},

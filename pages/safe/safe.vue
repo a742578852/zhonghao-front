@@ -70,6 +70,14 @@
 					<text>风险研判</text>
 				</view>
 			</view>
+			<!-- <view class="deep-items" @click="">
+				<view class="deep-item" hover-class="swing3">
+					<image class="deep-item-img" src="../../static/fxyp.png" mode=""></image>
+				</view>
+				<view class="">
+					<text>任务统计</text>
+				</view>
+			</view> -->
 			
 		</view>
 		
