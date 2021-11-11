@@ -675,7 +675,7 @@
 				this.bmChoiseShow = false
 			},
 			//退回上一级
-			back(){
+			async back(){
 				this.xzry = ''
 				if(this.rizhis[this.rizhis.length-1].nownodename == '填报隐患' || this.rizhis[this.rizhis.length-1].nownodename == '结束' || this.rizhis[this.rizhis.length-1].operatename == '送拟稿' || this.rizhis[this.rizhis.length-1].operatename == '办结'){
 					uni.showToast({
@@ -697,7 +697,27 @@
 					this.lcobj.operatename = this.rizhis[this.rizhis.length-2].operatename
 					this.lcobj.gettime = this.getCurrentTime()
 					this.lcobj.sendtime = this.getCurrentTime()
-					this.addLc()
+					// this.addLc()
+					var token = uni.getStorageSync('token')
+					const res = await this.$myRequest({
+						method: 'POST',
+						url: 'api/flow/addFlow',
+						header:{
+							'content-type': 'application/json;charset=utf-8',
+							'token': token
+						},
+						data:JSON.stringify(this.lcobj)
+					})
+					console.log(res);
+					if(res.data.code == 200){
+						uni.showToast({
+							title:'操作成功'
+						})
+						uni.navigateBack()
+						// uni.navigateTo({
+						// 	url:'yhzg'
+						// })
+					}
 				}
 			},
 			//添加流程

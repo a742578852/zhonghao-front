@@ -881,6 +881,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/rwTj/rwTj",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

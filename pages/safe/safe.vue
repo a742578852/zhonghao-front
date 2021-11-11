@@ -70,14 +70,14 @@
 					<text>风险研判</text>
 				</view>
 			</view>
-			<!-- <view class="deep-items" @click="">
+			<view class="deep-items" @click="toRw">
 				<view class="deep-item" hover-class="swing3">
 					<image class="deep-item-img" src="../../static/fxyp.png" mode=""></image>
 				</view>
 				<view class="">
 					<text>任务统计</text>
 				</view>
-			</view> -->
+			</view>
 			
 		</view>
 		
@@ -240,6 +240,12 @@
 			toFxyp() {
 				uni.navigateTo({
 					url: '../fxyp/fxyp'
+				})
+			},
+			//个人任务统计
+			toRw(){
+				uni.navigateTo({
+					url:'../rwTj/rwTj'
 				})
 			}
 		}
