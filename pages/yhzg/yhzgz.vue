@@ -115,7 +115,7 @@
 				})
 				if (res.data.code == 200) {
 					this.csListArrl = res.data.data
-					console.log(JSON.stringify(this.csListArrl));
+					console.log(this.csListArrl.length);
 				}
 				if (this.csListArrl.length <= 8) {
 					this.shanghua = ''

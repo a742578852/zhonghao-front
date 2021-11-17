@@ -1,10 +1,10 @@
 <template>
 	<view>
-		<u-calendar v-model="show" :mode="mode" @change="change"></u-calendar>
+		<u-calendar v-model="show" :mode="mode" @change="change" max-date="2030-01-01"></u-calendar>
 		<view class="cu-form-group">
 			<view class="title"><span class='star'>*</span>动火证级别:</view>
 			<picker @change="bindPickerChange1" :value="index1" :range="arraydhzlx">
-				<view class="uni-input" style="">{{arraydhzlx[index1]}}</view>
+				<view class="uni-input" style="width: 300rpx;height: 60rpx;">{{arraydhzlx[index1]}}</view>
 			</picker>
 		</view>
 		<!-- <view class="cu-form-group">
@@ -136,7 +136,6 @@
 					dhzywzqymc:'中控配电室---李文明',
 					bz:'',
 					fj:'',
-					dhzyjb:'特殊动火作业证'
 				}
 			}
 		},
@@ -174,10 +173,11 @@
 			var admin = uni.getStorageSync('admin')
 			this.dataList.authorname = admin.userName
 			this.dataList.authorid = admin.userId
-			
 			//选择地图后的回显
 			if(uni.getStorageSync('index1') !='' && uni.getStorageSync('index1') !=null){
 				this.index1 = uni.getStorageSync('index1')
+				console.log(this.index1);
+				this.dataList.dhzyjb = this.arraydhzlx[this.index1]
 			}
 			uni.removeStorageSync('index1')
 			if(uni.getStorageSync('dhzyszdw') !='' && uni.getStorageSync('dhzyszdw') !=null){
@@ -238,8 +238,6 @@
 					this.mapList.lat = option.lat
 				}
 			}
-			console.log(option.lng);
-			console.log(option.lat);
 		},
 		methods: {
 			//获取二级区域
@@ -291,6 +289,7 @@
 			},
 			//添加动火
 			async addDh(){
+				console.log(this.dataList.dhzyjb);
 				if(this.mapList.lat != null && this.mapList.lng != null){
 				this.mapList.docid = this.guid2()
 				this.dataList.docid = this.guid2()
@@ -387,7 +386,9 @@
 			bindPickerChange1(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index1 = e.detail.value
+				console.log(this.index1);
 				this.dataList.dhzyjb = this.arraydhzlx[this.index1]
+				console.log(this.dataList.dhzyjb);
 			},
 			bindPickerChange2(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)

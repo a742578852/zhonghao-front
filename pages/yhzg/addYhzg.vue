@@ -27,12 +27,12 @@
 			
 		</u-popup>
 		
-		<u-calendar v-model="show" :mode="mode" @change="change"></u-calendar>
+		<u-calendar v-model="show" :mode="mode" @change="change" max-date="2030-01-01"></u-calendar>
 		<u-calendar v-model="show1" :mode="mode" @change="change1" max-date="2030-01-01"></u-calendar>
-		<u-calendar v-model="show2" :mode="mode" @change="change2"></u-calendar>
-		<u-calendar v-model="show3" :mode="mode" @change="change3"></u-calendar>
-		<u-calendar v-model="show4" :mode="mode" @change="change4"></u-calendar>
-		<u-calendar v-model="show5" :mode="mode" @change="change5"></u-calendar>
+		<u-calendar v-model="show2" :mode="mode" @change="change2" max-date="2030-01-01"></u-calendar>
+		<u-calendar v-model="show3" :mode="mode" @change="change3" max-date="2030-01-01"></u-calendar>
+		<u-calendar v-model="show4" :mode="mode" @change="change4" max-date="2030-01-01"></u-calendar>
+		<u-calendar v-model="show5" :mode="mode" @change="change5" max-date="2030-01-01"></u-calendar>
 		<view class="cu-form-group align-start">
 			<view class="title">隐患问题:</view>
 			<textarea maxlength="-1"  v-model='dataList.bhgys'></textarea>
@@ -134,7 +134,7 @@
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">整改情况:</view>
-			<textarea maxlength="-1"  v-model='dataList.wtyzzgqk' disabled=""></textarea>
+			<textarea maxlength="-1"  v-model='dataList.yzqk' disabled=""></textarea>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">整改人:</view>
@@ -179,7 +179,7 @@
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">验证情况:</view>
-			<textarea maxlength="-1"  v-model='dataList.yzqk' disabled=""></textarea>
+			<textarea maxlength="-1"  v-model='dataList.wtyzzgqk' disabled=""></textarea>
 		</view>
 		<button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="addYh">确定</button>
 	</view>
@@ -220,7 +220,7 @@
 				index4:0,
 				index5:-1,
 				index6:-1,
-				index7:0,
+				index7:-1,
 				arrayYhdj:['一般隐患','重大隐患'],
 				arrayjccj:['班组级','部门级','公司级'],
 				arrayjclx:['日常检查','综合性检查','专业性检查','季节性检查','重大活动及节假日前检查','事故类比检查','上级公司检查','政府执法检查','重大危险源检查'],
@@ -295,12 +295,12 @@
 					zgr:'',//整改人
 					zgrtxrq:'',//整改填写日期
 					zlzj:'',//治理资金
-					wtyzzgqk:'',//整改情况
+					yzqk:'',//整改情况
 					
-					wtyzyyfx:'人',//原因分析
+					wtyzyyfx:'',//原因分析
 					yzr:'',//验证人
 					yzrtxrq:'',//验证填写日期
-					yzqk:'',//验证情况
+					wtyzzgqk:'',//验证情况
 				}
 			}
 		},

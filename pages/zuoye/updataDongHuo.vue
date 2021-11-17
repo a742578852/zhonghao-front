@@ -117,7 +117,6 @@
 					dhzywzqymc: '安全部',
 					bz: '',
 					fj: '',
-					dhzjb: '特殊动火作业证'
 				}
 			}
 		},
@@ -132,6 +131,7 @@
 		},
 		onLoad(option) {
 			this.dataList = JSON.parse(option.items)
+			console.log(this.dataList.dhzyjb);
 
 			this.dataList.createtime = this.dataList.createtime.substring(0, 10)
 		},

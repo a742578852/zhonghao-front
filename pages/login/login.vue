@@ -128,6 +128,7 @@
 								method: 'POST',
 								url: 'api/other/getAllDept',
 							})
+							console.log(dept.data.data);
 							uni.setStorageSync('arrayBz', dept.data.data)
 							
 							//所有一级区域

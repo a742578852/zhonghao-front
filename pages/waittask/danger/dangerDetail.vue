@@ -81,12 +81,12 @@
 		</u-popup>
 		
 		
-		<u-calendar v-model="show" :mode="mode" @change="change" ></u-calendar>
+		<u-calendar v-model="show" :mode="mode" @change="change" max-date="2030-01-01" ></u-calendar>
 		<u-calendar v-model="show1" :mode="mode" @change="change1" max-date="2030-01-01"></u-calendar>
-		<u-calendar v-model="show2" :mode="mode" @change="change2"></u-calendar>
-		<u-calendar v-model="show3" :mode="mode" @change="change3"></u-calendar>
-		<u-calendar v-model="show4" :mode="mode" @change="change4"></u-calendar>
-		<u-calendar v-model="show5" :mode="mode" @change="change5"></u-calendar>
+		<u-calendar v-model="show2" :mode="mode" @change="change2" max-date="2030-01-01"></u-calendar>
+		<u-calendar v-model="show3" :mode="mode" @change="change3" max-date="2030-01-01"></u-calendar>
+		<u-calendar v-model="show4" :mode="mode" @change="change4" max-date="2030-01-01"></u-calendar>
+		<u-calendar v-model="show5" :mode="mode" @change="change5" max-date="2030-01-01"></u-calendar>
 		
 		<view class="cu-form-group align-start">
 			<view class="title">隐患问题:</view>
@@ -196,7 +196,7 @@
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">整改情况:</view>
-			<textarea maxlength="-1"  v-model='dataList.wtyzzgqk' :disabled="up1"></textarea>
+			<textarea maxlength="-1"  v-model='dataList.yzqk' :disabled="up1"></textarea>
 		</view>
 		<view class="cu-form-group">
 			<view class="title">整改人:</view>
@@ -237,7 +237,7 @@
 		<view class="cu-form-group">
 			<view class="title">原因分析:</view>
 			<picker @change="bindPickerChange7" :value="index7" :range="arrayYy" class="item2" style="" :disabled="up2">
-				<view class="uni-input" style="">{{dataList.wtyzyyfx}}</view>
+				<view class="uni-input" style="width: 300rpx;height: 60rpx;">{{dataList.wtyzyyfx}}</view>
 			</picker>
 		</view>
 		<view class="cu-form-group">
@@ -272,7 +272,7 @@
 		<image :src="yhPath" mode=""></image>
 		<view class="cu-form-group align-start">
 			<view class="title">验证情况:</view>
-			<textarea maxlength="-1"  v-model='dataList.yzqk' :disabled="up2"></textarea>
+			<textarea maxlength="-1"  v-model='dataList.wtyzzgqk' :disabled="up2"></textarea>
 		</view>
 		<!-- <button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="updataYh">确定</button> -->
 		<view class="" style="display: flex;justify-content: space-around;margin-top: 30rpx;margin-bottom: 30rpx;">
@@ -402,12 +402,12 @@
 					zgr:'',//整改人
 					zgrtxrq:'',//整改填写日期
 					zlzj:'',//治理资金
-					wtyzzgqk:'',//整改情况
+					yzqk:'',//整改情况
 					
 					wtyzyyfx:'人',//原因分析
 					yzr:'',//验证人
 					yzrtxrq:'',//验证填写日期
-					yzqk:'',//验证情况
+					wtyzzgqk:'',//验证情况
 				}
 			}
 			
@@ -832,7 +832,7 @@
 			//字段不为空
 			isNull(){
 				if(this.rizhis[this.rizhis.length-1].nownodename == '问题整改'){
-					if(this.dataList.zgwcrq !='' && this.dataList.zgr !='' && this.dataList.zgrtxrq !='' && this.dataList.zlzj !='' && this.dataList.wtyzzgqk !=''){
+					if(this.dataList.zgwcrq !='' && this.dataList.zgr !='' && this.dataList.zgrtxrq !='' && this.dataList.zlzj !='' && this.dataList.yzqk !=''){
 						this.updataYh()
 					}else{
 						uni.showToast({
@@ -840,7 +840,7 @@
 						})
 					}
 				}else if(this.rizhis[this.rizhis.length-1].nownodename == '问题验证'){
-					if(this.dataList.wtyzyyfx !='' && this.dataList.yzr !='' && this.dataList.yzrtxrq !='' && this.dataList.yzqk !=''){
+					if(this.dataList.wtyzyyfx !='' && this.dataList.yzr !='' && this.dataList.yzrtxrq !='' && this.dataList.wtyzzgqk !=''){
 						this.updataYh()
 					}else{
 						uni.showToast({
