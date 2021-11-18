@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<u-calendar v-model="show" :mode="mode" @change="change"></u-calendar>
+		<u-calendar v-model="show" :mode="mode" @change="change" max-date="2030-01-01"></u-calendar>
 		<!-- <view class="cu-form-group">
 			<view class="title"><span class='star'>*</span>作业单位:</view>
 			<picker @change="bindPickerChange" :value="index" :range="arrayBz" class="item2" style="" :disabled="up">
@@ -8,7 +8,7 @@
 			</picker>
 		</view> -->
 		<view class="cu-form-group" @click="bmshow=true">
-			<view class="title">作业单位:</view>
+			<view class="title">作业所在单位:</view>
 			<view class="uni-input" style="">{{dataList.dtzyszdw}}</view>
 			<u-select v-model="bmshow" mode="mutil-column-auto" :list="arrayBz" @confirm="confirm"></u-select>
 		</view>

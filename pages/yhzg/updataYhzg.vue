@@ -114,10 +114,10 @@
 				<view class="uni-input" style="">{{dataList.jclx}}</view>
 			</picker>
 		</view>
-		<view class="cu-form-group" @click="bmshow=true">
+		<view class="cu-form-group" @click="bmshow=true" >
 			<view class="title">责任部门:</view>
 			<view class="uni-input" style="">{{dataList.zrbmmc}}</view>
-			<u-select v-model="bmshow" mode="mutil-column-auto" :list="arrayBz" @confirm="confirm"></u-select>
+			<u-select v-model="bmshow" mode="mutil-column-auto" :list="arrayBz" @confirm="confirm" ></u-select>
 		</view>
 		<view class="cu-form-group" @click="bmshow1=true">
 			<view class="title">检查单位:</view>
@@ -584,7 +584,7 @@
 						}
 						//当前节点处理人是不是当前登录人
 						
-						if(this.username == this.dqlcclr || this.lzRole){
+						if(this.username == this.dqlcclr){
 							this.lz = false
 							if(this.dqlc == '填报隐患'){
 								this.up = false

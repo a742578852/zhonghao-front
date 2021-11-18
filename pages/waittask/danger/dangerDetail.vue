@@ -603,7 +603,7 @@
 						}
 						//当前节点处理人是不是当前登录人
 						
-						if(this.username == this.dqlcclr || this.lzRole){
+						if(this.username == this.dqlcclr){
 							this.lz = false
 							if(this.dqlc == '填报隐患'){
 								this.up = false
