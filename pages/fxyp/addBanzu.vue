@@ -295,11 +295,13 @@
 			this.dataList.createtime = time
 			
 			var admin = uni.getStorageSync('admin')
+			this.dataList.authorid = admin.userId
 			this.dataList.authorname = admin.userName
 			
 		},
 		methods: {
 			async addBz(){
+				if(this.dataList.bz !=''){
 				this.dataList.docid = this.guid2()
 				console.log(this.dataList.docid);
 				var token = uni.getStorageSync('token')
@@ -317,6 +319,11 @@
 				if(res.data.code == 200){
 					uni.navigateTo({
 						url:'./banZuYanPan'
+					})
+				}
+				}else{
+					uni.showToast({
+						title:'请填写班组'
 					})
 				}
 			},

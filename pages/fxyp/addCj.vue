@@ -140,6 +140,7 @@
 		methods: {
 			//修改班组
 			async updataCj(){
+				if(this.dataList.cjmc !=''){
 				this.dataList.docid = this.guid2()
 				//获取当前时间
 				let date = new Date();
@@ -171,6 +172,11 @@
 				if(res.data.code == 200){
 					uni.navigateTo({
 						url:'./cheJianYanPan'
+					})
+				}
+				}else{
+					uni.showToast({
+						title:'请填写车间'
 					})
 				}
 			},

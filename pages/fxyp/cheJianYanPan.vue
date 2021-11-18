@@ -75,6 +75,7 @@
 	export default {
 		data() {
 			return {
+				shanghua: '',
 				checked:false,
 				checked1:false,
 				show: false,
@@ -154,6 +155,7 @@
 		
 		},
 		methods: {
+			//汇总到公司
 			async hzgs(){
 				for(var i=0;i<this.csListArrl.length;i++){
 					for(var j=0;j<this.docids.length;j++){

@@ -46,7 +46,7 @@
 					</view>
 				</view>
 				<checkbox-group @change="checkboxChange" style="overflow: hidden;">
-					<view class="contents" v-for="(item,index) in csListArrl" v-if="index <= count" :data-index="index"  @touchstart="drawStart" @touchmove="drawMove" @touchend="drawEnd" :style="'right:'+item.right+'px'" >
+					<view class="contents" v-for="(item,index) in csListArrl"  :data-index="index"  @touchstart="drawStart" @touchmove="drawMove" @touchend="drawEnd" :style="'right:'+item.right+'px'" >
 						<view class="content-items" style="width: 20%;">
 							<checkbox :value="item.name"  :checked="item.checked" @click="tr(item,index)"/>
 						</view>
@@ -79,7 +79,7 @@
 				checked1:false,
 				show: false,
 				delBtnWidth: 100,
-				shanghua: '加载更多',
+				shanghua: '',
 				count: 8,
 				uuid: '',
 				csListArrl:[],
@@ -130,6 +130,7 @@
 		
 		},
 		methods: {
+			//汇总到车间
 			async hzcj(){
 				for(var i=0;i<this.csListArrl.length;i++){
 					for(var j=0;j<this.docids.length;j++){
@@ -146,11 +147,11 @@
 					uni.navigateTo({
 						url:'./addCj?tsdh='+this.tsdh+'&yjdh='+this.yjdh+'&ejdh='+this.ejdh+'&sxkj='+this.sxkj
 					})
-				}else(
+				}else{
 					uni.showToast({
 						title: '请选择要汇总的班组'
 					})
-				)
+				}
 				
 				
 			},
@@ -166,7 +167,7 @@
 						this.csListArrl[i].name = this.csListArrl[i].docid
 					}
 				}
-				if (this.csListArrl.length <= 8) {
+				if (this.csListArrl.length <= 15) {
 					this.shanghua = ''
 				}
 			},
@@ -251,6 +252,7 @@
 			},
 			//具体删除操作
 			async delDatas() {
+				console.log(this.uuid);
 				const res = await this.$myRequest({
 					method: 'POST',
 					url: 'api/judge/delYpBz',
@@ -260,11 +262,13 @@
 				})
 				console.log(res);
 				if (res.data.code == 200) {
+					this.getList()
 					uni.startPullDownRefresh();
 				}
 			},
 			//删除方法
 			delData(id){
+				console.log(id);
 				var _this = this
 				this.uuid = id
 				uni.showModal({

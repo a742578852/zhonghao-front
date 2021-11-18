@@ -36,7 +36,7 @@
 						<text></text>
 					</view> -->
 					<view class="content-items">
-						<text>车间名称</text>
+						<text>填报部门</text>
 					</view>
 					<view class="content-items" style="width: 40%;">
 						<text>填报人</text>

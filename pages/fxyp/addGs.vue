@@ -132,6 +132,7 @@
 		},
 		onLoad(option) {
 			this.dataList = JSON.parse(option.items)
+			console.log(this.dataList.cjmc);
 			// this.dataList.tjdhzy = option.tsdh
 			// this.dataList.yjdhzy = option.yjdh
 			// this.dataList.ejdhzy = option.ejdh
@@ -141,6 +142,7 @@
 		methods: {
 			//添加公司
 			async updataCj(){
+				if(this.dataList.cjmc !='' && this.dataList.cjmc != null){
 				this.dataList.docid = this.guid2()
 				//获取当前时间
 				let date = new Date();
@@ -172,6 +174,11 @@
 				if(res.data.code == 200){
 					uni.navigateTo({
 						url:'./gongSiYanPan'
+					})
+				}
+				}else{
+					uni.showToast({
+						title:'请填写车间'
 					})
 				}
 			},
