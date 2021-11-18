@@ -46,7 +46,7 @@
 					</view>
 				</view>
 				<checkbox-group @change="checkboxChange" style="overflow: hidden;">
-					<view class="contents" v-for="(item,index) in csListArrl"  :data-index="index"  @touchstart="drawStart" @touchmove="drawMove" @touchend="drawEnd" :style="'right:'+item.right+'px'" >
+					<view class="contents" v-for="(item,index) in csListArrl" v-if="index<=count"  :data-index="index"  @touchstart="drawStart" @touchmove="drawMove" @touchend="drawEnd" :style="'right:'+item.right+'px'" >
 						<view class="content-items" style="width: 20%;">
 							<checkbox :value="item.name"  :checked="item.checked" @click="tr(item,index)"/>
 						</view>
@@ -79,8 +79,8 @@
 				checked1:false,
 				show: false,
 				delBtnWidth: 100,
-				shanghua: '',
-				count: 8,
+				shanghua: '加载更多',
+				count: 15,
 				uuid: '',
 				csListArrl:[],
 				startX:'',
