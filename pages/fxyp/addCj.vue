@@ -105,7 +105,7 @@
 					authorid:'',
 					authorname:'',
 					authororgid:'',
-					authororgname:'生产部',
+					authororgname:'',
 					createtime:'',
 					lastmodifiedtime:'',
 					appname:'风险研判-车间级',
@@ -114,16 +114,16 @@
 					sbsj:'',
 					sbr:'',
 					subids:'',
-					sczz:'',
-					yx:'',
-					tc:'',
-					jx:'',
-					yjdhzy:'',
-					ejdhzy:'',
-					tjdhzy:'',
-					sxkjzy:'',
-					gczy:'',
-					qttszy:'',
+					sczz:0,
+					yx:0,
+					tc:0,
+					jx:0,
+					yjdhzy:0,
+					ejdhzy:0,
+					tjdhzy:0,
+					sxkjzy:0,
+					gczy:0,
+					qttszy:0,
 					sfcyssc:'是',
 					sfcyktc:'是',
 					sfaqzt:'是'
@@ -131,16 +131,26 @@
 			}
 		},
 		onLoad(option) {
+			
 			this.dataList.tjdhzy = option.tsdh
 			this.dataList.yjdhzy = option.yjdh
 			this.dataList.ejdhzy = option.ejdh
 			this.dataList.sxkjzy = option.sxkj
 			
 		},
+		onShow() {
+			var admin = uni.getStorageSync('admin')
+			console.log(admin);
+			this.dataList.authorname = admin.userName
+			this.dataList.authorid = admin.userId
+			this.dataList.authororgname = admin.deptName
+			this.dataList.authororgid = admin.deptId
+		},
 		methods: {
 			//修改班组
 			async updataCj(){
-				if(this.dataList.cjmc !=''){
+				
+				if(this.dataList.cjmc !='' && this.dataList.authorname !='' && this.dataList.authororgname !='' && this.dataList.sbsj !=''){
 				this.dataList.docid = this.guid2()
 				//获取当前时间
 				let date = new Date();
@@ -176,7 +186,7 @@
 				}
 				}else{
 					uni.showToast({
-						title:'请填写车间'
+						title:'请填写完整'
 					})
 				}
 			},

@@ -101,11 +101,11 @@
 				arraySf:['是','否'],
 				dataList:{
 					docid:'',
-					appid:'F46F9C77933D46FFB305D5DAC5D30B5C',
+					appid:'073F8BE6EFD5485FB4E90A012507C9CA',
 					authorid:'',
 					authorname:'',
 					authororgid:'',
-					authororgname:'生产部',
+					authororgname:'',
 					createtime:'',
 					lastmodifiedtime:'',
 					appname:'风险研判-车间级',
@@ -139,10 +139,17 @@
 			// this.dataList.sxkjzy = option.sxkj
 			
 		},
+		onShow() {
+			var admin = uni.getStorageSync('admin')
+			this.dataList.authorname = admin.userName
+			this.dataList.authorid = admin.userId
+			this.dataList.authororgname = admin.deptName
+			this.dataList.authororgid = admin.deptId
+		},
 		methods: {
 			//添加公司
 			async updataCj(){
-				if(this.dataList.cjmc !='' && this.dataList.cjmc != null){
+				if(this.dataList.cjmc !='' && this.dataList.authorname !='' && this.dataList.authororgname !='' && this.dataList.sbsj !=''){
 				this.dataList.docid = this.guid2()
 				//获取当前时间
 				let date = new Date();
@@ -178,7 +185,7 @@
 				}
 				}else{
 					uni.showToast({
-						title:'请填写车间'
+						title:'请填写完整'
 					})
 				}
 			},

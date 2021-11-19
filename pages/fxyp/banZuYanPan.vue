@@ -171,6 +171,7 @@
 					this.shanghua = ''
 				}
 			},
+			//复选框逻辑
 			tr(item){
 				
 				if(item.checked){
@@ -218,13 +219,11 @@
 			},
 			//开始触摸滑动
 			drawStart(e) {
-				console.log("开始触发");
 				var touch = e.touches[0];
 				this.startX = touch.clientX;
 			},
 			//触摸滑动
 			drawMove(e) {
-				console.log("滑动");
 				for (var index in this.csListArrl) {
 					this.$set(this.csListArrl[index],'right',0);
 				}
@@ -242,7 +241,6 @@
 			},
 			//触摸滑动结束
 			drawEnd(e) {
-				console.log("滑动结束");
 				var item = this.csListArrl[e.currentTarget.dataset.index];
 				if (item.right >= this.delBtnWidth / 2) {
 					this.$set(this.csListArrl[e.currentTarget.dataset.index],'right',this.delBtnWidth);
@@ -264,6 +262,10 @@
 				if (res.data.code == 200) {
 					this.getList()
 					uni.startPullDownRefresh();
+				}else{
+					uni.showToast({
+						title:res.data.message
+					})
 				}
 			},
 			//删除方法

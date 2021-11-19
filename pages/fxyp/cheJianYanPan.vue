@@ -89,7 +89,7 @@
 					authorid:'',
 					authorname:'',
 					authororgid:'',
-					authororgname:'生产部',
+					authororgname:'',
 					createtime:'',
 					lastmodifiedtime:'',
 					appname:'风险研判-车间级',
@@ -189,7 +189,7 @@
 					})
 				}else(
 					uni.showToast({
-						title: '请选择要汇总的班组'
+						title: '请选择要汇总的车间'
 					})
 				)
 			},

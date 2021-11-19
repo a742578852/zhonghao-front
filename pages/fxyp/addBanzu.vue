@@ -260,10 +260,10 @@
 					ypqk8:'符合',
 					ypqk9:'符合',
 					ypqk10:'符合',
-					tsdhzycs: "",
-				    yjdhzycs: "",
-				    ejdhzycs: "",
-				    sxkjzycs: "",
+					tsdhzycs: 0,
+				    yjdhzycs: 0,
+				    ejdhzycs: 0,
+				    sxkjzycs: 0,
 					tbrq:'',
 					bzfzr:''
 				}
@@ -301,7 +301,7 @@
 		},
 		methods: {
 			async addBz(){
-				if(this.dataList.bz !=''){
+				if(this.dataList.bz !='' && this.dataList.bzfzr !=''){
 				this.dataList.docid = this.guid2()
 				console.log(this.dataList.docid);
 				var token = uni.getStorageSync('token')
@@ -323,7 +323,7 @@
 				}
 				}else{
 					uni.showToast({
-						title:'请填写班组'
+						title:'请填写完整'
 					})
 				}
 			},
