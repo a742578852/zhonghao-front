@@ -1,7 +1,7 @@
 
-const BASE_URL = "http://124.70.192.154:7702/"
-// const BASE_URL = "http://192.168.43.38:7702/"
-// const BASE_URL = "http://122.51.190.13:8001/"
+// const BASE_URL = "http://124.70.192.154:7702/"
+// const BASE_URL = "http://192.168.3.23:7702/"
+const BASE_URL = "http://60.2.203.162:7702/"
 export default{
 	BASE_URL
 }

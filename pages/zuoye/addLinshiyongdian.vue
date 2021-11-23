@@ -73,6 +73,7 @@
 </template>
 
 <script>
+	import commonUrl from '../../util/util.js'
 	export default {
 		data() {
 			return {
@@ -278,7 +279,9 @@
 			async addLs(){
 				if(this.mapList.lat != null && this.mapList.lng != null){
 				this.mapList.docid = this.guid2()
-				this.dataList.docid = this.guid2()
+				if(this.dataList.docid == ''){
+					this.dataList.docid = this.guid2()
+				}
 				console.log(this.dataList.docid);
 				var token = uni.getStorageSync('token')
 				const res = await this.$myRequest({
@@ -324,17 +327,20 @@
 			},
 			//上传附件
 			chooseImage() {
+				if(this.dataList.docid == ''){
+					this.dataList.docid = this.guid2()
+				}
 				uni.chooseImage({
 					success: (chooseImageRes) => {
 						const tempFilePaths = chooseImageRes.tempFilePaths;
 						uni.uploadFile({
-							url: 'http://124.70.192.154:7702/api/other/uploadFile', //仅为示例，非真实的接口地址
+							url: commonUrl.url1+'/api/other/uploadFile', //仅为示例，非真实的接口地址
 							filePath: tempFilePaths[0],
 							name: 'files',
 							formData: {
 								'docid': this.dataList.docid,
 								'appid': this.dataList.appid,
-								'type': 'fileinput-gczyfj'
+								'type': 'fileinput-lsydzyfj'
 							},
 							header: {
 								'token': uni.getStorageSync("token")
@@ -354,7 +360,7 @@
 			            console.log('picker发送选择改变，携带值为1111', e.target.value)
 			            this.fjindex = e.target.value
 						console.log(this.fjindex);
-						var path = 'http://124.70.192.154:7703/img/'+this.fjs[this.fjindex].filepath+this.fjs[this.fjindex].attachmentid
+						var path = commonUrl.url2+this.fjs[this.fjindex].filepath+this.fjs[this.fjindex].attachmentid
 						console.log(path);
 						window.open("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
 						

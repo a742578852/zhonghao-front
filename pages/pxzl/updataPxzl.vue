@@ -50,6 +50,7 @@
 </template>
 
 <script>
+	import commonUrl from '../../util/util.js'
 	export default {
 		data() {
 			return {
@@ -103,7 +104,7 @@
 			            console.log('picker发送选择改变，携带值为1111', e.target.value)
 			            this.fjindex = e.target.value
 						console.log(this.fjindex);
-						var path = 'http://124.70.192.154:7703/img/'+this.fjs[this.fjindex].filepath+this.fjs[this.fjindex].attachmentid
+						var path = commonUrl.url2+this.fjs[this.fjindex].filepath+this.fjs[this.fjindex].attachmentid
 						console.log(path);
 						//#ifdef APP-PLUS
 						plus.runtime.openURL(path);

@@ -285,6 +285,7 @@
 </template>
 
 <script>
+	import commonUrl from '../../../util/util.js'
 	export default {
 		data() {
 			return {
@@ -426,7 +427,7 @@
 			this.dataList.createtime = this.transformTimestamp(cTime)
 			
 			this.dataList = JSON.parse(option.items)
-			this.yhPath = 'http://124.70.192.154:7703/img'+this.dataList.autographImg
+			this.yhPath = commonUrl.url2+this.dataList.autographImg
 			
 			
 			this.yinhuaId = JSON.parse(option.items).docuuid
@@ -451,7 +452,7 @@
 			if(ress.data.code == 200){
 				if(ress.data.data !=null){
 					this.dataList = ress.data.data
-					this.yhPath = 'http://124.70.192.154:7703/img'+this.dataList.autographImg
+					this.yhPath = commonUrl.url2+this.dataList.autographImg
 				}else{
 					uni.showToast({
 						title:'当前数据已删除'
@@ -495,18 +496,18 @@
 				if(res.data.data[i].attachtype == 'fileinput-yhzp'){
 					this.fj.push(res.data.data[i].sfilename)
 					this.fjs.push(res.data.data[i])
-					this.arrayfjs.push('http://124.70.192.154:7703/img/'+this.fjs[this.fjindex].filepath+this.fjs[this.fjindex].attachmentid)
+					this.arrayfjs.push(commonUrl.url2+this.fjs[this.fjindex].filepath+this.fjs[this.fjindex].attachmentid)
 					
 				}
 				if(res.data.data[i].attachtype == 'fileinput-zgzp'){
 					this.fj1.push(res.data.data[i].sfilename)
 					this.fjs1.push(res.data.data[i])
-					this.arrayfjs1.push('http://124.70.192.154:7703/img/'+this.fjs1[this.fjindex1].filepath+this.fjs1[this.fjindex1].attachmentid)
+					this.arrayfjs1.push(commonUrl.url2+this.fjs1[this.fjindex1].filepath+this.fjs1[this.fjindex1].attachmentid)
 				}
 				if(res.data.data[i].attachtype == 'fileinput-yzzp'){
 					this.fj2.push(res.data.data[i].sfilename)
 					this.fjs2.push(res.data.data[i])
-					this.arrayfjs2.push('http://124.70.192.154:7703/img/'+this.fjs2[this.fjindex2].filepath+this.fjs2[this.fjindex2].attachmentid)
+					this.arrayfjs2.push(commonUrl.url2+this.fjs2[this.fjindex2].filepath+this.fjs2[this.fjindex2].attachmentid)
 				}
 			}
 			// this.fjs = res.data.data
@@ -891,7 +892,7 @@
 					success: (chooseImageRes) => {
 						const tempFilePaths = chooseImageRes.tempFilePaths;
 						uni.uploadFile({
-							url: 'http://124.70.192.154:7702/api/other/uploadFile', //仅为示例，非真实的接口地址
+							url: commonUrl.url1+'/api/other/uploadFile', //仅为示例，非真实的接口地址
 							filePath: tempFilePaths[0],
 							name: 'files',
 							formData: {
@@ -915,7 +916,7 @@
 					success: (chooseImageRes) => {
 						const tempFilePaths = chooseImageRes.tempFilePaths;
 						uni.uploadFile({
-							url: 'http://124.70.192.154:7702/api/other/uploadFile', //仅为示例，非真实的接口地址
+							url: commonUrl.url1+'/api/other/uploadFile', //仅为示例，非真实的接口地址
 							filePath: tempFilePaths[0],
 							name: 'files',
 							formData: {
@@ -945,7 +946,7 @@
 						const tempFilePaths = chooseImageRes.tempFilePaths;
 						console.log(tempFilePaths[0]);
 						uni.uploadFile({
-							url: 'http://124.70.192.154:7702/api/other/uploadFile', //仅为示例，非真实的接口地址
+							url: commonUrl.url1+'/api/other/uploadFile', //仅为示例，非真实的接口地址
 							filePath: tempFilePaths[0],
 							name: 'files',
 							formData: {
@@ -991,7 +992,7 @@
 			            console.log('picker发送选择改变，携带值为1111', e.target.value)
 			            this.fjindex = e.target.value
 						console.log(this.fjindex);
-						var path = 'http://124.70.192.154:7703/img/'+this.fjs[this.fjindex].filepath+this.fjs[this.fjindex].attachmentid
+						var path = commonUrl.url2+this.fjs[this.fjindex].filepath+this.fjs[this.fjindex].attachmentid
 						console.log(path);
 						//#ifdef APP-PLUS
 						plus.runtime.openURL(path);
@@ -1005,7 +1006,7 @@
 					            console.log('picker发送选择改变，携带值为1111', e.target.value)
 					            this.fjindex1 = e.target.value
 								console.log(this.fjindex);
-								var path = 'http://124.70.192.154:7703/img/'+this.fjs1[this.fjindex1].filepath+this.fjs1[this.fjindex1].attachmentid
+								var path = commonUrl.url2+this.fjs1[this.fjindex1].filepath+this.fjs1[this.fjindex1].attachmentid
 								console.log(path);
 								//#ifdef APP-PLUS
 								plus.runtime.openURL(path);
@@ -1019,7 +1020,7 @@
 							            console.log('picker发送选择改变，携带值为1111', e.target.value)
 							            this.fjindex2 = e.target.value
 										console.log(this.fjindex);
-										var path = 'http://124.70.192.154:7703/img/'+this.fjs2[this.fjindex2].filepath+this.fjs2[this.fjindex2].attachmentid
+										var path = commonUrl.url2+this.fjs2[this.fjindex2].filepath+this.fjs2[this.fjindex2].attachmentid
 										console.log(path);
 										//#ifdef APP-PLUS
 										plus.runtime.openURL(path);

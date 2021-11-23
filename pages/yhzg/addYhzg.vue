@@ -186,6 +186,7 @@
 </template>
 
 <script>
+	import commonUrl from '../../util/util.js'
 	export default {
 		data() {
 			return {
@@ -675,7 +676,7 @@
 					success: (chooseImageRes) => {
 						const tempFilePaths = chooseImageRes.tempFilePaths;
 						uni.uploadFile({
-							url: 'http://124.70.192.154:7702/api/other/uploadFile', //仅为示例，非真实的接口地址
+							url: commonUrl.url1+'/api/other/uploadFile', //仅为示例，非真实的接口地址
 							filePath: tempFilePaths[0],
 							name: 'files',
 							formData: {

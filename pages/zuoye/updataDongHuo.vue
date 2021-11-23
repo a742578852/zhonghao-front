@@ -62,7 +62,12 @@
 				<view class="uni-input">{{fj[fjindex]}}</view>
 			</picker>
 		</view>
-
+		<view class="cu-form-group">
+			<view class="title">附件预览:</view>
+			<picker  @change="bindPickerChanges11" :value="fjindex" :range="arrayfjs" disabled="">
+				<image :src="arrayfjs[fjindex]" mode=""></image>
+			</picker>
+		</view>
 		<view class="" style="display: flex;justify-content: space-around;margin-top: 30rpx;margin-bottom: 30rpx;">
 			<button type="primary" size="mini" @click="up = false" :disabled="!up">修改</button>
 			<button type="primary" size="mini" @click="updataDh">确定</button>
@@ -72,11 +77,13 @@
 </template>
 
 <script>
+	import commonUrl from '../../util/util.js'
 	export default {
 		data() {
 			return {
 				fj: [],
 				fjs: [],
+				arrayfjs:[],
 				bmshow: false,
 				up: true,
 				imgUrl: '',
@@ -150,11 +157,16 @@
 					docid: this.dataList.docid
 				}
 			})
-			for (var i = 0; i < res.data.data.length; i++) {
+			for(var i = 0;i<res.data.data.length;i++){
 				this.fj.push(res.data.data[i].sfilename)
-
+				this.fjs.push(res.data.data[i])
+				this.arrayfjs.push(commonUrl.url2+this.fjs[this.fjindex].filepath+this.fjs[this.fjindex].attachmentid)
 			}
-			this.fjs = res.data.data
+			// for (var i = 0; i < res.data.data.length; i++) {
+			// 	this.fj.push(res.data.data[i].sfilename)
+
+			// }
+			// this.fjs = res.data.data
 
 
 		},
@@ -163,7 +175,7 @@
 				console.log('picker发送选择改变，携带值为1111', e.target.value)
 				this.fjindex = e.target.value
 				console.log(this.fjindex);
-				var path = 'http://124.70.192.154:7703/img/' + this.fjs[this.fjindex].filepath + this.fjs[this.fjindex]
+				var path = commonUrl.url2 + this.fjs[this.fjindex].filepath + this.fjs[this.fjindex]
 					.attachmentid
 				console.log(path);
 				//#ifdef APP-PLUS
@@ -248,7 +260,7 @@
 					success: (chooseImageRes) => {
 						const tempFilePaths = chooseImageRes.tempFilePaths;
 						uni.uploadFile({
-							url: 'http://124.70.192.154:7702/api/other/uploadFile', //仅为示例，非真实的接口地址
+							url: commonUrl.url1+'/api/other/uploadFile', //仅为示例，非真实的接口地址
 							filePath: tempFilePaths[0],
 							name: 'files',
 							formData: {
