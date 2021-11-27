@@ -3,7 +3,7 @@
 		<u-popup v-model="show" mode="center" width="90%" height="40%" border-radius="14">
 			<view class="popup">
 				<view class="popup-item">
-					<text class="popup-item-text">不合格因素：</text>
+					<text class="popup-item-text">隐患问题描述：</text>
 					<input class="popup-item-input" type="text" v-model="bhgys" />
 				</view>
 				<view class="popup-item">
@@ -143,7 +143,6 @@
 			},
 			//显示查询页面
 			async serach(){
-				console.log(this.zrbm);
 				this.show = false
 				const res = await this.$myRequest({
 					method: 'POST',

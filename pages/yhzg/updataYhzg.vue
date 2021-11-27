@@ -487,6 +487,7 @@
 			// this.fjs = res.data.data
 		},
 		methods: {
+			//整改问题存入
 			//时间转换
 			transformTimestamp(timestamp){
 			    let a = new Date(timestamp).getTime();
@@ -502,7 +503,7 @@
 			    return dateString;
 			},
 			shouqian(){
-				if(this.username == this.dqlcclr){
+				if(this.username == this.dqlcclr && !this.up2){
 					uni.navigateTo({
 						url:'../shouqian/shouqian?type=1&docid='+this.lcobj.docuuid
 					})
@@ -844,7 +845,7 @@
 			},
 			//查看隐患
 			async updataYh(){
-				console.log(this.dataList.wtyzyyfx);
+				console.log(this.dataList.yzr);
 				var token = uni.getStorageSync('token')
 				
 				const res = await this.$myRequest({

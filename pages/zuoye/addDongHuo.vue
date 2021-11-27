@@ -96,9 +96,9 @@
 				weidu:'',
 				mode:'date',
 				show:false,
-				arraydhzlx:['特殊动火作业证','一级动火作业证','二级动火作业证'],
+				arraydhzlx:['请选择','一级动火作业证','二级动火作业证','特殊动火作业证'],
 				index:0,
-				index1:0,
+				index1:-1,
 				index2:-1,
 				index3:-1,
 				arrayBz:['安全部','财务部'],
@@ -150,6 +150,7 @@
 			return true;
 		},
 		async onShow() {
+			
 			//获取所有区域对象
 			this.areas = uni.getStorageSync('areas')
 			this.getArea2()
@@ -175,12 +176,13 @@
 			this.dataList.authorname = admin.userName
 			this.dataList.authorid = admin.userId
 			//选择地图后的回显
-			if(uni.getStorageSync('index1') !='' && uni.getStorageSync('index1') !=null){
+			if(uni.getStorageSync('index1') !=''){
 				this.index1 = uni.getStorageSync('index1')
-				console.log(this.index1);
+				console.log('888'+this.index1);
 				this.dataList.dhzyjb = this.arraydhzlx[this.index1]
+				uni.removeStorageSync('index1')
 			}
-			uni.removeStorageSync('index1')
+			 
 			if(uni.getStorageSync('dhzyszdw') !='' && uni.getStorageSync('dhzyszdw') !=null){
 				this.dataList.dhzyszdw = uni.getStorageSync('dhzyszdw')
 			}

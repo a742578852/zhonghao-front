@@ -3,20 +3,20 @@
 		<u-popup v-model="show" mode="center" width="90%" height="40%" border-radius="14">
 			<view class="popup">
 				<view class="popup-item">
-					<text class="popup-item-text">不合格因素：</text>
-					<input class="popup-item-input" type="text" value="" />
+					<text class="popup-item-text">隐患问题描述：</text>
+					<input class="popup-item-input" type="text" v-model="bhgys" />
 				</view>
 				<view class="popup-item">
 					<text class="popup-item-text">责任部门：</text>
-					<input class="popup-item-input" type="text" value="" />
+					<input class="popup-item-input" type="text" v-model="zrbm" />
 				</view>
 				<view class="popup-item">
 					<text class="popup-item-text">隐患等级：</text>
-					<input class="popup-item-input" type="text" value="" />
+					<input class="popup-item-input" type="text" v-model="yhdj" />
 				</view>
 				<view class="popup-item">
 					<text class="popup-item-text">隐患类型：</text>
-					<input class="popup-item-input" type="text" value="" />
+					<input class="popup-item-input" type="text" v-model="yhlx" />
 				</view>
 				<button type="primary" size="mini" style="width: 50%;margin-left: 25%;margin-top: 30rpx;" @click="serach">确定</button>
 			</view>
@@ -63,6 +63,10 @@
 	export default {
 		data() {
 			return {
+				bhgys:'',//不合格因素
+				yhdj:'',//隐患等级
+				yhlx:'',//隐患类型
+				zrbm:'',//责任部门
 				show: false,
 				delBtnWidth: 100,
 				shanghua: '加载更多',
@@ -138,8 +142,25 @@
 				})
 			},
 			//显示查询页面
-			serach(){
+			async serach(){
 				this.show = false
+				const res = await this.$myRequest({
+					method: 'POST',
+					url: 'api/danger/getDangerList',
+					data:{
+						'type':1,
+						'bhgys':this.bhgys,
+						'yhdj':this.yhdj,
+						'yhlx':this.yhlx,
+						'zrbm':this.zrbm
+					}
+				})
+				if (res.data.code == 200) {
+					this.csListArrl = res.data.data
+				}
+				if (this.csListArrl.length <= 8) {
+					this.shanghua = ''
+				}
 			},
 			//开始触摸滑动
 			drawStart(e) {
