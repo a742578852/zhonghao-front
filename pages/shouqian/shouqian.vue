@@ -11,6 +11,7 @@
 </template>
 
 <script>
+	import commonUrl from '../../util/util.js'
 	var x = 20;
 	var y = 20;
 	export default {
@@ -121,7 +122,7 @@
 							uni.setStorageSync('yhPath', path)
 							console.log('提交的'+_this.docid);
 							uni.uploadFile({
-								url: 'http://124.70.192.154:7702/api/danger/addAuthimg',
+								url: commonUrl.url1+'/api/danger/addAuthimg',
 								filePath: path,
 								 name: 'file',
 								formData: {

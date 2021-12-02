@@ -440,6 +440,7 @@
 			this.dataList.createtime = this.dataList.createtime.substring(0,10)
 		},
 		async onShow() {
+			
 			//根据代办ID获取详情
 			const ress = await this.$myRequest({
 				method: 'POST',
@@ -511,8 +512,53 @@
 				}
 			}
 			// this.fjs = res.data.data
+			//问题整改字段的回显
+			this.backWtzg()
+			//问题验证字段回显
+			this.backWtyz()
 		},
 		methods: {
+			//问题验证字段回显
+			backWtyz(){
+				if(uni.getStorageSync('yzrtxrq') !=''){
+					this.dataList.yzrtxrq = uni.getStorageSync('yzrtxrq')
+					uni.removeStorageSync('yzrtxrq')
+				}
+				if(uni.getStorageSync('wtyzyyfx') !=''){
+					this.dataList.wtyzyyfx = uni.getStorageSync('wtyzyyfx')
+					uni.removeStorageSync('wtyzyyfx')
+				}
+			},
+			//问题整改字段的回显
+			backWtzg(){
+				console.log('回显');
+				
+				if(uni.getStorageSync('zzzgtxrq') !=''){
+					this.dataList.zzzgtxrq = uni.getStorageSync('zzzgtxrq')
+					uni.removeStorageSync('zzzgtxrq')
+				}
+				console.log(this.dataList.zzzgtxrq);
+				if(uni.getStorageSync('zgwcrq') !=''){
+					this.dataList.zgwcrq = uni.getStorageSync('zgwcrq')
+					uni.removeStorageSync('zgwcrq')
+				}
+				if(uni.getStorageSync('zgr') !=''){
+					this.dataList.zgr = uni.getStorageSync('zgr')
+					uni.removeStorageSync('zgr')
+				}
+				if(uni.getStorageSync('zgrtxrq') !=''){
+					this.dataList.zgrtxrq = uni.getStorageSync('zgrtxrq')
+					uni.removeStorageSync('zgrtxrq')
+				}
+				if(uni.getStorageSync('zlzj') !=''){
+					this.dataList.zlzj = uni.getStorageSync('zlzj')
+					uni.removeStorageSync('zlzj')
+				}
+				if(uni.getStorageSync('yzqk') !=''){
+					this.dataList.yzqk = uni.getStorageSync('yzqk')
+					uni.removeStorageSync('yzqk')
+				}
+			},
 			//时间转换
 			transformTimestamp(timestamp){
 			    let a = new Date(timestamp).getTime();
@@ -528,6 +574,8 @@
 			    return dateString;
 			},
 			shouqian(){
+				uni.setStorageSync('wtyzyyfx',this.dataList.wtyzyyfx)
+				uni.setStorageSync('yzrtxrq',this.dataList.yzrtxrq)
 				uni.navigateTo({
 					url:'../../shouqian/shouqian?type=1&docid='+this.lcobj.docuuid
 				})
@@ -912,6 +960,14 @@
 			},
 			//上传整改后照片
 			chooseImage1() {
+				//已填写数据放入缓存用来回显
+				uni.setStorageSync('zzzgtxrq',this.dataList.zzzgtxrq)
+				uni.setStorageSync('zgwcrq',this.dataList.zgwcrq)
+				uni.setStorageSync('zgr',this.dataList.zgr)
+				uni.setStorageSync('zgrtxrq',this.dataList.zgrtxrq)
+				uni.setStorageSync('zlzj',this.dataList.zlzj)
+				uni.setStorageSync('yzqk',this.dataList.yzqk)
+				
 				uni.chooseImage({
 					success: (chooseImageRes) => {
 						const tempFilePaths = chooseImageRes.tempFilePaths;
@@ -941,6 +997,7 @@
 			},
 			//上传验证照片
 			chooseImage2() {
+				uni.setStorageSync('yzrtxrq',this.dataList.yzrtxrq)
 				uni.chooseImage({
 					success: (chooseImageRes) => {
 						const tempFilePaths = chooseImageRes.tempFilePaths;
@@ -1091,6 +1148,7 @@
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index7 = e.detail.value
 				this.dataList.wtyzyyfx = this.arrayYy[this.index7]
+				uni.setStorageSync('wtyzyyfx',this.dataList.wtyzyyfx)
 			},
 		}
 	}

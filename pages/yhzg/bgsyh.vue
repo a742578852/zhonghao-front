@@ -136,10 +136,13 @@
 			},
 			//查看/修改风险管控信息
 			updateYhzg(item){
-				var items = JSON.stringify(item)
-				uni.navigateTo({
-					url:'./updataYhzg?items='+items
-				})
+				
+				          var items = JSON.stringify(item)
+				          uni.navigateTo({
+				          	url:'./updataYhzg?items='+items
+				          })
+				     
+				
 			},
 			//显示查询页面
 			async serach(){
