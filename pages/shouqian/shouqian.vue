@@ -173,7 +173,7 @@
 							uni.setStorageSync('grPath', path)
 							/////////////////
 							uni.uploadFile({
-								url: 'http://124.70.192.154:7702/api/danger/addAuthimgTask',
+								url: commonUrl.url1+'/api/danger/addAuthimgTask',
 								filePath: path,
 								 name: 'file',
 								formData: {

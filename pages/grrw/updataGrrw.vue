@@ -100,6 +100,7 @@
 </template>
 
 <script>
+	import commonUrl from '../../util/util.js'
 	export default {
 		data() {
 			return {
@@ -160,7 +161,7 @@
 		onLoad(option) {
 			
 			this.dataList = JSON.parse(option.items)
-			this.grPath = 'http://124.70.192.154:7703/img'+this.dataList.autographImg
+			this.grPath = commonUrl.url2+this.dataList.autographImg
 			
 			// this.dataList.xjr = ''
 			
@@ -449,7 +450,7 @@
 					success: (chooseImageRes) => {
 						const tempFilePaths = chooseImageRes.tempFilePaths;
 						uni.uploadFile({
-							url: 'http://124.70.192.154:7702/api/other/uploadFile', //仅为示例，非真实的接口地址
+							url: commonUrl.url1+'/api/other/uploadFile', //仅为示例，非真实的接口地址
 							filePath: tempFilePaths[0],
 							name: 'files',
 							formData: {
@@ -494,7 +495,7 @@
 			            console.log('picker发送选择改变，携带值为1111', e.target.value)
 			            this.fjindex = e.target.value
 						console.log(this.fjindex);
-						var path = 'http://124.70.192.154:7703/img/'+this.fjs[this.fjindex].filepath+this.fjs[this.fjindex].attachmentid
+						var path = commonUrl.url2+this.fjs[this.fjindex].filepath+this.fjs[this.fjindex].attachmentid
 						console.log(path);
 						// plus.runtime.openURL("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
 						// window.open("https://view.xdocin.com/xdoc?_xdoc=" + encodeURIComponent(path));
