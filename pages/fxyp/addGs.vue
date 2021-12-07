@@ -108,8 +108,8 @@
 					authororgname:'',
 					createtime:'',
 					lastmodifiedtime:'',
-					appname:'风险研判-车间级',
-					pribeanname:'com.ruoyi.aqgl.fxgl.models.Fxypcjj',
+					appname:'风险研判-公司级',
+					pribeanname:'com.ruoyi.aqgl.fxgl.models.Fxypgsj',
 					cjmc:'',
 					sbsj:'',
 					sbr:'',
@@ -133,6 +133,7 @@
 		onLoad(option) {
 			this.dataList = JSON.parse(option.items)
 			console.log(this.dataList.cjmc);
+			this.dataList.appid = '073F8BE6EFD5485FB4E90A012507C9CA'
 			// this.dataList.tjdhzy = option.tsdh
 			// this.dataList.yjdhzy = option.yjdh
 			// this.dataList.ejdhzy = option.ejdh

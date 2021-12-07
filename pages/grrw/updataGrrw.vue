@@ -49,7 +49,7 @@
 					<picker @change="bindPickerChange" @click="zgfsClick(rwList,index)"  :range="arrayZgfs" style="width: 200rpx;height: 10rpx;">
 						<view class="uni-input" v-if="item.xjjg == 0 ">隐患整改通知</view>
 						<view class="uni-input" v-if="item.xjjg == 1 ">已检查无隐患</view>
-						<view class="uni-input" v-if="item.xjjg == 2">请选择</view>
+						<!-- <view class="uni-input" v-if="item.xjjg == 2">请选择</view> -->
 						<!-- <view class="uni-input" v-if="index == 0">{{zgfs[0]}}</view>
 						<view class="uni-input" v-if="index == 1">{{zgfs[1]}}</view>
 						<view class="uni-input" v-if="index == 2">{{zgfs[2]}}</view>
@@ -257,23 +257,23 @@
 						this.dataList.xjrid = this.bmobj[i].userId
 					}
 				}
-				// var token = uni.getStorageSync('token')
-				// const res = await this.$myRequest({
-				// 	method: 'POST',
-				// 	url: 'api/danger/insertTask',
-				// 	header:{
-				// 		'content-type': 'application/json;charset=utf-8',
-				// 		'token': token
-				// 	},
-				// 	data:JSON.stringify(this.dataList)
+				var token = uni.getStorageSync('token')
+				const res = await this.$myRequest({
+					method: 'POST',
+					url: 'api/danger/updateTask',
+					header:{
+						'content-type': 'application/json;charset=utf-8',
+						'token': token
+					},
+					data:JSON.stringify(this.dataList)
 					
-				// })
-				// console.log(res);
-				// if (res.data.code == 200) {
-				// 	uni.navigateTo({
-				// 		url:'grrw'
-				// 	})
-				// }
+				})
+				console.log(res);
+				if (res.data.code == 200) {
+					uni.navigateTo({
+						url:'grrw'
+					})
+				}
 			},
 			//根据部门ID查询人员
 			async getByMid(){
@@ -482,7 +482,7 @@
 					
 					for(var i=0;i<this.rwList.length;i++){
 						if(this.rwList[i].xjjg == '' || this.rwList[i].xjjg == null){
-							this.rwList[i].xjjg = 2
+							this.rwList[i].xjjg = 1
 						}
 						
 						
