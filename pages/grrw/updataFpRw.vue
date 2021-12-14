@@ -118,7 +118,18 @@
 		},
 		onLoad(option) {
 			this.dataList = JSON.parse(option.items)
-			console.log(option.items);
+			console.log(this.dataList.pcpl);
+			if(this.dataList.pcpl == '天'){
+				this.index = 0
+			}else if(this.dataList.pcpl == '周'){
+				this.index = 1
+			}else if(this.dataList.pcpl == '月'){
+				this.index = 2
+			}else if(this.dataList.pcpl == '季度'){
+				this.index = 3
+			}else if(this.dataList.pcpl == '年'){
+				this.index = 4
+			}
 			this.dataList.xcmc = this.dataList.xcmc
 			this.dataList.xjr = this.dataList.xjr
 			this.xzry = this.dataList.xjr.split(';')
