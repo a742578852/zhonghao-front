@@ -576,9 +576,12 @@
 			shouqian(){
 				uni.setStorageSync('wtyzyyfx',this.dataList.wtyzyyfx)
 				uni.setStorageSync('yzrtxrq',this.dataList.yzrtxrq)
-				uni.navigateTo({
-					url:'../../shouqian/shouqian?type=1&docid='+this.lcobj.docuuid
-				})
+				
+				if(this.username == this.dqlcclr && !this.up2){
+					uni.navigateTo({
+						url:'../../shouqian/shouqian?type=1&docid='+this.lcobj.docuuid
+					})
+				}
 			},
 			//生成uuid
 			guid2() {

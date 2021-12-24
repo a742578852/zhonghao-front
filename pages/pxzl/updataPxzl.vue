@@ -107,7 +107,19 @@
 						var path = commonUrl.url2+this.fjs[this.fjindex].filepath+this.fjs[this.fjindex].attachmentid
 						console.log(path);
 						//#ifdef APP-PLUS
-						plus.runtime.openURL(path);
+						// plus.runtime.openURL(path);
+						uni.downloadFile({ //通过uniapp的api下载下来
+						   　　　　　　url: path,
+						         success: function (res) {
+						   　　　　　　var filePath = res.tempFilePath;
+						       　uni.openDocument({
+						       　filePath: filePath,
+						       　success: function (FileRes) {
+						       　console.log('打开文档成功');
+						   　　　　　　}
+						       });
+						   　　　　}
+						   　　});
 						//#endif
 						//#ifdef H5
 						window.open(path);

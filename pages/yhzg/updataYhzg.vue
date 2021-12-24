@@ -503,6 +503,7 @@
 			    return dateString;
 			},
 			shouqian(){
+				console.log(this.up2);
 				if(this.username == this.dqlcclr && !this.up2){
 					uni.navigateTo({
 						url:'../shouqian/shouqian?type=1&docid='+this.lcobj.docuuid
