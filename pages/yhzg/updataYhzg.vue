@@ -880,6 +880,7 @@
 			},
 			//上传整改前照片
 			chooseImage() {
+				if(this.username == this.dqlcclr && !this.up){
 				uni.chooseImage({
 					success: (chooseImageRes) => {
 						const tempFilePaths = chooseImageRes.tempFilePaths;
@@ -901,9 +902,11 @@
 						});
 					}
 				})
+				}
 			},
 			//上传整改后照片
 			chooseImage1() {
+				if(this.username == this.dqlcclr && !this.up1){
 				uni.chooseImage({
 					success: (chooseImageRes) => {
 						const tempFilePaths = chooseImageRes.tempFilePaths;
@@ -925,6 +928,7 @@
 						});
 					}
 				})
+				}
 			},
 			bmconfirm(e){
 				this.bumen = e[e.length-1].label
@@ -933,6 +937,7 @@
 			},
 			//上传验证照片
 			chooseImage2() {
+				if(this.username == this.dqlcclr && !this.up2){
 				uni.chooseImage({
 					success: (chooseImageRes) => {
 						const tempFilePaths = chooseImageRes.tempFilePaths;
@@ -955,6 +960,7 @@
 						});
 					}
 				})
+				}
 			},
 			change(e){
 				console.log(e.result);
