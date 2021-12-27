@@ -330,7 +330,7 @@
 			this.arrayArea1 = uni.getStorageSync('arrayArea')
 			this.getArea2()//获取二级区域
 			
-			this.getBh()
+			
 			let date = new Date()
 			let year = date.getFullYear();
 			let M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)
@@ -529,6 +529,7 @@
 					
 				}
 			},
+			//获取隐患编号
 			async getBh(){
 				
 				const res = await this.$myRequest({
@@ -541,7 +542,9 @@
 					
 				}
 			},
+			//添加隐患
 			async addYh(){
+				this.getBh()
 				if(this.mapList.lat != null && this.mapList.lng != null && this.dataList.bhgys !='' && this.dataList.zrbmmc !='' && this.dataList.jcry !='' && this.dataList.zywzdw !=null && this.dataList.zywzqymc !='' && this.dataList.yhzgqk !='' && this.dataList.zzzgzgqx != ''){
 				
 				if(this.ids == 2){
