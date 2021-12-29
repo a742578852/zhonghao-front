@@ -315,6 +315,7 @@
 			return true;
 		},
 		async onShow() {
+			this.getBh()
 			this.rw = ''
 			this.ids = ''
 			//个人任务
@@ -538,7 +539,16 @@
 				})
 				
 				if (res.data.code == 200) {
-					this.bh = res.data.data[0].zgdbh.substring(11)
+					// console.log(res.data.data[0].zgdbh);
+					// this.bh = res.data.data[0].zgdbh.substring(11)
+					//循环查找非空的编号
+					for(var i=0;i<res.data.data.length;i++){
+						if(res.data.data[i].zgdbh.substring(11)!='NaN' && res.data.data[i].zgdbh.substring(11)!=NaN && res.data.data[i].zgdbh.substring(11)!=null && res.data.data[i].zgdbh.substring(11)!=''){
+							this.bh = res.data.data[i].zgdbh.substring(11)
+							console.log(this.bh);
+							break
+						}
+					}
 					
 				}
 			},
