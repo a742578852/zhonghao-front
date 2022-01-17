@@ -93,6 +93,7 @@
 				
 			},
 		methods: {
+			//获取所有公告
 			async getList(){
 				const res = await this.$myRequest({
 					method: 'POST',
@@ -101,7 +102,7 @@
 				})
 				if(res.data.code == 200){
 					this.csListArrl = res.data.data.notice
-					
+					console.log(this.csListArrl[0]);
 				}
 				
 			},
@@ -113,6 +114,9 @@
 			// },
 			// //查看/修改
 			updateGg(item){
+				item.tzggggnr = ''
+				// item.apptznr = ''
+				item.apptznr = item.apptznr.replace(/[\r\n]/g,"")
 				var items = JSON.stringify(item)
 				uni.navigateTo({
 					url:'./updataGg?items='+items

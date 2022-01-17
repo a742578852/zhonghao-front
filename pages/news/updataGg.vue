@@ -35,7 +35,7 @@
 		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">公告内容:</view>
-			<textarea  maxlength="-1"  v-model='news.tzggggnr' auto-height="true" disabled></textarea>
+			<textarea  maxlength="-1"  v-model='news.apptznr' auto-height="true" disabled></textarea>
 		</view>
 		<!-- <view class="cu-form-group" @click="chooseImage">
 			<view class="title">附件:</view>
@@ -73,6 +73,8 @@
 		},
 		onLoad(option) {
 			this.news = JSON.parse(option.items)
+			// this.news.apptznr = this.news.apptznr.replace(/[\r\n]/g,"")
+			console.log(JSON.parse(option.items))
 			this.index = this.news.sffb
 		},
 		methods: {

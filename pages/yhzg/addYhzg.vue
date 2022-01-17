@@ -586,6 +586,8 @@
 				let date = new Date()
 				let year = date.getFullYear();
 				 var bhs = parseInt(this.bh)+1
+				 console.log(this.bh)
+				 console.log(bhs)
 				 
 				if(bhs<1000){
 					this.dataList.zgdbh = 'YHZGD-'+year+'-'+'0'+bhs
