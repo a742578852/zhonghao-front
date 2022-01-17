@@ -612,7 +612,7 @@
 						// 	delta:3
 						// });
 						uni.navigateTo({
-							url:'../grrw/updataGrrw'
+							url:'../grrw/updataGrrw?gw=1'
 						})
 					}
 					if(this.ids == 0){

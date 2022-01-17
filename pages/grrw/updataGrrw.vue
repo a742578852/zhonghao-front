@@ -144,8 +144,8 @@
 					lastmodifiedtime:'',
 					xjrqz:'',
 					xjrqzid:''
-				}
-					
+				},
+				gw:'',
 				
 			}
 		},
@@ -159,6 +159,10 @@
 			return true;
 		},
 		onLoad(option) {
+			if(option.gw!=''){
+				this.gw = option.gw
+				console.log(option.gw);
+			}
 			
 			this.dataList = JSON.parse(option.items)
 			this.grPath = commonUrl.url2+this.dataList.autographImg
@@ -167,6 +171,7 @@
 			
 			// this.dataList.docid = JSON.parse(option.items).docid
 			this.docid = JSON.parse(option.items).docid
+			uni.setStorageSync('docids',this.docid)
 			console.log(this.docid);
 			
 		},
@@ -188,6 +193,7 @@
 			this.arrayBz = uni.getStorageSync('arrayBz')
 			if(uni.getStorageSync('docidd') !=null && uni.getStorageSync('docidd') !=''){
 				this.docid = uni.getStorageSync('docidd')
+				// this.dataList.docid = this.docid
 				uni.removeStorageSync('docidd')
 				this.getRwList()
 			}else{
@@ -209,6 +215,7 @@
 			// 	this.getRwList()
 			// }
 			//获取附件列表
+			if(this.gw!=1){
 			const res = await this.$myRequest({
 				method: 'POST',
 				url: 'api/other/getFile',
@@ -219,7 +226,7 @@
 			
 			}
 			this.fjs = res.data.data
-			
+			}
 			//获取当前时间
 			let date = new Date();
 			let year = date.getFullYear();
@@ -342,6 +349,7 @@
 				}
 				var time = year+'-' + month+'-' + day+ ' '+hours+':'+mins+':'+sens
 				this.dataList.lastmodifiedtime = time
+				this.dataList.docid = uni.getStorageSync('docids')
 				var token = uni.getStorageSync('token')
 				console.log(JSON.stringify(this.dataList));
 				const res = await this.$myRequest({
