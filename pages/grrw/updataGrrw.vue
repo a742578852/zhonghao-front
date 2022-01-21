@@ -159,6 +159,12 @@
 			return true;
 		},
 		onLoad(option) {
+			if(uni.getStorageSync('xjqk')!=''){
+				this.dataList.xjqk = uni.getStorageSync('xjqk')
+			}
+			if(uni.getStorageSync('xjr')!=''){
+				this.dataList.xjr = uni.getStorageSync('xjr')
+			}
 			if(option.gw!=''){
 				this.gw = option.gw
 				console.log(option.gw);
@@ -319,7 +325,8 @@
 				
 				if(this.dataList.xjqk !='' && this.dataList.xjqk !=null){
 				var _this = this
-				
+				uni.removeStorageSync('xjqk')
+				uni.removeStorageSync('xjr')
 				this.$refs.uToast.show({
 					title: '请在隐患整改栏目中将隐患流转',
 				type: 'error',
@@ -515,6 +522,8 @@
 						//#endif
 			        },
 			async bindPickerChange(e) {
+				uni.setStorageSync('xjqk',this.dataList.xjqk)
+				uni.setStorageSync('xjr',this.dataList.xjr)
 				this.tijiao1()
 				var ind = e.detail.value
 				
