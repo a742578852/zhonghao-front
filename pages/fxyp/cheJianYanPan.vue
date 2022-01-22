@@ -46,7 +46,7 @@
 					</view>
 				</view>
 				<checkbox-group @change="checkboxChange" style="overflow: hidden;">
-					<view class="contents" v-for="(item,index) in csListArrl" :data-index="index">
+					<view class="contents" v-for="(item,index) in csListArrl" :data-index="index" @touchstart="drawStart" @touchmove="drawMove" @touchend="drawEnd" :style="'right:'+item.right+'px'">
 						<view class="content-items" style="width: 20%;">
 							<checkbox :value="item.name"  :checked="item.checked" @click="tr(item,index)"/>
 						</view>
@@ -59,7 +59,7 @@
 						<view class="content-items" @click="updataChejian(item)">
 							<text>{{item.sbsj}}</text>
 						</view>
-						<view class="remove" @click="delData(item)">删除</view>
+						<view class="remove" @click="delData(item.docid)">删除</view>
 					</view>
 				 </checkbox-group>
 				 <view class=""
@@ -83,6 +83,7 @@
 				docids:[],
 				csListArrl:[],
 				startX:'',
+				uuid: '',
 				huizong:{
 					docid:'',
 					appid:'F46F9C77933D46FFB305D5DAC5D30B5C',
@@ -282,15 +283,37 @@
 					this.$set(this.csListArrl[e.currentTarget.dataset.index],'right',0);
 				}
 			},
+			//具体删除操作
+			async delDatas() {
+				console.log(this.uuid);
+				const res = await this.$myRequest({
+					method: 'POST',
+					url: 'api/judge/delCjyp',
+					data: {
+						docid: this.uuid
+					}
+				})
+				console.log(res);
+				if (res.data.code == 200) {
+					this.getList()
+					uni.startPullDownRefresh();
+				}else{
+					uni.showToast({
+						title:res.data.message
+					})
+				}
+			},
 			//删除方法
-			delData(item){
-				console.log("删除")
+			delData(id){
+				console.log(id);
+				var _this = this
+				this.uuid = id
 				uni.showModal({
 				    title: '提示',
 				    content: "确认删除？",
 					success: function (res) {
 						if (res.confirm) {
-							console.log('用户点击确定');
+							_this.delDatas()
 						} else if (res.cancel) {
 							console.log('用户点击取消');
 						}

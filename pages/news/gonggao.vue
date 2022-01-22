@@ -102,7 +102,7 @@
 				})
 				if(res.data.code == 200){
 					this.csListArrl = res.data.data.notice
-					console.log(this.csListArrl[0]);
+					// console.log(this.csListArrl[8]);
 				}
 				
 			},

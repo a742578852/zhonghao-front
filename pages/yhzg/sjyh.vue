@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<u-popup v-model="show" mode="center" width="90%" height="40%" border-radius="14">
+		<u-popup v-model="show" mode="center" width="90%" height="48%" border-radius="14">
 			<view class="popup">
 				<view class="popup-item">
 					<text class="popup-item-text">隐患问题描述：</text>
@@ -17,6 +17,10 @@
 				<view class="popup-item">
 					<text class="popup-item-text">隐患类型：</text>
 					<input class="popup-item-input" type="text" v-model="yhlx" />
+				</view>
+				<view class="popup-item">
+					<text class="popup-item-text">发起人：</text>
+					<input class="popup-item-input" type="text" v-model="fqr" />
 				</view>
 				<button type="primary" size="mini" style="width: 50%;margin-left: 25%;margin-top: 30rpx;" @click="serach">确定</button>
 			</view>
@@ -67,6 +71,7 @@
 				yhdj:'',//隐患等级
 				yhlx:'',//隐患类型
 				zrbm:'',//责任部门
+				fqr:'',//发起人
 				show: false,
 				delBtnWidth: 100,
 				shanghua: '加载更多',
@@ -152,7 +157,8 @@
 						'bhgys':this.bhgys,
 						'yhdj':this.yhdj,
 						'yhlx':this.yhlx,
-						'zrbm':this.zrbm
+						'zrbm':this.zrbm,
+						'fqr':this.fqr
 					}
 				})
 				if (res.data.code == 200) {

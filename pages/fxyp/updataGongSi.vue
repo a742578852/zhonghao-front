@@ -84,7 +84,7 @@
 				<view class="uni-input" style="">{{dataList.sfaqzt}}</view>
 			</picker>
 		</view>
-		<!-- <button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="updataCj">确定</button> -->
+		<button type="primary" style="width: 50%;margin-top: 20rpx;margin-bottom: 20rpx;" @click="delData(dataList.docid)">删除</button>
 	</view>
 </template>
 
@@ -136,6 +136,46 @@
 			this.dataList.createtime = this.dataList.createtime.substring(0,10)
 		},
 		methods: {
+			//具体删除操作
+			async delDatas() {
+				console.log(this.uuid);
+				const res = await this.$myRequest({
+					method: 'POST',
+					url: 'api/judge/delGsjyp',
+					data: {
+						docid: this.uuid
+					}
+				})
+				console.log(res);
+				if (res.data.code == 200) {
+					// this.getList()
+					// uni.startPullDownRefresh();
+					uni.navigateTo({
+						url:'gongSiYanPan'
+					})
+				}else{
+					uni.showToast({
+						title:res.data.message
+					})
+				}
+			},
+			//删除方法
+			delData(id){
+				console.log(id);
+				var _this = this
+				this.uuid = id
+				uni.showModal({
+				    title: '提示',
+				    content: "确认删除？",
+					success: function (res) {
+						if (res.confirm) {
+							_this.delDatas()
+						} else if (res.cancel) {
+							console.log('用户点击取消');
+						}
+					}
+				});
+			},
 			//修改班组
 			async updataCj(){
 				//获取当前时间

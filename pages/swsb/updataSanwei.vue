@@ -13,6 +13,11 @@
 			<view class="title">所属单位:</view>
 			<input name="input" v-model="dataList.ssdw" :disabled="up"></input>
 		</view>
+		<view class="cu-form-group" @click="bmshows" >
+			<view class="title">检查部门:</view>
+			<view class="uni-input" style="">{{dataList.jcbm}}</view>
+			<u-select v-model="bmshow" mode="mutil-column-auto" :list="arrayBz" @confirm="confirm" ></u-select>
+		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">三违行为描述:</view>
 			<textarea maxlength="-1"  v-model='dataList.swxwms' :disabled="up"></textarea>
@@ -47,12 +52,14 @@
 				index:0,
 				show:false,
 				mode:'date',
+				bmshow:false,
 				ccrq:'',
 				swmc:'',
 				ssdw:'',
 				swxwms:'',
 				cljg:'',
 				jcr:'',
+				arrayBz:[],
 				arraySx:['违章操作','违章指挥','违反劳动纪律'],
 				dataList:{
 					docid:'',
@@ -71,6 +78,7 @@
 					swxwms:'',
 					cljg:'',
 					jcr:'',
+					jcbm:'',
 					swsx:'违章操作'
 				}
 			}
@@ -80,10 +88,19 @@
 			
 			this.dataList.createtime = this.dataList.createtime.substring(0,10)
 		},
+		onShow() {
+			//从缓存获取所有部门
+			this.arrayBz = uni.getStorageSync('arrayBz')
+		},
 		methods: {
 			calendar(){
 				if(!this.up){
 					this.show = true
+				}
+			},
+			bmshows(){
+				if(!this.up){
+					this.bmshow = true
 				}
 			},
 			//修改三违
@@ -119,6 +136,10 @@
 						url:'./swsb'
 					})
 				}
+			},
+			confirm(e){
+				this.dataList.jcbm = e[e.length-1].label
+				// this.bmid = e[e.length-1].extra
 			},
 			change(e){
 				console.log(e.result);

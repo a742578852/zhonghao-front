@@ -13,6 +13,11 @@
 			<view class="title">所属单位:</view>
 			<input name="input" v-model="dataList.ssdw" ></input>
 		</view>
+		<view class="cu-form-group" @click="bmshow=true">
+			<view class="title">检查部门:</view>
+			<view class="uni-input" style="">{{dataList.jcbm}}</view>
+			<u-select v-model="bmshow" mode="mutil-column-auto" :list="arrayBz" @confirm="confirm"></u-select>
+		</view>
 		<view class="cu-form-group align-start">
 			<view class="title">三违行为描述:</view>
 			<textarea maxlength="-1"  v-model='dataList.swxwms'></textarea>
@@ -42,7 +47,8 @@
 				index:0,
 				show:false,
 				mode:'date',
-				
+				bmshow:false,
+				arrayBz:[],
 				arraySx:['违章操作','违章指挥','违反劳动纪律'],
 				dataList:{
 					docid:'',
@@ -61,11 +67,14 @@
 					swxwms:'',
 					cljg:'',
 					jcr:'',
+					jcbm:'',
 					swsx:'违章操作'
 				}
 			}
 		},
 		onShow() {
+			//从缓存获取所有部门
+			this.arrayBz = uni.getStorageSync('arrayBz')
 			//获取当前时间
 			let date = new Date();
 			let year = date.getFullYear();
@@ -110,6 +119,11 @@
 				}
 				
 				
+			},
+			confirm(e){
+				this.dataList.jcbm = e[e.length-1].label
+				console.log(e[e.length-1]);
+				// this.bmid = e[e.length-1].extra
 			},
 			//生成uuid
 			guid2() {

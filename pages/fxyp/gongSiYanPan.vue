@@ -46,7 +46,7 @@
 					</view>
 				</view>
 				<!-- <checkbox-group @change="checkboxChange" style="overflow: hidden;"> -->
-					<view class="contents" v-for="(item,index) in csListArrl" :data-index="index" @click="updataGongSi(item)">
+					<view class="contents" v-for="(item,index) in csListArrl" :data-index="index" @click="updataGongSi(item)" >
 						<!-- <view class="content-items" style="width: 20%;">
 							<checkbox :value="item.name"  :checked="item.checked" @click="tr(item,index)"/>
 						</view> -->
@@ -59,7 +59,7 @@
 						<view class="content-items" >
 							<text>{{item.sbsj}}</text>
 						</view>
-						<!-- <view class="remove" @click="delData(item)">删除</view> -->
+						<!-- <view class="remove" @click="delData(item.docid)">删除</view> -->
 					</view>
 					<view class=""
 						style="width: 98%;display: flex;align-items: center;justify-content: space-around;margin-left: 1%;color: red;border-radius: 10rpx;height: 50rpx;">
@@ -181,15 +181,36 @@
 					this.$set(this.csListArrl[e.currentTarget.dataset.index],'right',0);
 				}
 			},
+			async delDatas() {
+				console.log(this.uuid);
+				const res = await this.$myRequest({
+					method: 'POST',
+					url: 'api/judge/delGsjyp',
+					data: {
+						docid: this.uuid
+					}
+				})
+				console.log(res);
+				if (res.data.code == 200) {
+					this.getList()
+					uni.startPullDownRefresh();
+				}else{
+					uni.showToast({
+						title:res.data.message
+					})
+				}
+			},
 			//删除方法
-			delData(item){
-				console.log("删除")
+			delData(id){
+				console.log(id);
+				var _this = this
+				this.uuid = id
 				uni.showModal({
 				    title: '提示',
 				    content: "确认删除？",
 					success: function (res) {
 						if (res.confirm) {
-							console.log('用户点击确定');
+							_this.delDatas()
 						} else if (res.cancel) {
 							console.log('用户点击取消');
 						}

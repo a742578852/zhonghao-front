@@ -14,6 +14,10 @@
 					<text class="popup-item-text">检查人：</text>
 					<input class="popup-item-input" type="text" v-model="jcr" />
 				</view>
+				<view class="popup-item">
+					<text class="popup-item-text">检查单位：</text>
+					<input class="popup-item-input" type="text" v-model="jcdw" />
+				</view>
 				<button type="primary" size="mini" style="width: 50%;margin-left: 25%;margin-top: 50rpx;" @click="serach">确定</button>
 			</view>
 			
@@ -62,6 +66,7 @@
 				show: false,
 				delBtnWidth: 100,
 				jcr:'',
+				jcdw:'',
 				swsx:'',
 				ssdw:'',
 				csListArrl:[],
@@ -142,7 +147,8 @@
 					data: {
 						"jcr": this.jcr,
 						"ssdw": this.ssdw,
-						"swsx":this.swsx
+						"swsx":this.swsx,
+						"jcdw":this.jcdw
 					}
 				})
 				if (res.data.code == 200) {
